@@ -1,12 +1,14 @@
-name: Docker Image CI (For ghcr.io) . . .
+name: Docker Image CI - Dev (For ghcr.io)
 
 on:
    pull_request:
       branches:
          - 'dev'
+         - 'main'
    push:
       branches:
          - 'dev'
+         - 'main'
    workflow_dispatch:
 
 jobs:
@@ -33,14 +35,14 @@ jobs:
            uses: docker/build-push-action@v5
            with:
               context: ./frontend
-              file: ./frontend/Dockerfile.dev
+              file: ./frontend/Dockerfile.${{ github.ref }}
               push: true
-              tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system:dev
+              tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system-frontend:${{ github.ref }}
 
          - name: Build and Push - Backend Image
            uses: docker/build-push-action@v5
            with:
               context: ./backend
-              file: ./backend/Dockerfile.dev
+              file: ./backend/Dockerfile.${{ github.ref }}
               push: true
-              tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system-backend:dev
+              tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system-backend:${{ github.ref }}
