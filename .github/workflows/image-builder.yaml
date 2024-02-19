@@ -1,12 +1,10 @@
 name: Docker Image CI (For ghcr.io)
 
 on:
-   pull_request:
-      branches:
-         - 'dev'
    push:
       branches:
          - 'dev'
+         - 'main'
    workflow_dispatch:
 
 jobs:
@@ -16,7 +14,7 @@ jobs:
          GITHUB_USERNAME: ${{ github.actor }}
       steps:
          - name: Checkout Repository
-           uses: actions/checkout@v4
+           uses: actions/checkout@v2
 
          - name: Convert User Name to lowercase
            run: |
@@ -29,10 +27,21 @@ jobs:
               username: ${{ github.actor }}
               password: ${{ secrets.GITHUB_TOKEN }}
 
+         - name: Determine Branch Name
+           run: echo "BRANCH_NAME=$(echo ${{ github.ref }} | awk -F'/' '{print $NF}')" >> $GITHUB_ENV
+
          - name: Build and Push - Frontend Image
            uses: docker/build-push-action@v5
            with:
               context: ./frontend
-              file: ./frontend/Dockerfile.dev
+              file: ./frontend/Dockerfile.${{ env.BRANCH_NAME }}
               push: true
-              tags: ghcr.io/${{ env.GITHUB_USERNAME }}/class-management-system-frontend:dev
+              tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system-frontend:${{ env.BRANCH_NAME }}
+
+         - name: Build and Push - Backend Image
+           uses: docker/build-push-action@v5
+           with:
+              context: ./backend
+              file: ./backend/Dockerfile.${{ env.BRANCH_NAME }}
+              push: true
+              tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system-backend:${{ env.BRANCH_NAME }}
