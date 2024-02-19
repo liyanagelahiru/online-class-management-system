@@ -38,7 +38,7 @@ jobs:
            uses: docker/build-push-action@v5
            with:
               context: ./frontend
-              file: ./frontend/Dockerfile.${{ github.ref }}
+              file: ./frontend/Dockerfile.${{ env.BRANCH_NAME }}
               push: true
               tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system-frontend:${{ env.BRANCH_NAME }}
 
@@ -46,6 +46,6 @@ jobs:
            uses: docker/build-push-action@v5
            with:
               context: ./backend
-              file: ./backend/Dockerfile.${{ github.ref }}
+              file: ./backend/Dockerfile.${{ env.BRANCH_NAME }}
               push: true
               tags: ghcr.io/${{ env.GITHUB_USERNAME }}/online-class-management-system-backend:${{ env.BRANCH_NAME }}
