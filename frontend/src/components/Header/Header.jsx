@@ -3,18 +3,24 @@ import ThemeSwitch from './ThemeSwitch';
 import SignOut from '../SignOut';
 
 import { FaUserCircle } from 'react-icons/fa';
+import { ImUserCheck } from 'react-icons/im';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import { useState } from 'react';
 
 const Header = () => {
-   const [getToken, setGetToken] = useState(false);
+   const [avatarComponent, setAvatarComponent] = useState(
+      <FaUserCircle size={40} />
+   );
+   const [isSigned, setIsSigned] = useState(false);
 
    const profileIconMenuHandler = () => {
       if (localStorage.getItem('token')) {
-         setGetToken(true);
+         setAvatarComponent(<ImUserCheck size={40} />);
+         setIsSigned(true);
       } else {
-         setGetToken(false);
+         setAvatarComponent(<FaUserCircle size={40} />);
+         setIsSigned(false);
       }
    };
 
@@ -72,13 +78,11 @@ const Header = () => {
                   tabIndex={0}
                   role="button"
                   className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full">
-                     <FaUserCircle size={40} />
-                  </div>
+                  <div className="w-10 rounded-full">{avatarComponent}</div>
                </div>
 
                {/* User Icon DropDown */}
-               {getToken ? (
+               {isSigned ? (
                   <ul
                      tabIndex={0}
                      className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
