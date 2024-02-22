@@ -1,11 +1,23 @@
-import { Link, useNavigate } from 'react-router-dom';
-import Avatar from './Avatar';
+import { Link } from 'react-router-dom';
 import ThemeSwitch from './ThemeSwitch';
+import SignOut from '../SignOut';
 
 import { FaUserCircle } from 'react-icons/fa';
 import SignIn from '../SignIn';
+import SignUp from '../SignUp';
+import { useState } from 'react';
 
 const Header = () => {
+   const [getToken, setGetToken] = useState(false);
+
+   const profileIconMenuHandler = () => {
+      if (localStorage.getItem('token')) {
+         setGetToken(true);
+      } else {
+         setGetToken(false);
+      }
+   };
+
    return (
       <div className="navbar bg-blue-800 text-primary-content">
          {/* Navbar Title */}
@@ -44,12 +56,19 @@ const Header = () => {
                </li>
             </ul>
          </div>
+         {/* Theme Changer */}
+         <div className="pr-3">
+            <ThemeSwitch />
+         </div>
          {/* User Icon Dropdown */}
          <SignIn /> {/* Sign In Pop Up function */}
+         <SignUp /> {/* Sign Up Pop Up function */}
+         <SignOut /> {/* Sign Out Pop Up function */}
          <div className="flex-none gap-2">
             <div className="dropdown dropdown-end">
                {/* User Icon */}
                <div
+                  onClick={profileIconMenuHandler}
                   tabIndex={0}
                   role="button"
                   className="btn btn-ghost btn-circle avatar">
@@ -59,25 +78,47 @@ const Header = () => {
                </div>
 
                {/* User Icon DropDown */}
-               <ul
-                  tabIndex={0}
-                  className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
-                  <li>
-                     <Link
-                        onClick={() =>
-                           document.getElementById('sign-in').showModal()
-                        }
-                        className="justify-between">
-                        Sign In
-                     </Link>
-                  </li>
-                  {/* <li>
-                     <a>Settings</a>
-                  </li>
-                  <li>
-                     <a>Log Out</a>
-                  </li> */}
-               </ul>
+               {getToken ? (
+                  <ul
+                     tabIndex={0}
+                     className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
+                     <li>
+                        <Link to="/profile">Profile</Link>
+                     </li>
+                     <li>
+                        <Link
+                           onClick={() =>
+                              document.getElementById('sign-out').showModal()
+                           }
+                           className="justify-between">
+                           Sign Out
+                        </Link>
+                     </li>
+                  </ul>
+               ) : (
+                  <ul
+                     tabIndex={0}
+                     className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
+                     <li>
+                        <Link
+                           onClick={() =>
+                              document.getElementById('sign-in').showModal()
+                           }
+                           className="justify-between">
+                           Sign In
+                        </Link>
+                     </li>
+                     <li>
+                        <Link
+                           onClick={() =>
+                              document.getElementById('sign-up').showModal()
+                           }
+                           className="justify-between">
+                           Sign Up
+                        </Link>
+                     </li>
+                  </ul>
+               )}
             </div>
          </div>
       </div>
@@ -85,103 +126,3 @@ const Header = () => {
 };
 
 export default Header;
-// const Header = () => {
-//    const navigate = useNavigate();
-
-//    return (
-//       <div>
-//          <div>{/* <SignUp /> */}</div>
-//          <div className="navbar bg-primary text-primary-content px-3">
-//             <div className="navbar-start">
-//                <div className="dropdown">
-//                   {/* Dropdow Icon */}
-//                   <div
-//                      tabIndex={0}
-//                      role="button"
-//                      className="btn btn-ghost lg:hidden">
-//                      <svg
-//                         xmlns="http://www.w3.org/2000/svg"
-//                         className="h-5 w-5"
-//                         fill="none"
-//                         viewBox="0 0 24 24"
-//                         stroke="currentColor">
-//                         <path
-//                            strokeLinecap="round"
-//                            strokeLinejoin="round"
-//                            strokeWidth="2"
-//                            d="M4 6h16M4 12h8m-8 6h16"
-//                         />
-//                      </svg>
-//                   </div>
-//                   {/* Dropdown Content */}
-//                   <ul
-//                      tabIndex={0}
-//                      className="menu menu-sm dropdown-content mt-3 z-[1] p-2 shadow bg-primary rounded-box w-52">
-//                      <li>
-//                         <Link to="/">HOME</Link>
-//                      </li>
-//                      <li>
-//                         <a>COURSES</a>
-//                         <ul className="p-2">
-//                            <li>
-//                               <a>Theory Clases</a>
-//                            </li>
-//                            <li>
-//                               <a>Paper Discussions</a>
-//                            </li>
-//                         </ul>
-//                      </li>
-//                      <li>
-//                         <Link to="/about">ABOUT</Link>
-//                      </li>
-//                      <li>
-//                         <Link to="/contact">CONTACT US</Link>
-//                      </li>
-//                   </ul>
-//                </div>
-//                <button
-//                   className="hidden sm:inline-block btn btn-ghost text-xl"
-//                   onClick={() => navigate('/')}>
-//                   MADURA KODITHUWAKKU
-//                </button>
-//             </div>
-//             {/* Center Block of Header */}
-//             <div className="navbar-center hidden lg:flex">
-//                <ul className="menu menu-horizontal px-1">
-//                   <li>
-//                      <Link to="/">HOME</Link>
-//                   </li>
-//                   <li>
-//                      <details>
-//                         <summary>COURSES</summary>
-//                         <ul className="p-2 z-[1] shadow menu bg-primary w-40 dropdown-content rounded-box">
-//                            <li>
-//                               <Link>Theory Clases</Link>
-//                            </li>
-//                            <li>
-//                               <Link>Paper Discussions</Link>
-//                            </li>
-//                         </ul>
-//                      </details>
-//                   </li>
-//                   <li>
-//                      <Link to="/about">ABOUT</Link>
-//                   </li>
-//                   <li>
-//                      <Link to="/contact">CONTACT US</Link>
-//                   </li>
-//                </ul>
-//             </div>
-//             {/* End Of Header */}
-//             <div className="navbar-end p-px">
-//                <div className="pr-3">
-//                   <ThemeSwitch />
-//                </div>
-//                <div className="dropdown dropdown-end">
-//                   <Avatar />
-//                </div>
-//             </div>
-//          </div>
-//       </div>
-//    );
-// };
