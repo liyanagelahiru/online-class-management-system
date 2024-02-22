@@ -6,9 +6,6 @@ import SignIn from './SignIn';
 import SignUp from './SignUp';
 
 // Not Completed
-import Username from './Username';
-import Password from './Password';
-import Profile from './Profile';
 import Recovery from './Recovery';
 import Register from './Register';
 import Reset from './Reset';
@@ -19,9 +16,6 @@ export {
    Footer,
    SignIn,
    SignUp,
-   Username,
-   Password,
-   Profile,
    Recovery,
    Register,
    Reset,

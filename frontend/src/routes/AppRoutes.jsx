@@ -1,19 +1,15 @@
-import React from 'react';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 /* import all pages */
 import {
    Header,
    Footer,
-   Username,
-   Password,
    Register,
-   Profile,
    Recovery,
    Reset,
    PageNotFound
 } from '../components';
-import { Home, Contact, About, TheoryClass } from '../pages';
+import { Home, Contact, About, TheoryClass, Profile } from '../pages';
 
 /** Auth Middleware */
 import { AuthorizedUser, ProtectRoute } from '../middleware/auth.jsx';
@@ -23,17 +19,16 @@ const routes = [
    { path: '/', element: <Home /> },
    { path: '/contact', element: <Contact /> },
    { path: '/about', element: <About /> },
-   { path: '/signin', element: <Username /> },
    { path: '/signup', element: <Register /> },
    { path: '/theory-class', element: <TheoryClass /> },
-   {
-      path: '/password',
-      element: (
-         <ProtectRoute>
-            <Password />
-         </ProtectRoute>
-      )
-   },
+   // {
+   //    path: '/password',
+   //    element: (
+   //       <ProtectRoute>
+   //          <Password />
+   //       </ProtectRoute>
+   //    )
+   // },
    {
       path: '/profile',
       element: (

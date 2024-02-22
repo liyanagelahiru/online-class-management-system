@@ -61,11 +61,14 @@ export async function login(req, res) {
 
    try {
       UserModel.findOne({ username })
-         .then((user) => {
+         .then(user => {
             bcrypt
                .compare(password, user.password)
-               .then((passwordCheck) => {
-                  if (!passwordCheck) return res.status(400).send({ error: 'Password does not Match' });
+               .then(passwordCheck => {
+                  if (!passwordCheck)
+                     return res
+                        .status(400)
+                        .send({ error: 'Password does not Match' });
 
                   const token = jwt.sign(
                      {
@@ -82,11 +85,11 @@ export async function login(req, res) {
                      token
                   });
                })
-               .catch((error) => {
+               .catch(error => {
                   return res.status(400).send({ error: "Don't have password" });
                });
          })
-         .catch((error) => {
+         .catch(error => {
             return res.status(404).send({ error: 'Username Not Found' });
          });
    } catch (error) {
@@ -100,7 +103,8 @@ export async function getUser(req, res) {
    try {
       if (!username) return res.status(400).send({ error: 'Invalid Username' });
       const user = await UserModel.findOne({ username }).exec();
-      if (!user) return res.status(404).send({ error: "Couldn't find the user" });
+      if (!user)
+         return res.status(404).send({ error: "Couldn't find the user" });
       const { password, ...rest } = Object.assign({}, user.toJSON());
 
       return res.status(201).send(rest);
@@ -160,12 +164,17 @@ export async function createResetSession(req, res) {
 
 export async function resetPassword(req, res) {
    try {
-      if (!req.app.locals.resetSession) return res.status(440).send({ error: 'Session Expired! Please try again' });
+      if (!req.app.locals.resetSession)
+         return res
+            .status(440)
+            .send({ error: 'Session Expired! Please try again' });
 
       const { username, password } = req.body;
 
       if (!username || !password) {
-         return res.status(400).send({ error: 'Invalid Request. Username and Password are required!' });
+         return res.status(400).send({
+            error: 'Invalid Request. Username and Password are required!'
+         });
       }
 
       try {
@@ -177,7 +186,10 @@ export async function resetPassword(req, res) {
 
          const hashedPassword = await bcrypt.hash(password, 10);
 
-         await UserModel.updateOne({ username: user.username }, { password: hashedPassword });
+         await UserModel.updateOne(
+            { username: user.username },
+            { password: hashedPassword }
+         );
 
          req.app.locals.resetSession = false;
          return res.status(201).send({ msg: 'Record Updated!' });
