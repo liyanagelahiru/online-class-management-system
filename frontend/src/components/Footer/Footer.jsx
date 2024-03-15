@@ -55,27 +55,6 @@ const Footer = () => {
             </p>
          </aside>
       </footer>
-      // <Typography
-      //    sx={{ mt: 8, mb: 4 }}
-      //    variant="body2"
-      //    color="text.secondary"
-      //    align="center"
-      //    {...props}>
-      //    {'Copyright © ' + new Date().getFullYear() + ' - '}
-      //    <Link
-      //       color="inherit"
-      //       underline="hover"
-      //       href="https://github.com/ShanelkaPramuditha/Class-Management-System"
-      //       rel="noreferrer"
-      //       target="_blank"
-      //       onClick={e => {
-      //          e.preventDefault();
-      //          handleClick(e.currentTarget.href);
-      //       }}>
-      //       Y2S2
-      //    </Link>
-      //    {'.'}
-      // </Typography>
    );
 };
 
