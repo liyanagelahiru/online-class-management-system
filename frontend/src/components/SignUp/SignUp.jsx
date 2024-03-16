@@ -1,5 +1,5 @@
 import { useFormik } from 'formik';
-import { FaUserCircle } from 'react-icons/fa';
+import { PiUserCirclePlusLight } from 'react-icons/pi';
 import { usernameValidate } from '../../helper/validate';
 import { useAuthStore } from '../../store/store';
 import { Toaster } from 'react-hot-toast';
@@ -38,7 +38,7 @@ const SignUp = () => {
             <h3 className="font-bold text-lg text-center">SIGN UP</h3>
             <form className="py-1" onSubmit={formik.handleSubmit}>
                <div className="flex items-center justify-center p-3">
-                  <FaUserCircle size={70} />
+                  <PiUserCirclePlusLight size={70} />
                </div>
                <div className="textbox flex flex-col items-center gap-6">
                   <input
@@ -46,7 +46,7 @@ const SignUp = () => {
                      type="text"
                      placeholder="Username"
                   />
-                  <button type="submit">SIGN IN</button>
+                  <button type="submit">SIGN UP</button>
                </div>
                <div>
                   <p className="text-center py-4">

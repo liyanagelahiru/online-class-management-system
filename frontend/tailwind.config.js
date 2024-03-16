@@ -6,7 +6,8 @@ export default {
    theme: {
       colors: {
          'silver-mist': '#F3F4F6',
-         'cold-gray': '#F3F4F6'
+         'cold-gray': '#F3F4F6',
+         'light-gray': '#D9D9D9'
       },
       extend: {
          fontFamily: {

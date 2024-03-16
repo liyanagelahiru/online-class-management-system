@@ -2,39 +2,37 @@ import { Link } from 'react-router-dom';
 import ThemeSwitch from './ThemeSwitch';
 import SignOut from '../SignOut';
 
-import { FaUserCircle } from 'react-icons/fa';
-import { ImUserCheck } from 'react-icons/im';
+import { FiUser } from 'react-icons/fi';
+import { LuUserCheck } from 'react-icons/lu';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import { useState } from 'react';
 
 const Header = () => {
-   const [avatarComponent, setAvatarComponent] = useState(
-      <FaUserCircle size={40} />
-   );
+   const [avatarComponent, setAvatarComponent] = useState(<FiUser size={24} />);
    const [isSigned, setIsSigned] = useState(false);
 
    const profileIconMenuHandler = () => {
       if (localStorage.getItem('token')) {
-         setAvatarComponent(<ImUserCheck size={40} />);
+         setAvatarComponent(<LuUserCheck size={24} />);
          setIsSigned(true);
       } else {
-         setAvatarComponent(<FaUserCircle size={40} />);
+         setAvatarComponent(<FiUser size={24} />);
          setIsSigned(false);
       }
    };
 
    return (
-      <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50">
+      <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50 shadow-[0px_8px_12px_-6px_rgba(0,0,0,0.8)]">
          {/* Navbar Title */}
-         <div className="flex-1">
+         <div className="flex-none">
             <Link to="/" className="font-light font-Rowdies text-base">
                MADURA KODITHUWAKKU
             </Link>
          </div>
          {/* NavBar List */}
-         <div className="flex-none">
-            <ul className="menu menu-horizontal px-2">
+         <div className="place-content-center w-full">
+            <ul className="menu menu-horizontal px-3">
                <li>
                   <Link to="/">HOME</Link>
                </li>
@@ -64,8 +62,8 @@ const Header = () => {
                   onClick={profileIconMenuHandler}
                   tabIndex={0}
                   role="button"
-                  className="btn btn-ghost btn-circle avatar">
-                  <div className="w-10 rounded-full">{avatarComponent}</div>
+                  className="avatar">
+                  <div>{avatarComponent}</div>
                </div>
 
                {/* User Icon DropDown */}

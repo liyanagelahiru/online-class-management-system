@@ -1,6 +1,6 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
-import { FaUserCircle } from 'react-icons/fa';
+import { PiUserCircleLight } from 'react-icons/pi';
 import { usernameValidate, passwordValidate } from '../../helper/validate';
 import { useAuthStore } from '../../store/store';
 import toast, { Toaster } from 'react-hot-toast';
@@ -64,7 +64,7 @@ const SignIn = () => {
       return (
          <dialog id="sign-in" className="modal">
             <Toaster position="top-center" reverseOrder={false}></Toaster>
-            <div className="modal-box bg-blue-800">
+            <div className="modal-box bg-light-gray">
                {/* Close Button */}
                <form method="dialog">
                   <button
@@ -97,22 +97,30 @@ const SignIn = () => {
                   <form className="py-1" onSubmit={userFormik.handleSubmit}>
                      {/* Username form fields */}
                      <div className="flex items-center justify-center p-3">
-                        <FaUserCircle size={70} />
+                        <PiUserCircleLight size={120} />
                      </div>
-                     <div className="textbox flex flex-col items-center gap-6">
-                        <input
-                           {...userFormik.getFieldProps('username')}
-                           type="text"
-                           placeholder="Username"
-                        />
-                        <button type="submit">NEXT</button>
+                     <div className="textbox flex flex-col items-center gap-5">
+                        <div className="flex flex-col">
+                           <label htmlFor="username">Username</label>
+                           <input
+                              {...userFormik.getFieldProps('username')}
+                              type="text"
+                              placeholder="Username"
+                              className="px-4 h-[27px] w-[275px] border-2 border-[#00000066] rounded-lg"
+                           />
+                        </div>
+                        <button
+                           type="submit"
+                           className="bg-[#0057FF] hover:bg-[#000D85] text-[#FFFFFF] font-bold py-2 px-16 rounded-full">
+                           NEXT
+                        </button>
                      </div>
                      <div>
                         <p className="text-center py-4">
                            <span className="text-gray-500">
-                              Not a Member{' '}
-                              <Link to="/signup" className="text-red-500">
-                                 Register Now
+                              Not a member yet?{' '}
+                              <Link to="/signup" className="text-[#0077B6]">
+                                 Sign Up
                               </Link>
                            </span>
                         </p>
