@@ -9,7 +9,7 @@ import {
    Reset,
    PageNotFound
 } from '../components';
-import { Home, Contact, About, TheoryClass, Profile } from '../pages';
+import { Home, Courses, Contact, About, TheoryClass, Profile } from '../pages';
 
 /** Auth Middleware */
 import { AuthorizedUser, ProtectRoute } from '../middleware/auth.jsx';
@@ -17,6 +17,7 @@ import { AuthorizedUser, ProtectRoute } from '../middleware/auth.jsx';
 /* Define your routes as an array of Route components */
 const routes = [
    { path: '/', element: <Home /> },
+   { path: '/courses', element: <Courses /> },
    { path: '/contact', element: <Contact /> },
    { path: '/about', element: <About /> },
    { path: '/signup', element: <Register /> },

@@ -5,13 +5,15 @@ export default {
    content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
    theme: {
       colors: {
-         'silver-mist': '#F3F4F6'
+         'silver-mist': '#F3F4F6',
+         'cold-gray': '#F3F4F6'
       },
       extend: {
          fontFamily: {
             OpenSans: ['Open Sans', 'sans-serif'],
             GemunuLibre: ['Gemunu Libre', 'sans-serif'],
-            Montserrat: ['Montserrat', 'sans-serif']
+            Montserrat: ['Montserrat', 'sans-serif'],
+            Rowdies: ['Rowdies', 'sans-serif']
          }
       }
    },

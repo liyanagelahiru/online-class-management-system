@@ -25,11 +25,11 @@ const Header = () => {
    };
 
    return (
-      <div className="navbar bg-blue-800 text-primary-content">
+      <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50">
          {/* Navbar Title */}
          <div className="flex-1">
-            <Link to="/" className="btn btn-ghost text-xl">
-               COMBINED MATHS
+            <Link to="/" className="font-light font-Rowdies text-base">
+               MADURA KODITHUWAKKU
             </Link>
          </div>
          {/* NavBar List */}
@@ -39,20 +39,7 @@ const Header = () => {
                   <Link to="/">HOME</Link>
                </li>
                <li>
-                  <details>
-                     <summary>COURSES</summary>
-                     <ul className="p-2 bg-blue-800 rounded-t-none w-40">
-                        <li>
-                           <Link to="/theory-class">Theory Class</Link>
-                        </li>
-                        <li>
-                           <a>Revision Class</a>
-                        </li>
-                        <li>
-                           <a>Model Papers</a>
-                        </li>
-                     </ul>
-                  </details>
+                  <Link to="/">COURSES</Link>
                </li>
                <li>
                   <Link to="/about">ABOUT</Link>
