@@ -25,7 +25,7 @@ const Header = () => {
    };
 
    return (
-      <div className="navbar bg-cold-gray h-[70px] text-base-content">
+      <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50">
          {/* Navbar Title */}
          <div className="flex-1">
             <Link to="/" className="font-light font-Rowdies text-base">

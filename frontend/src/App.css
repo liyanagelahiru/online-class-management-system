@@ -16,3 +16,8 @@ body {
    font-family: 'Ubuntu', sans-serif;
    /* Additional global styles if needed */
 }
+
+/* Set the top of body padding */
+.main-content {
+   padding-top: 70px;
+}
