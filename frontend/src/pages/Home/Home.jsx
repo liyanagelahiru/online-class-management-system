@@ -8,7 +8,7 @@ const Home = () => {
             <span className="font-Montserrat text-3xl">MATHS</span>
          </div>
          <div className="text-center font-bold tracking-wider py-1">
-            <h1 className="font-GemunuLibre text-4xl">ප්‍රමිතියටම </h1>
+
             <h1 className="font-GemunuLibre text-4xl">ප්‍රමිතියටම </h1>
             <h1 className="font-GemunuLibre text-4xl">ප්‍රමිතියටම </h1>
             <h1 className="font-GemunuLibre text-4xl">ප්‍රමිතියටම </h1>
