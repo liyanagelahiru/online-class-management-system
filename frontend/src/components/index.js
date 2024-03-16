@@ -11,6 +11,9 @@ import Register from './Register';
 import Reset from './Reset';
 import PageNotFound from './PageNotFound';
 
+// Other Components
+import Button from './Button';
+
 export {
    Header,
    Footer,
@@ -19,5 +22,6 @@ export {
    Recovery,
    Register,
    Reset,
-   PageNotFound
+   PageNotFound,
+   Button
 };
