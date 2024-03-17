@@ -5,6 +5,21 @@ import About from './About';
 
 import Profile from './Profile';
 
-import TheoryClass from './Theory-Class';
+import Theory from './Theory';
+import Revision from './Revision';
+import OnlineExam from './OnlineExam';
+import ModelPapers from './ModelPapers';
+import PageNotFound from './PageNotFound';
 
-export { Home, Courses, Contact, About, TheoryClass, Profile };
+export {
+   Home,
+   Courses,
+   Contact,
+   About,
+   Theory,
+   Revision,
+   OnlineExam,
+   ModelPapers,
+   Profile,
+   PageNotFound
+};

@@ -9,10 +9,10 @@ import SignUp from './SignUp';
 import Recovery from './Recovery';
 import Register from './Register';
 import Reset from './Reset';
-import PageNotFound from './PageNotFound';
 
 // Other Components
 import Button from './Button';
+import Card from './Card/Card';
 
 export {
    Header,
@@ -22,6 +22,6 @@ export {
    Recovery,
    Register,
    Reset,
-   PageNotFound,
-   Button
+   Button,
+   Card
 };
