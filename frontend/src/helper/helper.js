@@ -47,7 +47,11 @@ export async function registerUser(credentials) {
 
       // Send Email
       if (status === 201) {
-         await axios.post('/api/registerMail', { username, userEmail: email, text: msg });
+         await axios.post('/api/registerMail', {
+            username,
+            userEmail: email,
+            text: msg
+         });
       }
       return Promise.resolve(msg);
    } catch (error) {
@@ -59,7 +63,10 @@ export async function registerUser(credentials) {
 export async function verifyPassword({ username, password }) {
    try {
       if (username) {
-         const { data } = await axios.post('/api/login', { username, password });
+         const { data } = await axios.post('/api/login', {
+            username,
+            password
+         });
          return Promise.resolve({ data });
       }
    } catch (error) {
@@ -71,7 +78,9 @@ export async function verifyPassword({ username, password }) {
 export async function updateUser(response) {
    try {
       const token = await localStorage.getItem('token');
-      const data = await axios.put('/api/updateUser', response, { headers: { Authorization: `Bearer ${token}` } });
+      const data = await axios.put('/api/updateUser', response, {
+         headers: { Authorization: `Bearer ${token}` }
+      });
       return Promise.resolve({ data });
    } catch (error) {
       return Promise.reject({ error: "Couldn't update user" });
@@ -92,7 +101,12 @@ export async function generateOTP(username) {
             data: { email }
          } = await getUser({ username });
          let text = `Your OTP is ${code}`;
-         await axios.post('/api/registerMail', { username, userEmail: email, text, subject: 'Password Reset OTP' });
+         await axios.post('/api/registerMail', {
+            username,
+            userEmail: email,
+            text,
+            subject: 'Password Reset OTP'
+         });
       }
       return Promise.resolve(code);
    } catch (error) {
@@ -103,7 +117,9 @@ export async function generateOTP(username) {
 // Verify OTP
 export async function verifyOTP({ username, code }) {
    try {
-      const { data, status } = await axios.get('/api/verifyOTP', { params: { username, code } });
+      const { data, status } = await axios.get('/api/verifyOTP', {
+         params: { username, code }
+      });
       return { data, status };
    } catch (error) {
       return Promise.reject({ error });
@@ -113,7 +129,10 @@ export async function verifyOTP({ username, code }) {
 // Reset Password
 export async function resetPassword({ username, password }) {
    try {
-      const { data, status } = await axios.put('/api/resetPassword', { username, password });
+      const { data, status } = await axios.put('/api/resetPassword', {
+         username,
+         password
+      });
       return Promise.resolve({ data, status });
    } catch (error) {
       return Promise.reject({ error });
