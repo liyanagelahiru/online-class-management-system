@@ -6,6 +6,7 @@ let configs;
 // database uri
 configs = {
    mongodb: { uri: process.env.MONGODB_URI },
+   dbName: process.env.DB_NAME,
    backend: { port: process.env.BACKEND_PORT },
    JWT_SECRET: process.env.JWT_SECRET,
    EMAIL: { mail: process.env.EMAIL, pass: process.env.EMAIL_PASS },
