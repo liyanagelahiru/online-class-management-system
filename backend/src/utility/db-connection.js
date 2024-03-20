@@ -1,7 +1,8 @@
 import mongoose from 'mongoose';
-import config from '../config/index.js';
+import configs from '../config/index.js';
 
-const uri = config.mongodb.uri;
+const dbName = configs.dbName;
+const uri = `${configs.mongodb.uri}/${dbName}`;
 
 async function connect() {
    try {

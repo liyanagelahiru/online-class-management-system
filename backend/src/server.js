@@ -1,11 +1,11 @@
 import express from 'express';
 import cors from 'cors';
 import morgan from 'morgan';
-import config from './config/index.js';
+import configs from './config/index.js';
 import connect from './utility/db-connection.js';
 import router from './api/routes/routes.js';
 
-const port = config.backend.port;
+const port = configs.backend.port;
 
 const app = express();
 

@@ -1,5 +1,5 @@
 import jwt from 'jsonwebtoken';
-import ENV from '../../config/index.js';
+import configs from '../../config/index.js';
 
 // Auth middleware
 export default async function Auth(req, res, next) {
@@ -8,7 +8,7 @@ export default async function Auth(req, res, next) {
       const token = req.headers.authorization.split(' ')[1];
 
       // retrieve user information from token
-      const decodedToken = jwt.verify(token, ENV.JWT_SECRET);
+      const decodedToken = jwt.verify(token, configs.JWT_SECRET);
       req.user = decodedToken;
 
       next();

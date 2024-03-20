@@ -1,18 +1,6 @@
 import mongoose from 'mongoose';
 
 export const UserSchema = new mongoose.Schema({
-   /*
-   {
-    "username": "Test User1",
-    "password": "Test123",
-    "email": "test@mail.com",
-    "firstName": "TestF",
-    "lastName": "TestL",
-    "mobile": 0987655233,
-    "address": "123/dsds, sdasdS, SWS",
-    "profile": ""
-   }
-   */
    username: {
       type: String,
       required: [true, 'Username is required'],

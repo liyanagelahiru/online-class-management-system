@@ -2,7 +2,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken';
 import otpGenerator from 'otp-generator';
 import UserModel from '../models/User.model.js';
-import ENV from '../../config/index.js';
+import configs from '../../config/index.js';
 
 export async function verifyUser(req, res, next) {
    try {
@@ -75,7 +75,7 @@ export async function login(req, res) {
                         userId: user._id,
                         username: user.username
                      },
-                     ENV.JWT_SECRET,
+                     configs.JWT_SECRET,
                      { expiresIn: '24h' }
                   );
 
