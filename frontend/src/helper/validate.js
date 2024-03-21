@@ -2,11 +2,11 @@ import toast from 'react-hot-toast';
 import { authenticate } from './helper.js';
 
 /* Validate login page UserName */
-export async function usernameValidate(values) {
-   const errors = usernameVerify({}, values);
-   if (values.username) {
+export async function emailValidate(values) {
+   const errors = emailVerify({}, values);
+   if (values.email) {
       // check username in database
-      const { status } = await authenticate(values.username);
+      const { status } = await authenticate(values.email);
 
       if (status !== 200) {
          errors.exist = toast.error("User doesn't exist");
@@ -14,6 +14,19 @@ export async function usernameValidate(values) {
    }
    return errors;
 }
+
+// export async function usernameValidate(values) {
+//    const errors = emailVerify({}, values);
+//    if (values.username) {
+//       // check username in database
+//       const { status } = await authenticate(values.username);
+
+//       if (status !== 200) {
+//          errors.exist = toast.error("User doesn't exist");
+//       }
+//    }
+//    return errors;
+// }
 
 /* Validate Password */
 export async function passwordValidate(values) {
@@ -30,9 +43,18 @@ export async function resetPasswordValidation(values) {
    return errors;
 }
 
-/* Validate register form */
+/* Validate Sign Up PopUp / form */
+// export async function registerValidation(values) {
+//    const errors = usernameVerify({}, values);
+//    passwordVerify(errors, values);
+//    emailVerify(errors, values);
+
+//    return errors;
+// }
+
+/* Validate Sign Up PopUp / form */
 export async function registerValidation(values) {
-   const errors = usernameVerify({}, values);
+   const errors = emailVerify({}, values);
    passwordVerify(errors, values);
    emailVerify(errors, values);
 
@@ -57,25 +79,25 @@ function passwordVerify(errors = {}, values) {
    return errors;
 }
 
-/* Validate UserName */
-function usernameVerify(error = {}, values) {
-   if (!values.username) {
-      error.username = toast.error('Username is required');
-   } else if (values.username.includes(' ')) {
-      error.username = toast.error('Username should not contain space');
-   }
+// /* Validate Email */
+// function usernameVerify(error = {}, values) {
+//    if (!values.username) {
+//       error.username = toast.error('Username is required');
+//    } else if (values.username.includes(' ')) {
+//       error.username = toast.error('Username should not contain space');
+//    }
 
-   return error;
-}
+//    return error;
+// }
 
 /* Validate Email */
 function emailVerify(error = {}, values) {
    if (!values.email) {
       error.email = toast.error('Email is required');
    } else if (values.email.includes(' ')) {
-      error.email = toast.error('Wrong Email');
+      error.email = toast.error('Invalid Email');
    } else if (!/\S+@\S+\.\S+/.test(values.email)) {
-      error.email = toast.error('Email is invalid');
+      error.email = toast.error('Invalid Email');
    }
 
    return error;

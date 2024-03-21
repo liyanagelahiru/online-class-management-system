@@ -1,14 +1,14 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { PiUserCircleLight } from 'react-icons/pi';
-import { usernameValidate, passwordValidate } from '../../helper/validate';
+import { emailValidate, passwordValidate } from '../../helper/validate';
 import { useAuthStore } from '../../store/store';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
 import { verifyPassword } from '../../helper/helper';
 
 const SignIn = () => {
-   const setUsername = useAuthStore(state => state.setUsername);
+   const setEmail = useAuthStore(state => state.setEmail);
 
    const [showPasswordForm, setShowPasswordForm] = useState(false);
    const [showUsernameForm, setShowUsernameForm] = useState(true);
@@ -19,13 +19,13 @@ const SignIn = () => {
    // Set Username value from the form
    const userFormik = useFormik({
       initialValues: {
-         username: ''
+         email: ''
       },
-      validate: usernameValidate,
+      validate: emailValidate,
       validateOnBlur: false,
       validateOnChange: false,
       onSubmit: async values => {
-         setUsername(values.username);
+         setEmail(values.email);
          setShowPasswordForm(true);
       }
    });
@@ -40,7 +40,7 @@ const SignIn = () => {
       validateOnChange: false,
       onSubmit: async values => {
          let loginPromise = verifyPassword({
-            username: userFormik.values.username,
+            email: userFormik.values.email,
             password: values.password
          });
          toast.promise(loginPromise, {
@@ -100,13 +100,15 @@ const SignIn = () => {
                         <PiUserCircleLight size={120} />
                      </div>
                      <div className="textbox flex flex-col items-center gap-5">
-                        <div className="flex flex-col">
-                           <label htmlFor="username">Username</label>
+                        <div className="flex flex-col w-[calc(100%-5rem)]">
+                           <label htmlFor="signInEmail">E-mail</label>
                            <input
-                              {...userFormik.getFieldProps('username')}
-                              type="text"
-                              placeholder="Username"
-                              className="px-4 h-[27px] w-[275px] border-2 border-[#00000066] rounded-lg"
+                              {...userFormik.getFieldProps('email')}
+                              id="signInEmail"
+                              type="email"
+                              placeholder="Email"
+                              autoComplete="on"
+                              className="px-4 h-[27px] border-2 border-[#00000066] rounded-lg w-full"
                            />
                         </div>
                         <button
@@ -119,7 +121,13 @@ const SignIn = () => {
                         <p className="text-center py-4">
                            <span className="text-gray-500">
                               Not a member yet?{' '}
-                              <Link to="/signup" className="text-[#0077B6]">
+                              <Link
+                                 onClick={() =>
+                                    document
+                                       .getElementById('sign-up')
+                                       .showModal()
+                                 }
+                                 className="text-[#0077B6]">
                                  Sign Up
                               </Link>
                            </span>

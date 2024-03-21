@@ -1,26 +1,14 @@
 import mongoose from 'mongoose';
 
 export const UserSchema = new mongoose.Schema({
-   /*
-   {
-    "username": "Test User1",
-    "password": "Test123",
-    "email": "test@mail.com",
-    "firstName": "TestF",
-    "lastName": "TestL",
-    "mobile": 0987655233,
-    "address": "123/dsds, sdasdS, SWS",
-    "profile": ""
-   }
-   */
-   username: {
+   firstName: {
       type: String,
-      required: [true, 'Username is required'],
-      unique: [true, 'Username already exists']
+      required: [true, 'First Name is required'],
+      unique: false
    },
-   password: {
+   lastName: {
       type: String,
-      required: [true, 'Password is required'],
+      required: [true, 'Last Name is required'],
       unique: false
    },
    email: {
@@ -28,11 +16,36 @@ export const UserSchema = new mongoose.Schema({
       required: [true, 'Email is required'],
       unique: true
    },
-   firstName: { type: String },
-   lastName: { type: String },
-   mobile: { type: Number },
-   address: { type: String },
-   profile: { type: String }
+   userRole: {
+      type: String,
+      default: 'student',
+      required: [true, 'User Role is required'],
+      unique: false
+   },
+   gender: {
+      type: String,
+      required: [true, 'Gender is required']
+   },
+   mobileNumber: {
+      type: String,
+      required: [true, 'Mobile Number is required'],
+      unique: false
+   },
+   password: {
+      type: String,
+      required: [true, 'Password is required'],
+      unique: false
+   },
+   registerDate: {
+      type: Date,
+      default: Date.now
+   }
+
+   // username: {
+   //    type: String,
+   //    required: [true, 'Username is required'],
+   //    unique: [true, 'Username already exists']
+   // },
 });
 
 export default mongoose.model.Users || mongoose.model('User', UserSchema);

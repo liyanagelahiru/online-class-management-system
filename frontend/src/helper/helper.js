@@ -17,11 +17,11 @@ export async function getUsername() {
 }
 
 // Authentication
-export async function authenticate(username) {
+export async function authenticate(email) {
    try {
-      return await axios.post('/api/authenticate', { username });
+      return await axios.post('/api/authenticate', { email });
    } catch (error) {
-      return { error: "Username doesn't exist" };
+      return { error: "User doesn't exist" };
    }
 }
 
@@ -60,11 +60,11 @@ export async function registerUser(credentials) {
 }
 
 // Login User
-export async function verifyPassword({ username, password }) {
+export async function verifyPassword({ email, password }) {
    try {
-      if (username) {
+      if (email) {
          const { data } = await axios.post('/api/login', {
-            username,
+            email,
             password
          });
          return Promise.resolve({ data });
