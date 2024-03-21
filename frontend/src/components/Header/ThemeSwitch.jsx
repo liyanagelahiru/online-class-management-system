@@ -23,6 +23,7 @@ function ThemeSwitch() {
       <div>
          <label className="swap swap-rotate">
             <input
+               id="theme-switch"
                type="checkbox"
                onChange={handleToggle}
                checked={theme === 'light' ? false : true}

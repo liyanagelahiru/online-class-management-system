@@ -4,12 +4,19 @@ import PaymentSchema from '../models/Payments.model.js';
 export const insertPayment = async (req, res) => {
    try {
       // Extract user information from req.user
+      const { email } = req.user;
       const { username } = req.user;
 
-      const { course, value } = req.body;
+      const { enrolledCourse, paidValue, offerValue } = req.body;
 
       // Create Payment Object with user information
-      const payment = new PaymentSchema({ user: username, course, value });
+      const payment = new PaymentSchema({
+         email: email,
+         username: username,
+         enrolledCourse,
+         paidValue,
+         offerValue
+      });
 
       // Save Payment to Database
       await payment.save();

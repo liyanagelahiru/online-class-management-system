@@ -1,16 +1,23 @@
 import mongoose from 'mongoose';
 
 const PaymentSchema = new mongoose.Schema({
-   user: {
+   email: {
       type: String
    },
-   course: {
+   username: {
+      type: String
+   },
+   enrolledCourse: {
       type: String,
       required: [true, 'Course is required']
    },
-   value: {
+   paidValue: {
       type: Number,
       required: [true, 'Value is required']
+   },
+   offerValue: {
+      type: Number,
+      default: 0
    },
    paymentDate: {
       type: Date,
@@ -18,5 +25,4 @@ const PaymentSchema = new mongoose.Schema({
    }
 });
 
-export default mongoose.model.Payments ||
-   mongoose.model('Payment', PaymentSchema);
+export default mongoose.model('Payment', PaymentSchema);

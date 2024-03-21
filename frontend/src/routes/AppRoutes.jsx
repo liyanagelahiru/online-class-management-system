@@ -1,7 +1,7 @@
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 
 /* import all pages */
-import { Header, Footer, Register, Recovery, Reset } from '../components';
+import { Header, Footer, Recovery, Reset } from '../components';
 import {
    Home,
    Courses,
@@ -24,7 +24,6 @@ const routes = [
    { path: '/courses', element: <Courses /> },
    { path: '/contact', element: <Contact /> },
    { path: '/about', element: <About /> },
-   { path: '/signup', element: <Register /> },
    { path: '/theory', element: <Theory /> },
    { path: '/revision', element: <Revision /> },
    { path: '/onlineexam', element: <OnlineExam /> },
