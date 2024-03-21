@@ -6,9 +6,9 @@ import configs from '../../config/index.js';
 
 export async function verifyUser(req, res, next) {
    try {
-      const { username } = req.method == 'GET' ? req.query : req.body;
+      const { email } = req.method == 'GET' ? req.query : req.body;
 
-      let exist = await UserModel.findOne({ username });
+      let exist = await UserModel.findOne({ email });
       if (!exist) return res.status(404).send({ error: 'User Not Found' });
       next();
    } catch (error) {
@@ -18,32 +18,47 @@ export async function verifyUser(req, res, next) {
 
 export async function register(req, res) {
    try {
-      const { username, password, profile, email } = req.body;
+      // Extract user details from request body
+      const {
+         firstName,
+         lastName,
+         email,
+         userRole,
+         gender,
+         mobileNumber,
+         password
+      } = req.body;
 
       // Check exiting user and email using Promise.all
-      const [existUsername, existEmail] = await Promise.all([
-         UserModel.findOne({ username }),
+      const [existEmail] = await Promise.all([
+         // UserModel.findOne({ username }),
          UserModel.findOne({ email })
       ]);
 
-      if (existUsername) {
-         return res.status(400).send({ error: 'Please use unique username' });
-      }
+      // if (existUsername) {
+      //    return res.status(400).send({ error: 'Please use unique username' });
+      // }
 
       if (existEmail) {
-         return res.status(400).send({ error: 'Please use unique email' });
+         return res.status(400).send({ error: 'Email Already Registered!' });
       }
 
       if (password) {
          const hashedPassword = await bcrypt.hash(password, 10);
 
+         // Create new user
          const user = new UserModel({
-            username,
+            firstName,
+            lastName,
+            email,
+            userRole,
+            gender,
+            mobileNumber,
             password: hashedPassword,
-            profile: profile || '',
-            email
+            registerDate: Date.now()
          });
 
+         // Save user to database
          await user.save();
 
          res.status(201).send({ msg: 'User Registered Successfully' });
@@ -57,10 +72,10 @@ export async function register(req, res) {
 }
 
 export async function login(req, res) {
-   const { username, password } = req.body;
+   const { email, password } = req.body;
 
    try {
-      UserModel.findOne({ username })
+      UserModel.findOne({ email })
          .then(user => {
             bcrypt
                .compare(password, user.password)
@@ -73,7 +88,7 @@ export async function login(req, res) {
                   const token = jwt.sign(
                      {
                         userId: user._id,
-                        username: user.username
+                        email: user.email
                      },
                      configs.JWT_SECRET,
                      { expiresIn: '24h' }
@@ -81,7 +96,7 @@ export async function login(req, res) {
 
                   return res.status(200).send({
                      msg: 'Login Successful',
-                     username: user.username,
+                     email: user.email,
                      token
                   });
                })
@@ -90,7 +105,7 @@ export async function login(req, res) {
                });
          })
          .catch(error => {
-            return res.status(404).send({ error: 'Username Not Found' });
+            return res.status(404).send({ error: 'User Not Found' });
          });
    } catch (error) {
       return res.status(500).send({ error });

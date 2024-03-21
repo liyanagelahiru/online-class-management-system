@@ -7,21 +7,10 @@ import SignUp from './SignUp';
 
 // Not Completed
 import Recovery from './Recovery';
-import Register from './Register';
 import Reset from './Reset';
 
 // Other Components
 import Button from './Button';
 import Card from './Card/Card';
 
-export {
-   Header,
-   Footer,
-   SignIn,
-   SignUp,
-   Recovery,
-   Register,
-   Reset,
-   Button,
-   Card
-};
+export { Header, Footer, SignIn, SignUp, Recovery, Reset, Button, Card };
