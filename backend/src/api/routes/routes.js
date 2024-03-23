@@ -33,6 +33,7 @@ router
 /* Payment and Enrollemnt Routes */
 router.route('/enroll').post(Auth, PaymentController.insertPayment);
 router.route('/payments').get(Auth, PaymentController.viewPayments);
+router.route('/payment/:id').get(Auth, PaymentController.getPayment);
 
 /* Sample Methods */
 router.route('/sample-insert').post(SampleController.insertSample);

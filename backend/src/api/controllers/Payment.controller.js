@@ -53,3 +53,14 @@ export const viewPayments = async (req, res) => {
       res.status(500).send({ error: 'Internal Server Error' });
    }
 };
+
+// Get Full Paiment Details (GET) Data Controller */
+export const getPayment = async (req, res) => {
+   try {
+      const { id } = req.params;
+      const payment = await PaymentSchema.findById(id);
+      res.status(200).send({ payment });
+   } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+   }
+};
