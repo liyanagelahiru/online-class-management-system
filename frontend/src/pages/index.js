@@ -11,6 +11,8 @@ import OnlineExam from './OnlineExam';
 import ModelPapers from './ModelPapers';
 import PageNotFound from './PageNotFound';
 
+import UserMain from './UserMain'
+
 export {
    Home,
    Courses,
@@ -21,5 +23,6 @@ export {
    OnlineExam,
    ModelPapers,
    Profile,
-   PageNotFound
+   PageNotFound,
+   UserMain
 };

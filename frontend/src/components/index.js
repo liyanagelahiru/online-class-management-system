@@ -13,4 +13,6 @@ import Reset from './Reset';
 import Button from './Button';
 import Card from './Card/Card';
 
-export { Header, Footer, SignIn, SignUp, Recovery, Reset, Button, Card };
+import ButtonX from './ButtonX';
+
+export { Header, Footer, SignIn, SignUp, Recovery, Reset, Button, Card, ButtonX };
