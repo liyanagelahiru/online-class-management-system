@@ -15,6 +15,7 @@ import {
    PageNotFound,
    Payment,
    ViewPayment,
+   UpdateEnrollment,
    PaymentDetails
 } from '../pages';
 
@@ -34,6 +35,7 @@ const routes = [
    { path: '/payment', element: <Payment /> },
    { path: '/payments', element: <ViewPayment /> },
    { path: '/payment/:id', element: <PaymentDetails /> },
+   { path: '/updateenrollment/:id', element: <UpdateEnrollment /> },
    // {
    //    path: '/password',
    //    element: (

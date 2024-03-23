@@ -14,6 +14,7 @@ import ModelPapers from './ModelPapers';
 import Payment from './Payment';
 import ViewPayment from './ViewPayments';
 import PaymentDetails from './PaymentDetails';
+import UpdateEnrollment from './updateEnrollment';
 
 import PageNotFound from './PageNotFound';
 
@@ -30,5 +31,6 @@ export {
    Payment,
    ViewPayment,
    PaymentDetails,
+   UpdateEnrollment,
    PageNotFound
 };
