@@ -9,6 +9,12 @@ import Theory from './Theory';
 import Revision from './Revision';
 import OnlineExam from './OnlineExam';
 import ModelPapers from './ModelPapers';
+
+// Payment Management
+import Payment from './Payment';
+import ViewPayment from './ViewPayments';
+import PaymentDetails from './PaymentDetails';
+
 import PageNotFound from './PageNotFound';
 
 export {
@@ -21,5 +27,8 @@ export {
    OnlineExam,
    ModelPapers,
    Profile,
+   Payment,
+   ViewPayment,
+   PaymentDetails,
    PageNotFound
 };

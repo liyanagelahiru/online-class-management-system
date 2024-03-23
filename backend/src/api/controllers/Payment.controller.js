@@ -4,21 +4,25 @@ import PaymentSchema from '../models/Payments.model.js';
 export const insertPayment = async (req, res) => {
    try {
       // Extract user information from req.user
-      const { email } = req.user;
-      const { username } = req.user;
+      const { email, firstName, lastName } = req.user;
+      const { holderFName, holderLName, courseName, courseValue, offerValue } =
+         req.body;
 
-      const { enrolledCourse, paidValue, offerValue } = req.body;
+      const studentName = firstName + ' ' + lastName;
 
       // Create Payment Object with user information
       const payment = new PaymentSchema({
          email: email,
-         username: username,
-         enrolledCourse,
-         paidValue,
-         offerValue
+         studentName: studentName,
+         cardHolderName: holderFName + ' ' + holderLName,
+         courseName,
+         courseValue,
+         offerValue,
+         billingAmount: courseValue - offerValue
       });
 
       // Save Payment to Database
+
       await payment.save();
 
       // Send Success Message
@@ -38,13 +42,13 @@ export const insertPayment = async (req, res) => {
 export const viewPayments = async (req, res) => {
    try {
       // Extract user information from req.user
-      const { username } = req.user;
+      //const { username } = req.user;
 
       // Get Payments from Database
-      const payments = await PaymentSchema.find({ user: username });
+      const payments = await PaymentSchema.find();
 
       // Send Payments
-      res.status(200).send(payments);
+      res.status(200).send({ payments });
    } catch (error) {
       res.status(500).send({ error: 'Internal Server Error' });
    }
