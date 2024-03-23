@@ -11,3 +11,14 @@ export async function doPayment(values) {
       return Promise.reject({ error });
    }
 }
+
+export async function getPayments() {
+   try {
+      const {
+         data: { payment }
+      } = await axios.get('/api/payment/:id', requestAuth);
+      return Promise.resolve(payment);
+   } catch (error) {
+      return Promise.reject({ error });
+   }
+}

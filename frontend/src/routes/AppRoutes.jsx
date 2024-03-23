@@ -33,7 +33,7 @@ const routes = [
    { path: '/modelpapers', element: <ModelPapers /> },
    { path: '/payment', element: <Payment /> },
    { path: '/payments', element: <ViewPayment /> },
-   { path: '/payment/:userId', element: <PaymentDetails /> },
+   { path: '/payment/:id', element: <PaymentDetails /> },
    // {
    //    path: '/password',
    //    element: (
