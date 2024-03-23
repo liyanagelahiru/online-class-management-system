@@ -10,7 +10,7 @@ import Recovery from './Recovery';
 import Reset from './Reset';
 
 // Other Components
-import Button from './Button';
+import Button from './Button/Button';
 import Card from './Card/Card';
 
 export { Header, Footer, SignIn, SignUp, Recovery, Reset, Button, Card };

@@ -6,21 +6,22 @@ import { FiUser } from 'react-icons/fi';
 import { LuUserCheck } from 'react-icons/lu';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 
 const Header = () => {
    const [avatarComponent, setAvatarComponent] = useState(<FiUser size={24} />);
-   const [isSigned, setIsSigned] = useState(false);
+   const [isLoggedIn, setIsLoggedIn] = useState(false);
 
-   const profileIconMenuHandler = () => {
-      if (localStorage.getItem('token')) {
+   useEffect(() => {
+      const token = localStorage.getItem('token');
+      if (token) {
+         setIsLoggedIn(true);
          setAvatarComponent(<LuUserCheck size={24} />);
-         setIsSigned(true);
       } else {
+         setIsLoggedIn(false);
          setAvatarComponent(<FiUser size={24} />);
-         setIsSigned(false);
       }
-   };
+   }, []);
 
    return (
       <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50 shadow-[0px_8px_12px_-6px_rgba(0,0,0,0.8)]">
@@ -59,7 +60,7 @@ const Header = () => {
             <div className="dropdown dropdown-end">
                {/* User Icon */}
                <div
-                  onClick={profileIconMenuHandler}
+                  // onClick={profileIconMenuHandler}
                   tabIndex={0}
                   role="button"
                   className="avatar">
@@ -67,7 +68,7 @@ const Header = () => {
                </div>
 
                {/* User Icon DropDown */}
-               {isSigned ? (
+               {isLoggedIn ? (
                   <ul
                      tabIndex={0}
                      className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">

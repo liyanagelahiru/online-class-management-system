@@ -15,19 +15,6 @@ export async function emailValidate(values) {
    return errors;
 }
 
-// export async function usernameValidate(values) {
-//    const errors = emailVerify({}, values);
-//    if (values.username) {
-//       // check username in database
-//       const { status } = await authenticate(values.username);
-
-//       if (status !== 200) {
-//          errors.exist = toast.error("User doesn't exist");
-//       }
-//    }
-//    return errors;
-// }
-
 /* Validate Password */
 export async function passwordValidate(values) {
    const errors = passwordVerify({}, values);
@@ -42,15 +29,6 @@ export async function resetPasswordValidation(values) {
    }
    return errors;
 }
-
-/* Validate Sign Up PopUp / form */
-// export async function registerValidation(values) {
-//    const errors = usernameVerify({}, values);
-//    passwordVerify(errors, values);
-//    emailVerify(errors, values);
-
-//    return errors;
-// }
 
 /* Validate Sign Up PopUp / form */
 export async function registerValidation(values) {
