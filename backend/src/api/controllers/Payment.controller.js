@@ -64,3 +64,54 @@ export const getPayment = async (req, res) => {
       res.status(500).send({ error: 'Internal Server Error' });
    }
 };
+
+// Update Enrollment (PUT) Data Controller */
+export const updateEnrollment = async (req, res) => {
+   try {
+      // Extract user information from req.user
+      const { email, firstName, lastName } = req.user;
+      const { holderFName, holderLName, courseName, courseValue, offerValue } =
+         req.body;
+
+      const { id } = req.params;
+
+      const studentName = firstName + ' ' + lastName;
+
+      const payment = await PaymentSchema.findById(id);
+
+      if (!payment) {
+         return res.status(404).send({ error: 'Payment Not Found!' });
+      }
+
+      payment.email = email;
+      payment.studentName = studentName;
+      payment.cardHolderName = holderFName + ' ' + holderLName;
+      payment.courseName = courseName;
+      payment.courseValue = courseValue;
+      payment.offerValue = offerValue;
+      payment.billingAmount = courseValue - offerValue;
+
+      await payment.save();
+
+      res.status(200).send({ msg: 'Payment Updated Successfully' });
+   } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+   }
+};
+
+// Delete Enrollment (DELETE) Data Controller */
+export const deletePayment = async (req, res) => {
+   try {
+      const { id } = req.params;
+
+      const deletedPayment = await PaymentSchema.findByIdAndDelete(id);
+
+      if (!deletedPayment) {
+         return res.status(404).send({ error: 'Payment Not Found!' });
+      }
+
+      res.status(200).send({ msg: 'Payment Deleted Successfully' });
+   } catch (error) {
+      res.status(500).send({ error: 'Internal Server Error' });
+   }
+};

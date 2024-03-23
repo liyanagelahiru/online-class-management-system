@@ -1,12 +1,13 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams } from 'react-router-dom';
+import { useParams, useNavigate } from 'react-router-dom';
 import requestAuth from '../../helper/requestAuth';
 import { Button } from '../../components';
 
 const PaymentDetails = () => {
    const [payment, setPayment] = useState();
    const { id } = useParams();
+   const navigate = useNavigate();
 
    // Fetch payment details for the specified user ID
    useEffect(() => {
@@ -20,7 +21,20 @@ const PaymentDetails = () => {
       };
 
       fetchPaymentDetails();
-   }, [id]); // Include userId in the dependency array to fetch new data when userId changes
+   }, [id]);
+
+   const verifyUnenroll = async () => {
+      document.getElementById('unenroll_modal').showModal();
+   };
+
+   const handleDelete = async () => {
+      try {
+         await axios.delete(`/api/unenroll/${id}`, requestAuth);
+         navigate('/payments');
+      } catch (error) {
+         console.error('Error deleting payment:', error);
+      }
+   };
 
    if (!payment) {
       return <div>Wrong Payment ID...</div>;
@@ -28,6 +42,29 @@ const PaymentDetails = () => {
 
    return (
       <div className="container mx-auto px-4">
+         {/* Unenrollment Verification Modal */}
+         <div>
+            <dialog id="unenroll_modal" className="modal">
+               <div className="modal-box">
+                  <h3 className="font-bold text-lg">Are You Sure...?</h3>
+                  <p className="py-4">
+                     Please verify that you want to remove {payment.studentName}{' '}
+                     from this Course.
+                  </p>
+                  <div className="modal-action">
+                     <form method="dialog">
+                        {/* if there is a button in form, it will close the modal */}
+                        <button className="btn">Cancel</button>
+                     </form>
+                     <button
+                        onClick={handleDelete}
+                        className="btn bg-[red] text-[white] hover:bg-[darkred]">
+                        Unenroll
+                     </button>
+                  </div>
+               </div>
+            </dialog>
+         </div>
          <h4 className="text-2xl font-bold mb-4">Payment Details</h4>
          <div>
             <p>Enrolled Course: {payment.courseName}</p>
@@ -39,8 +76,13 @@ const PaymentDetails = () => {
             <p>createdAt: {payment.createdAt}</p>
             <p>updatedAt: {payment.updatedAt}</p>
          </div>
-         <div>
-            <Button text="Update Payment" />
+         <div className="grid grid-cols-2">
+            <div className="p-5">
+               <Button text="Update Payment" />
+            </div>
+            <div className="p-5">
+               <Button text="Delete Payment" onClick={verifyUnenroll} />
+            </div>
          </div>
       </div>
    );
