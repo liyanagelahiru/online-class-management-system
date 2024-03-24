@@ -7,7 +7,8 @@ import Profile from './Profile';
 
 import Theory from './Theory';
 import Revision from './Revision';
-import OnlineExam from './OnlineExam';
+import Papers from './OnlineExam';
+import CreateExam from './CreateExam';
 import ModelPapers from './ModelPapers';
 
 // Payment Management
@@ -24,7 +25,8 @@ export {
    About,
    Theory,
    Revision,
-   OnlineExam,
+   Papers,
+   CreateExam,
    ModelPapers,
    Profile,
    Payment,
