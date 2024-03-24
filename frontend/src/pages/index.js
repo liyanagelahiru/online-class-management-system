@@ -12,6 +12,7 @@ import ModelPapers from './ModelPapers';
 import PageNotFound from './PageNotFound';
 
 import UserMain from './UserMain'
+import AddUser from './UserMain/AddUser'
 
 export {
    Home,
@@ -24,5 +25,6 @@ export {
    ModelPapers,
    Profile,
    PageNotFound,
-   UserMain
+   UserMain,
+   AddUser
 };

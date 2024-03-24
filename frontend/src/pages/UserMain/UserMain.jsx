@@ -1,18 +1,26 @@
+import { useNavigate } from "react-router-dom";
 import ButtonX from "../../components/ButtonX/ButtonX";
+import AddUser from "./AddUser";
 
 var TCellStyle = "px-5 py-2 bg-neutral-300 text-neutral-950"
 var THeadStyle = "px-5 py-2 bg-[#0057FF] "
 
 export default function UserMain() {
- 
+   const navigate = useNavigate();
+
+
+   const AddUser = () => {
+      <AddUser/>
+   }
+
    return (
     <>
       <div>
-         <div className="bg-neutral-400">
-            User Manegement
+         <div className="bg-neutral-400 align-middle text-center font-bold">
+            User Management
          </div>
-         <div className="bg-silver-mist text-neutral-300">
-            <div className=" bg-neutral-150 flex t-">
+         <div className="bg-silver-mist text-neutral-300 font-light">
+            <div className=" bg-neutral-150 flex ">
                <div className=" w-96">
                      
                </div>
@@ -20,7 +28,7 @@ export default function UserMain() {
                      
                </div>
                <div className="p-4">
-                     <ButtonX Details="Add User"></ButtonX>
+                     <ButtonX onClickfun={AddUser} Details="Add User" ></ButtonX>
                </div> 
             </div>  
 

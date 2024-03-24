@@ -17,7 +17,7 @@ import {
 } from '../pages';
 
 /** Auth Middleware */
-import { AuthorizedUser, ProtectRoute } from '../middleware/auth.jsx';
+import { AuthorizedUser } from '../middleware/auth.jsx';
 
 /* Define your routes as an array of Route components */
 const routes = [
