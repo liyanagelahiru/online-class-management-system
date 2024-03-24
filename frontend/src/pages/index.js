@@ -18,6 +18,9 @@ import UpdateEnrollment from './updateEnrollment';
 
 import PageNotFound from './PageNotFound';
 
+import UserMain from './UserMain'
+import AddUser from './UserMain/AddUser'
+
 export {
    Home,
    Courses,
@@ -28,9 +31,12 @@ export {
    OnlineExam,
    ModelPapers,
    Profile,
+   UserMain,
+   AddUser
    Payment,
    ViewPayment,
    PaymentDetails,
    UpdateEnrollment,
    PageNotFound
+
 };

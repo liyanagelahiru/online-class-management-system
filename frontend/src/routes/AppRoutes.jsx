@@ -13,6 +13,7 @@ import {
    ModelPapers,
    Profile,
    PageNotFound,
+   UserMain,
    Payment,
    ViewPayment,
    UpdateEnrollment,
@@ -32,10 +33,12 @@ const routes = [
    { path: '/revision', element: <Revision /> },
    { path: '/onlineexam', element: <OnlineExam /> },
    { path: '/modelpapers', element: <ModelPapers /> },
+   { path: '/UserMain', element: <UserMain /> },
    { path: '/payment', element: <Payment /> },
    { path: '/payments', element: <ViewPayment /> },
    { path: '/payment/:id', element: <PaymentDetails /> },
    { path: '/updateenrollment/:id', element: <UpdateEnrollment /> },
+
    // {
    //    path: '/password',
    //    element: (
