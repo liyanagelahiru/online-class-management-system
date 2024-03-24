@@ -14,8 +14,10 @@ import {
    ModelPapers,
    Profile,
    PageNotFound,
+   UserMain,
    Payment,
    ViewPayment,
+   UpdateEnrollment,
    PaymentDetails
 } from '../pages';
 
@@ -34,9 +36,12 @@ const routes = [
    { path: '/exam', element: <Papers /> },
    { path: '/exam/create', element: <CreateExam /> },
    { path: '/modelpapers', element: <ModelPapers /> },
+   { path: '/UserMain', element: <UserMain /> },
    { path: '/payment', element: <Payment /> },
    { path: '/payments', element: <ViewPayment /> },
    { path: '/payment/:id', element: <PaymentDetails /> },
+   { path: '/updateenrollment/:id', element: <UpdateEnrollment /> },
+
    // {
    //    path: '/password',
    //    element: (

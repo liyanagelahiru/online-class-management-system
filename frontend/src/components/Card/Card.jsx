@@ -14,10 +14,10 @@ const Card = ({ image, header, description, navTo }) => {
          </div>
          <p className="text-2xl text-center font-bold">{header}</p>
          <p className="text-center">{description}</p>
-         <div className="w-fit mx-auto absolute bottom-4 left-0 right-0 flex justify-center">
+         <div className="mx-auto absolute bottom-4 left-0 right-0 flex justify-center px-10">
             <Link
                to={navTo}
-               className="bg-[#0057FF] hover:bg-[#000D85] text-[#FFFFFF] font-bold py-2 w-[calc((100vw/4)-100px)] rounded-full text-center">
+               className="bg-[#0057FF] hover:bg-[#000D85] text-[#FFFFFF] font-bold py-2 px-8 w-full rounded-full text-center">
                Details
             </Link>
          </div>
