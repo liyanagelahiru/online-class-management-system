@@ -9,6 +9,13 @@ import Theory from './Theory';
 import Revision from './Revision';
 import OnlineExam from './OnlineExam';
 import ModelPapers from './ModelPapers';
+
+// Payment Management
+import Payment from './Payment';
+import ViewPayment from './ViewPayments';
+import PaymentDetails from './PaymentDetails';
+import UpdateEnrollment from './updateEnrollment';
+
 import PageNotFound from './PageNotFound';
 
 import UserMain from './UserMain'
@@ -24,7 +31,12 @@ export {
    OnlineExam,
    ModelPapers,
    Profile,
-   PageNotFound,
    UserMain,
    AddUser
+   Payment,
+   ViewPayment,
+   PaymentDetails,
+   UpdateEnrollment,
+   PageNotFound
+
 };

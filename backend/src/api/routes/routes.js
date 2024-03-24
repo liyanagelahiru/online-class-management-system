@@ -33,6 +33,11 @@ router
 /* Payment and Enrollemnt Routes */
 router.route('/enroll').post(Auth, PaymentController.insertPayment);
 router.route('/payments').get(Auth, PaymentController.viewPayments);
+router.route('/payment/:id').get(Auth, PaymentController.getPayment);
+router
+   .route('/updateEnrollment/:id')
+   .put(Auth, PaymentController.updateEnrollment);
+router.route('/unenroll/:id').delete(Auth, PaymentController.deletePayment);
 
 /* Sample Methods */
 router.route('/sample-insert').post(SampleController.insertSample);

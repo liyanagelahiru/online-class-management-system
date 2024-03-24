@@ -13,7 +13,11 @@ import {
    ModelPapers,
    Profile,
    PageNotFound,
-   UserMain
+   UserMain,
+   Payment,
+   ViewPayment,
+   UpdateEnrollment,
+   PaymentDetails
 } from '../pages';
 
 /** Auth Middleware */
@@ -30,6 +34,11 @@ const routes = [
    { path: '/onlineexam', element: <OnlineExam /> },
    { path: '/modelpapers', element: <ModelPapers /> },
    { path: '/UserMain', element: <UserMain /> },
+   { path: '/payment', element: <Payment /> },
+   { path: '/payments', element: <ViewPayment /> },
+   { path: '/payment/:id', element: <PaymentDetails /> },
+   { path: '/updateenrollment/:id', element: <UpdateEnrollment /> },
+
    // {
    //    path: '/password',
    //    element: (
