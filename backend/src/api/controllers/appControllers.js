@@ -215,3 +215,78 @@ export async function resetPassword(req, res) {
       return res.status(401).send({ error });
    }
 }
+
+//Description - Create New User
+//Route - usermain/create
+//Access - Private
+export async function CreateUser(req, res) {
+
+   //Getting Form Data From Request Sent By FrontEnd UserMain
+   const { fName, lName, email, userRole, gender, mobile, password, registerDate } = req.body
+   
+
+   //Check If Any Variable ( Form Field ) is Null( Empty/Not Filled )
+   if ( !fName || !lName || !email || !userRole || !gender || !mobile || !password || !registerDate ) {
+      res.status(400)
+      throw new Error('Please add all fields')
+   }
+
+   //Check If The User Already Exists
+   const userExists = await User.findOne({email})
+   if(userExists) {
+      res.status(400)
+      throw new Error('User alredy exists!')
+   }
+
+   //Hash Password
+   const salt = await bcrypt.genSalt(10)
+   const hashedPassword = await bcrypt.hash(password, salt)
+
+   //Creating User
+   const user = await UserModel.create({
+      fName,
+      lName,
+      email,
+      userRole,
+      gender,
+      mobile,
+      password: hashedPassword,
+      registerDate
+   })
+
+   //Check For The Created User
+   if(user){
+      res.status(201).json({
+            _id: user.id,
+            fname: user.fname,
+            lName: user.lName,
+            email: user.email,
+            userRole: user.userRole,
+            gender: user.gender,
+            mobile: user.mobile,
+            registerDate: user.registerDate,
+            token: genereteToken(user._id)
+      })
+   } else { //If Users Isn't Created Correctly
+      res.status(400)
+      throw new Error('Invalid User Data')
+   }
+}
+
+//Description - Get All Users
+//Route - usermain/getall
+//Access - Private
+export async function GetAllUsers(req, res) {
+
+   //Getting All Users As In UserModel From MongoDB by Mongoose
+   const users = await UserModel.find()
+
+   //Check If The User Array is Null
+   if ( !users ) {
+      res.status(400)
+      throw new Error('Please add at least one user!')
+   }
+
+   //Export Users To Front-End UserMain
+   res.status(200).json(users)
+}
