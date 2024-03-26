@@ -10,6 +10,7 @@ import Revision from './Revision';
 import OnlineExam from './OnlineExam';
 import ModelPapers from './ModelPapers';
 import PageNotFound from './PageNotFound';
+import UserMain from './UserMain';
 
 export {
    Home,
@@ -21,5 +22,6 @@ export {
    OnlineExam,
    ModelPapers,
    Profile,
-   PageNotFound
+   PageNotFound,
+   UserMain
 };
