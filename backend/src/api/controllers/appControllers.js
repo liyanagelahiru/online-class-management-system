@@ -300,3 +300,68 @@ export async function GetAllUsers(req, res) {
    //Export Users To Front-End UserMain
    res.status(200).json(users)
 }
+
+
+//Description - Update User
+//Route - usermain/update
+//Access - Private
+export async function UpdateUser(req, res) {
+   try {
+       // Extract email and role from the request body
+       const { email, role } = req.body;
+
+       // Validate input data
+       if (!email || !role) {
+           return res.status(400).json({ error: "Email and role are required." });
+       }
+
+       // Construct update data, skipping role if it's null
+       const updateData = {};
+       if (role !== null) {
+           updateData.userRole = role;
+       }
+
+       // Update user in the database
+       const result = await UserModel.updateOne({ email: email }, updateData);
+
+       // Check if the update was successful
+       if (result.nModified === 0) {
+           return res.status(404).json({ error: "User not found or no changes were made." });
+       }
+
+       // Send success response
+       res.status(200).json({ message: "User updated successfully." });
+   } catch (error) {
+       console.error("Error updating user:", error);
+       res.status(500).json({ error: "Internal server error." });
+   }
+}
+
+//Description - Delete User
+//Route - usermain/delete
+//Access - Private
+export async function DeleteUser(req, res) {
+   try {
+       // Extract email from the request body
+       const { email } = req.body;
+
+       // Validate input data
+       if (!email) {
+           return res.status(400).json({ error: "Email is required." });
+       }
+
+       // Delete user from the database
+       const result = await UserModel.deleteOne({ email: email });
+
+       // Check if the delete operation was successful
+       if (result.deletedCount === 0) {
+           return res.status(404).json({ error: "User not found." });
+       }
+
+       // Send success response
+       res.status(200).json({ message: "User deleted successfully." });
+   } catch (error) {
+       console.error("Error deleting user:", error);
+       res.status(500).json({ error: "Internal server error." });
+   }
+}

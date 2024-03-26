@@ -43,4 +43,6 @@ router.route('/sample-update/:_id').put(SampleController.updateSample);
 //Methods For UserMain
 router.route('/usermain/getall').get(controller.GetAllUsers)
 router.route('/usermain/create').post(controller.CreateUser)
+router.route('/usermain/update').put(controller.UpdateUser)
+router.route('/usermain/delete').delete(controller.DeleteUser)
 export default router;
