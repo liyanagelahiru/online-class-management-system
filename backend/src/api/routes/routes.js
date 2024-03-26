@@ -39,4 +39,8 @@ router.route('/sample-insert').post(SampleController.insertSample);
 router.route('/samples-view').get(SampleController.viewSamples);
 router.route('/sample-update/:_id').put(SampleController.updateSample);
 
+
+//Methods For UserMain
+router.route('/usermain/getall').get(controller.GetAllUsers)
+router.route('/usermain/create').post(controller.CreateUser)
 export default router;

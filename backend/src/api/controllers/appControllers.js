@@ -3,6 +3,7 @@ import jwt from 'jsonwebtoken';
 import otpGenerator from 'otp-generator';
 import UserModel from '../models/User.model.js';
 import configs from '../../config/index.js';
+import { Error } from 'mongoose';
 
 export async function verifyUser(req, res, next) {
    try {
@@ -227,50 +228,59 @@ export async function CreateUser(req, res) {
 
    //Check If Any Variable ( Form Field ) is Null( Empty/Not Filled )
    if ( !fName || !lName || !email || !userRole || !gender || !mobile || !password || !registerDate ) {
-      res.status(400)
-      throw new Error('Please add all fields')
+      res.status(400).json('Please add all fields')
+      //throw new Error('Please add all fields')
+   } 
+   else {
+      
+      //Check If The User Already Exists
+      const userExists = await UserModel.findOne({email})
+
+      if(userExists) {
+         res.status(400).json('User alredy exists!')
+         //throw new Error('User alredy exists!')
+      } 
+      else {
+         //Hash Password
+         const salt = await bcrypt.genSalt(10)
+         const hashedPassword = await bcrypt.hash(password, salt)
+
+         //Creating User
+         const user = await UserModel.create({
+            firstName : fName,
+            lastName : lName,
+            email,
+            userRole,
+            gender,
+            mobileNumber : mobile,
+            password: hashedPassword,
+            registerDate
+         })
+
+         //Check For The Created User
+         if(user){
+            res.status(201).json({
+                  _id: user.id,
+                  fname: user.fname,
+                  lName: user.lName,
+                  email: user.email,
+                  userRole: user.userRole,
+                  gender: user.gender,
+                  mobile: user.mobile,
+                  registerDate: user.registerDate,
+            })
+         } else { 
+            //If Users Isn't Created Correctly
+            
+            res.status(400).json('Invalid User Data')
+            //throw new Error('Invalid User Data')
+         }
+      }
+
+      
    }
 
-   //Check If The User Already Exists
-   const userExists = await User.findOne({email})
-   if(userExists) {
-      res.status(400)
-      throw new Error('User alredy exists!')
-   }
-
-   //Hash Password
-   const salt = await bcrypt.genSalt(10)
-   const hashedPassword = await bcrypt.hash(password, salt)
-
-   //Creating User
-   const user = await UserModel.create({
-      fName,
-      lName,
-      email,
-      userRole,
-      gender,
-      mobile,
-      password: hashedPassword,
-      registerDate
-   })
-
-   //Check For The Created User
-   if(user){
-      res.status(201).json({
-            _id: user.id,
-            fname: user.fname,
-            lName: user.lName,
-            email: user.email,
-            userRole: user.userRole,
-            gender: user.gender,
-            mobile: user.mobile,
-            registerDate: user.registerDate,
-            token: genereteToken(user._id)
-      })
-   } else { //If Users Isn't Created Correctly
-      res.status(400)
-      throw new Error('Invalid User Data')
-   }
+  
 }
 
 //Description - Get All Users
