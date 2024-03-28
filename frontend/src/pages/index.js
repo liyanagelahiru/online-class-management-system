@@ -7,19 +7,16 @@ import Profile from './Profile';
 
 import Theory from './Theory';
 import Revision from './Revision';
-import OnlineExam from './OnlineExam';
+import Papers from './OnlineExam';
+import CreateExam from './CreateExam';
 import ModelPapers from './ModelPapers';
 
 // Payment Management
 import Payment from './Payment';
 import ViewPayment from './ViewPayments';
 import PaymentDetails from './PaymentDetails';
-import UpdateEnrollment from './updateEnrollment';
 
 import PageNotFound from './PageNotFound';
-
-import UserMain from './UserMain';
-import AddUser from './UserMain/AddUser';
 
 export {
    Home,
@@ -28,14 +25,12 @@ export {
    About,
    Theory,
    Revision,
-   OnlineExam,
+   Papers,
+   CreateExam,
    ModelPapers,
    Profile,
-   UserMain,
-   AddUser,
    Payment,
    ViewPayment,
    PaymentDetails,
-   UpdateEnrollment,
    PageNotFound
 };
