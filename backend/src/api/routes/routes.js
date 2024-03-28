@@ -7,6 +7,8 @@ import * as SampleController from '../controllers/Sample.controller.js';
 import * as PaymentController from '../controllers/Payment.controller.js';
 import Auth, { localVariables } from '../middleware/auth.js';
 import { registerMail } from '../controllers/mailer.js';
+import * as paperController from '../controllers/quiz/paper_controller.js';
+import * as quizController from '../controllers/quiz/quiz_controller.js';
 
 /* POST Methods */
 router.route('/register').post(controller.register);
@@ -43,5 +45,17 @@ router.route('/unenroll/:id').delete(Auth, PaymentController.deletePayment);
 router.route('/sample-insert').post(SampleController.insertSample);
 router.route('/samples-view').get(SampleController.viewSamples);
 router.route('/sample-update/:_id').put(SampleController.updateSample);
+
+// quiz section routes
+router.route('/paper/create').post(paperController.createPaper);
+router.route('/paper').get(paperController.getAllPapers);
+router.route('/paper').patch(paperController.editPaper);
+router.route('/paper').delete(paperController.deletePaper);
+
+router.route('/quiz/create').post(quizController.createQuiz);
+router.route('/quiz/:paperId').get(quizController.getQuizById);
+router.route('/quiz/check').post(quizController.checkAnswer);
+router.route('/quiz').delete(quizController.deleteQuiz);
+router.route('/quiz').patch(quizController.editQuiz);
 
 export default router;

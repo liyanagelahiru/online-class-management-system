@@ -15,12 +15,8 @@ import ModelPapers from './ModelPapers';
 import Payment from './Payment';
 import ViewPayment from './ViewPayments';
 import PaymentDetails from './PaymentDetails';
-import UpdateEnrollment from './updateEnrollment';
 
 import PageNotFound from './PageNotFound';
-
-import UserMain from './UserMain';
-import AddUser from './UserMain/AddUser';
 
 export {
    Home,
@@ -33,11 +29,8 @@ export {
    CreateExam,
    ModelPapers,
    Profile,
-   UserMain,
-   AddUser,
    Payment,
    ViewPayment,
    PaymentDetails,
-   UpdateEnrollment,
    PageNotFound
 };
