@@ -33,6 +33,7 @@ export {
    Payment,
    ViewPayment,
    PaymentDetails,
-   PageNotFound,
-   UserMain
+   UserMain,
+   PageNotFound
+
 };

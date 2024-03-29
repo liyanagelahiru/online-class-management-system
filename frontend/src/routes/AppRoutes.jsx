@@ -18,7 +18,7 @@ import {
    Payment,
    ViewPayment,
    UpdateEnrollment,
-   PaymentDetails,
+   PaymentDetails
 } from '../pages';
 
 /** Auth Middleware */
