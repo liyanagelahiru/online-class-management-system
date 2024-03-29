@@ -9,11 +9,16 @@ import {
    About,
    Theory,
    Revision,
-   OnlineExam,
+   Papers,
+   CreateExam,
    ModelPapers,
    Profile,
    PageNotFound,
-   UserMain
+   UserMain,
+   Payment,
+   ViewPayment,
+   UpdateEnrollment,
+   PaymentDetails,
 } from '../pages';
 
 /** Auth Middleware */
@@ -27,9 +32,16 @@ const routes = [
    { path: '/about', element: <About /> },
    { path: '/theory', element: <Theory /> },
    { path: '/revision', element: <Revision /> },
-   { path: '/onlineexam', element: <OnlineExam /> },
+   // { path: '/onlineexam', element: <OnlineExam /> },
+   { path: '/exam', element: <Papers /> },
+   { path: '/exam/create', element: <CreateExam /> },
    { path: '/modelpapers', element: <ModelPapers /> },
    { path: '/UserMain', element: <UserMain /> },
+   { path: '/payment', element: <Payment /> },
+   { path: '/payments', element: <ViewPayment /> },
+   { path: '/payment/:id', element: <PaymentDetails /> },
+   { path: '/updateenrollment/:id', element: <UpdateEnrollment /> },
+
    // {
    //    path: '/password',
    //    element: (

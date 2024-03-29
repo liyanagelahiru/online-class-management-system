@@ -1,7 +1,7 @@
-import OnlineExam from './OnlineExam';
+import Papers from './papers';
 
 const index = () => {
-   return <OnlineExam />;
+   return <Papers />;
 };
 
 export default index;
