@@ -1,6 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import ButtonX from "../../components/ButtonX/ButtonX";
-import AddUser from "./AddUser";
+import Button2 from "../../components/Button/Button2";
 
 var TCellStyle = "px-5 py-2 bg-neutral-300 text-neutral-950"
 var THeadStyle = "px-5 py-2 bg-[#0057FF] "
@@ -10,7 +9,7 @@ export default function UserMain() {
 
 
    const AddUser = () => {
-      <AddUser/>
+      navigate('./AddUser')
    }
 
    return (
@@ -28,7 +27,7 @@ export default function UserMain() {
                      
                </div>
                <div className="p-4">
-                     <ButtonX onClickfun={AddUser} Details="Add User" ></ButtonX>
+                     <Button2 onClickfun={AddUser} Details="Add User" ></Button2>
                </div> 
             </div>  
 

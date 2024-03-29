@@ -14,6 +14,7 @@ app.use(express.json());
 app.use(cors());
 app.use(morgan('tiny'));
 app.disable('x-powered-by');
+app.use(express.urlencoded({ extended: true }));
 
 /* HTTP GET Request */
 app.get('/', (req, res) => {

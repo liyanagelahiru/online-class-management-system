@@ -17,6 +17,7 @@ import ViewPayment from './ViewPayments';
 import PaymentDetails from './PaymentDetails';
 
 import PageNotFound from './PageNotFound';
+import UserMain from './UserMain';
 
 export {
    Home,
@@ -32,5 +33,7 @@ export {
    Payment,
    ViewPayment,
    PaymentDetails,
+   UserMain,
    PageNotFound
+
 };
