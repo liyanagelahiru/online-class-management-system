@@ -50,7 +50,7 @@ export async function editLive(req, res) {
     }
  }
 
- // Controller to delete a FAQ question
+ // Controller to delete Live class Session
 export async function deleteLive(req, res) {
     const id = req.body.id;
  
