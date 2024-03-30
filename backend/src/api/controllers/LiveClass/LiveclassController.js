@@ -17,7 +17,7 @@ export async function createLive(req, res) {
     }
  }
 
- // Controller to edit a paper
+ // Controller to edit a Class Session
 export async function editLive(req, res) {
     const { sessionId, sessionName, sessionTime, description, link } = req.body;
  
