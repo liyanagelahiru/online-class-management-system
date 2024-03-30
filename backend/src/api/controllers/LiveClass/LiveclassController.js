@@ -50,26 +50,24 @@ export async function editLive(req, res) {
     }
  }
 
- // Controller to delete a Session
+ // Controller to delete a FAQ question
 export async function deleteLive(req, res) {
     const id = req.body.id;
  
     try {
-       // Find paper to be deleted and get its paperNumber
+       // Find Session to be deleted
        const LiveToDelete = await LIVECLASS.findById(id);
  
        if (!LiveToDelete) {
-          res.status(404).json({ message: 'paper deleted successfully.' });
+          res.status(404).json({ message: 'Live Session deleted successfully.' });
        }
  
-       // Delete paper
-       await PAPER.findByIdAndDelete(id);
-
-       const quizes = await QUIZ.deleteMany({ paperId: id });
+       // Delete Live Session
+       await LIVECLASS.findByIdAndDelete(id);
  
-       res.json({ message: 'paper deleted successfully.' });
+       res.json({ message: 'Live Session deleted successfully.' });
     } catch (error) {
        console.log(error);
-       res.status(500).json({ error: 'Failed to delete paper.' });
+       res.status(500).json({ error: 'Failed to delete Live Session.' });
     }
  }
