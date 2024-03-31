@@ -9,6 +9,7 @@ import Auth, { localVariables } from '../middleware/auth.js';
 import { registerMail } from '../controllers/mailer.js';
 import * as paperController from '../controllers/quiz/paper_controller.js';
 import * as quizController from '../controllers/quiz/quiz_controller.js';
+import * as liveclassController from '../controllers/LiveClass/LiveclassController.js';
 
 /* POST Methods */
 router.route('/register').post(controller.register);
@@ -63,5 +64,8 @@ router.route('/quiz/:paperId').get(quizController.getQuizById);
 router.route('/quiz/check').post(quizController.checkAnswer);
 router.route('/quiz').delete(quizController.deleteQuiz);
 router.route('/quiz').patch(quizController.editQuiz);
+
+// Live class routes
+router.route('/liveSessions/create').post(liveclassController.createLive);
 
 export default router;
