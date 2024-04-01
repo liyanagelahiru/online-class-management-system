@@ -34,10 +34,10 @@ router
    .put(controller.verifyUser, controller.resetPassword);
 
 //Methods For UserMain
-router.route('/usermain/getall').get(controller.GetAllUsers)
-router.route('/usermain/create').post(controller.CreateUser)
-router.route('/usermain/update').put(controller.UpdateUser)
-router.route('/usermain/delete').delete(controller.DeleteUser)
+router.route('/usermain/getall').get(controller.GetAllUsers);
+router.route('/usermain/create').post(controller.CreateUser);
+router.route('/usermain/update').put(controller.UpdateUser);
+router.route('/usermain/delete').delete(controller.DeleteUser);
 
 /* Payment and Enrollemnt Routes */
 router.route('/enroll').post(Auth, PaymentController.insertPayment);
