@@ -1,7 +1,7 @@
-import PAPER from '../../models/paper.js';
-import QUIZ from '../../models/quiz.js';
+import PAPER from '../../models/Paper.model.js';
+import QUIZ from '../../models/Quiz.model.js';
 
-// Controller to create a new FAQ question
+// Controller to create a new question
 export async function createPaper(req, res) {
    //   const { title, description } = req.body;
    const title = req.body.title;
@@ -18,7 +18,7 @@ export async function createPaper(req, res) {
    }
 }
 
-// Controller to retrieve all FAQ questions
+// Controller to retrieve all questions
 export async function getAllPapers(req, res) {
    try {
       const papers = await PAPER.find({});
@@ -55,7 +55,7 @@ export async function editPaper(req, res) {
    }
 }
 
-// Controller to delete a FAQ question
+// Controller to delete a question
 export async function deletePaper(req, res) {
    const id = req.body.id;
 

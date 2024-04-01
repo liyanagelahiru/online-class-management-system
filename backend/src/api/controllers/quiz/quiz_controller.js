@@ -1,5 +1,5 @@
-import QUIZ from '../../models/quiz.js';
-import PAPER from '../../models/paper.js';
+import QUIZ from '../../models/Quiz.model.js';
+import PAPER from '../../models/Paper.model.js';
 
 // Controller to create a new quiz
 export async function createQuiz(req, res) {
