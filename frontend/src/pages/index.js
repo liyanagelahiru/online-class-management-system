@@ -15,10 +15,13 @@ import ModelPapers from './ModelPapers';
 import Payment from './Payment';
 import ViewPayment from './ViewPayments';
 import PaymentDetails from './PaymentDetails';
+import UpdateEnrollment from './UpdateEnrollment';
 
 import PageNotFound from './PageNotFound';
 import UserMain from './UserMain';
-import UpdateEnrollment from './UpdateEnrollment';
+import AddUser from './UserMain/AddUser';
+import UpdateUser from './UserMain/UpdateUser';
+
 
 export {
    Home,
@@ -34,7 +37,9 @@ export {
    Payment,
    ViewPayment,
    PaymentDetails,
+   UpdateEnrollment,
    UserMain,
-   PageNotFound,
-   UpdateEnrollment
+   AddUser,
+   UpdateUser,
+   PageNotFound
 };

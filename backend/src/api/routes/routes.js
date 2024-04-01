@@ -39,6 +39,7 @@ router.route('/usermain/create').post(controller.CreateUser);
 router.route('/usermain/update').put(controller.UpdateUser);
 router.route('/usermain/delete').delete(controller.DeleteUser);
 
+
 /* Payment and Enrollemnt Routes */
 router.route('/enroll').post(Auth, PaymentController.insertPayment);
 router.route('/payments').get(Auth, PaymentController.viewPayments);

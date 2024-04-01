@@ -15,16 +15,17 @@ import {
    Profile,
    PageNotFound,
    UserMain,
+   AddUser,
+   UpdateUser,
    Payment,
    ViewPayment,
-   UpdateEnrollment,
    PaymentDetails
 } from '../pages';
 
 /** Auth Middleware */
 import { AuthorizedUser, ProtectRoute } from '../middleware/auth.jsx';
 
-/* Define your routes as an array of Route components */
+/* Define your routes as an array of Route components "/UserMain/AddUser"*/
 const routes = [
    { path: '/', element: <Home /> },
    { path: '/courses', element: <Courses /> },
@@ -36,12 +37,14 @@ const routes = [
    { path: '/exam', element: <Papers /> },
    { path: '/exam/create', element: <CreateExam /> },
    { path: '/modelpapers', element: <ModelPapers /> },
-   { path: '/UserMain', element: <UserMain /> },
+
    { path: '/payment', element: <Payment /> },
    { path: '/payments', element: <ViewPayment /> },
    { path: '/payment/:id', element: <PaymentDetails /> },
-   { path: '/updateenrollment/:id', element: <UpdateEnrollment /> },
-
+   //UserMain
+   { path: '/UserMain', element: <UserMain /> },
+   { path: '/UserMain/AddUser', element: <AddUser /> },
+   { path: '/UserMain/UpdateUser', element: <UpdateUser /> },
    // {
    //    path: '/password',
    //    element: (
