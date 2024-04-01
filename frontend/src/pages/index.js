@@ -18,6 +18,8 @@ import PaymentDetails from './PaymentDetails';
 
 import PageNotFound from './PageNotFound';
 import UserMain from './UserMain';
+import AddUser from './UserMain/AddUser';
+import UpdateUser from './UserMain/UpdateUser';
 
 export {
    Home,
@@ -34,6 +36,7 @@ export {
    ViewPayment,
    PaymentDetails,
    UserMain,
+   AddUser,
+   UpdateUser,
    PageNotFound
-
 };
