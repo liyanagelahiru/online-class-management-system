@@ -8,17 +8,17 @@ const liveSchema = new mongoose.Schema(
          required: true
       },
       sessiontime: {
-        type: String,
-        required: true
-     },
+         type: String,
+         required: true
+      },
       description: {
          type: String,
          required: false
       },
       link: {
-         type: Number,
+         type: String,
          required: true
-      },
+      }
       //materials: {
       //   type: Number,
       //   default: 0
