@@ -7,8 +7,8 @@ import * as SampleController from '../controllers/Sample.controller.js';
 import * as PaymentController from '../controllers/Payment.controller.js';
 import Auth, { localVariables } from '../middleware/auth.js';
 import { registerMail } from '../controllers/Mail.controller.js';
-import * as paperController from '../controllers/quiz/paper_controller.js';
-import * as quizController from '../controllers/quiz/quiz_controller.js';
+import * as paperController from '../controllers/OnlineExam/Exam.controller.js';
+import * as quizController from '../controllers/OnlineExam/Question.controller.js';
 import * as liveclassController from '../controllers/LiveClass/LiveclassController.js';
 
 /* POST Methods */
