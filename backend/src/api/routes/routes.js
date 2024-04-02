@@ -2,11 +2,11 @@ import { Router } from 'express';
 const router = Router();
 
 /* import all controllers */
-import * as controller from '../controllers/appControllers.js';
+import * as controller from '../controllers/User.controllers.js';
 import * as SampleController from '../controllers/Sample.controller.js';
 import * as PaymentController from '../controllers/Payment.controller.js';
 import Auth, { localVariables } from '../middleware/auth.js';
-import { registerMail } from '../controllers/mailer.js';
+import { registerMail } from '../controllers/Mail.controller.js';
 import * as paperController from '../controllers/quiz/paper_controller.js';
 import * as quizController from '../controllers/quiz/quiz_controller.js';
 import * as liveclassController from '../controllers/LiveClass/LiveclassController.js';
