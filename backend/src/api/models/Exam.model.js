@@ -20,7 +20,7 @@ const paperSchema = new mongoose.Schema(
          default: 0
       }
    },
-   { timestamps: true }
+   { timestamps: { currentTime: () => Date.now() + 5.5 * 60 * 60 * 1000 } }
 );
 
 // Create the OTP model

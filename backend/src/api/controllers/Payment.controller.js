@@ -1,4 +1,4 @@
-import PaymentSchema from '../models/Payments.model.js';
+import PaymentSchema from '../models/Payment.model.js';
 
 /* Do Payment(POST) Data Controller */
 export const insertPayment = async (req, res) => {

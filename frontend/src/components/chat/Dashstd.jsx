@@ -249,7 +249,7 @@ const dash = () => {
                         ? seteditinput(e.target.value)
                         : setinput(e.target.value)
                   }
-                  className="h-8 p-2 ml-2 border rounded-md shadow-sm shadow-neutral-500 bg-light-silver w-96"
+                  className="h-8 p-2 ml-2 font-sans border rounded-md shadow-sm shadow-neutral-500 bg-light-silver w-96 text-neutral-950"
                   placeholder="Enter Message..."></input>
 
                {/* <input

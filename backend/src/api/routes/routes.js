@@ -2,13 +2,14 @@ import { Router } from 'express';
 const router = Router();
 
 /* import all controllers */
-import * as controller from '../controllers/appControllers.js';
+import * as controller from '../controllers/User.controllers.js';
 import * as SampleController from '../controllers/Sample.controller.js';
 import * as PaymentController from '../controllers/Payment.controller.js';
 import Auth, { localVariables } from '../middleware/auth.js';
-import { registerMail } from '../controllers/mailer.js';
-import * as paperController from '../controllers/quiz/paper_controller.js';
-import * as quizController from '../controllers/quiz/quiz_controller.js';
+import { registerMail } from '../controllers/Mail.controller.js';
+import * as paperController from '../controllers/OnlineExam/Exam.controller.js';
+import * as quizController from '../controllers/OnlineExam/Question.controller.js';
+import * as liveclassController from '../controllers/LiveClass/LiveclassController.js';
 
 /* POST Methods */
 router.route('/register').post(controller.register);
@@ -33,10 +34,10 @@ router
    .put(controller.verifyUser, controller.resetPassword);
 
 //Methods For UserMain
-router.route('/usermain/getall').get(controller.GetAllUsers)
-router.route('/usermain/create').post(controller.CreateUser)
-router.route('/usermain/update').put(controller.UpdateUser)
-router.route('/usermain/delete').delete(controller.DeleteUser)
+router.route('/usermain/getall').get(controller.GetAllUsers);
+router.route('/usermain/create').post(controller.CreateUser);
+router.route('/usermain/update').put(controller.UpdateUser);
+router.route('/usermain/delete').delete(controller.DeleteUser);
 
 /* Payment and Enrollemnt Routes */
 router.route('/enroll').post(Auth, PaymentController.insertPayment);
@@ -63,5 +64,8 @@ router.route('/quiz/:paperId').get(quizController.getQuizById);
 router.route('/quiz/check').post(quizController.checkAnswer);
 router.route('/quiz').delete(quizController.deleteQuiz);
 router.route('/quiz').patch(quizController.editQuiz);
+
+// Live class routes
+router.route('/liveSessions/create').post(liveclassController.createLive);
 
 export default router;

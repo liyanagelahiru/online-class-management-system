@@ -1,5 +1,4 @@
 import { useState, useEffect } from 'react';
-import ReactComponent from '../../assets/icons/theme-changer-light.svg';
 
 function ThemeSwitch() {
    const [theme, setTheme] = useState(

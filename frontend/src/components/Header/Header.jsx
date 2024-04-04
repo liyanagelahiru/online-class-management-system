@@ -4,6 +4,7 @@ import SignOut from '../SignOut';
 
 import { FiUser } from 'react-icons/fi';
 import { LuUserCheck } from 'react-icons/lu';
+import { IoMdNotificationsOutline } from 'react-icons/io';
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
 import { useState, useEffect } from 'react';
@@ -49,66 +50,71 @@ const Header = () => {
             </ul>
          </div>
          {/* Theme Changer */}
-         <div className="pr-3">
-            <ThemeSwitch />
-         </div>
-         {/* User Icon Dropdown */}
-         <SignIn /> {/* Sign In Pop Up function */}
-         <SignUp /> {/* Sign Up Pop Up function */}
-         <SignOut /> {/* Sign Out Pop Up function */}
-         <div className="flex-none gap-2">
-            <div className="dropdown dropdown-end">
-               {/* User Icon */}
-               <div
-                  // onClick={profileIconMenuHandler}
-                  tabIndex={0}
-                  role="button"
-                  className="avatar">
-                  <div>{avatarComponent}</div>
-               </div>
+         <div className="flex items-stretch">
+            <div className="pr-3">
+               <ThemeSwitch />
+            </div>
+            <div className="pr-3">
+               <IoMdNotificationsOutline size={24} />
+            </div>
+            {/* User Icon Dropdown */}
+            <SignIn /> {/* Sign In Pop Up function */}
+            <SignUp /> {/* Sign Up Pop Up function */}
+            <SignOut /> {/* Sign Out Pop Up function */}
+            <div className="flex-none gap-2">
+               <div className="dropdown dropdown-end">
+                  {/* User Icon */}
+                  <div
+                     // onClick={profileIconMenuHandler}
+                     tabIndex={0}
+                     role="button"
+                     className="avatar">
+                     <div>{avatarComponent}</div>
+                  </div>
 
-               {/* User Icon DropDown */}
-               {isLoggedIn ? (
-                  <ul
-                     tabIndex={0}
-                     className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
-                     <li>
-                        <Link to="/profile">Profile</Link>
-                     </li>
-                     <li>
-                        <Link
-                           onClick={() =>
-                              document.getElementById('sign-out').showModal()
-                           }
-                           className="justify-between">
-                           Sign Out
-                        </Link>
-                     </li>
-                  </ul>
-               ) : (
-                  <ul
-                     tabIndex={0}
-                     className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
-                     <li>
-                        <Link
-                           onClick={() =>
-                              document.getElementById('sign-in').showModal()
-                           }
-                           className="justify-between">
-                           Sign In
-                        </Link>
-                     </li>
-                     <li>
-                        <Link
-                           onClick={() =>
-                              document.getElementById('sign-up').showModal()
-                           }
-                           className="justify-between">
-                           Sign Up
-                        </Link>
-                     </li>
-                  </ul>
-               )}
+                  {/* User Icon DropDown */}
+                  {isLoggedIn ? (
+                     <ul
+                        tabIndex={0}
+                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
+                        <li>
+                           <Link to="/profile">Profile</Link>
+                        </li>
+                        <li>
+                           <Link
+                              onClick={() =>
+                                 document.getElementById('sign-out').showModal()
+                              }
+                              className="justify-between">
+                              Sign Out
+                           </Link>
+                        </li>
+                     </ul>
+                  ) : (
+                     <ul
+                        tabIndex={0}
+                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
+                        <li>
+                           <Link
+                              onClick={() =>
+                                 document.getElementById('sign-in').showModal()
+                              }
+                              className="justify-between">
+                              Sign In
+                           </Link>
+                        </li>
+                        <li>
+                           <Link
+                              onClick={() =>
+                                 document.getElementById('sign-up').showModal()
+                              }
+                              className="justify-between">
+                              Sign Up
+                           </Link>
+                        </li>
+                     </ul>
+                  )}
+               </div>
             </div>
          </div>
       </div>
