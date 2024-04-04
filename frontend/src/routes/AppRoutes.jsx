@@ -21,6 +21,7 @@ import {
    ViewPayment,
    PaymentDetails
 } from '../pages';
+import Dash from '../components/chat/dash.jsx';
 
 /** Auth Middleware */
 import { AuthorizedUser, ProtectRoute } from '../middleware/auth.jsx';
@@ -45,6 +46,9 @@ const routes = [
    { path: '/UserMain', element: <UserMain /> },
    { path: '/UserMain/AddUser', element: <AddUser /> },
    { path: '/UserMain/UpdateUser', element: <UpdateUser /> },
+
+   // Chat Option
+   { path: '/chat', element: <Dash /> },
    // {
    //    path: '/password',
    //    element: (
