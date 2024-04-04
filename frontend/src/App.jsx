@@ -7,6 +7,7 @@ import Dashstd from './components/chat/Dashstd';
 function App() {
    return (
       <div className="App main-content">
+         <AppRoutes />
          <Dash></Dash>
          {/* <Dashstd></Dashstd> */}
          {/* <Options></Options> */}
