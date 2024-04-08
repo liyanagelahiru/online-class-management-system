@@ -9,6 +9,7 @@ import Theory from './Theory';
 import Revision from './Revision';
 import Papers from './OnlineExam';
 import CreateExam from './CreateExam';
+import CreateQuestions from './CreateQuestions';
 import ModelPapers from './ModelPapers';
 
 // Payment Management
@@ -22,7 +23,6 @@ import UserMain from './UserMain';
 import AddUser from './UserMain/AddUser';
 import UpdateUser from './UserMain/UpdateUser';
 
-
 export {
    Home,
    Courses,
@@ -32,6 +32,7 @@ export {
    Revision,
    Papers,
    CreateExam,
+   CreateQuestions,
    ModelPapers,
    Profile,
    Payment,

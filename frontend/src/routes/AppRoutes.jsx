@@ -19,7 +19,8 @@ import {
    UpdateUser,
    Payment,
    ViewPayment,
-   PaymentDetails
+   PaymentDetails,
+   CreateQuestions
 } from '../pages';
 
 /** Auth Middleware */
@@ -36,6 +37,7 @@ const routes = [
    // { path: '/onlineexam', element: <OnlineExam /> },
    { path: '/exam', element: <Papers /> },
    { path: '/exam/create', element: <CreateExam /> },
+   { path: '/questions/create/:id', element: <CreateQuestions /> },
    { path: '/modelpapers', element: <ModelPapers /> },
 
    { path: '/payment', element: <Payment /> },
