@@ -1,27 +1,24 @@
 import PropTypes from 'prop-types';
-import { Navigate } from 'react-router-dom';
-import { useAuthStore } from '../store/store';
+import { useAuthStore } from '../store/authStore';
 
-export const AuthorizedUser = ({ children }) => {
-   const token = localStorage.getItem('token');
-   if (!token) {
-      return <Navigate to={'/'} replace={true}></Navigate>;
+// Check user authentication
+export const AuthorizedUser = () => {
+   const { isAuthenticated, token, role } = useAuthStore();
+
+   if (isAuthenticated && token && role) {
+      return {
+         isAuthenticated: isAuthenticated,
+         role: role
+      };
+   } else {
+      return {
+         isAuthenticated: false,
+         role: 'user'
+      };
    }
-   return children;
 };
 
+// PropTypes
 AuthorizedUser.propTypes = {
-   children: PropTypes.node.isRequired
-};
-
-export const ProtectRoute = ({ children }) => {
-   const email = useAuthStore.getState().auth.email;
-   if (!email) {
-      return <Navigate to={'/'} replace={true}></Navigate>;
-   }
-   return children;
-};
-
-ProtectRoute.propTypes = {
    children: PropTypes.node.isRequired
 };

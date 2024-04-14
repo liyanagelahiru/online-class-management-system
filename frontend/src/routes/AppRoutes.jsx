@@ -3,7 +3,6 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 /* import all pages */
 import { Header, Footer, Recovery, Reset } from '../components';
 import {
-   Home,
    Courses,
    Contact,
    About,
@@ -12,8 +11,6 @@ import {
    Papers,
    CreateExam,
    ModelPapers,
-   Profile,
-   PageNotFound,
    UserMain,
    AddUser,
    UpdateUser,
@@ -24,52 +21,130 @@ import {
 } from '../pages';
 import Dash from '../components/chat/dash.jsx';
 
-/** Auth Middleware */
-import { AuthorizedUser, ProtectRoute } from '../middleware/auth.jsx';
+/* Auth Middleware */
+import { ProtectedRoute } from './ProtectedRoutes.jsx';
+import DashboardRoutes from './DashboardRoutes.jsx';
 
-/* Define your routes as an array of Route components "/UserMain/AddUser"*/
 const routes = [
-   { path: '/', element: <Home /> },
-   { path: '/courses', element: <Courses /> },
-   { path: '/contact', element: <Contact /> },
-   { path: '/about', element: <About /> },
-   { path: '/theory', element: <Theory /> },
-   { path: '/revision', element: <Revision /> },
+   {
+      path: '/',
+      element: <DashboardRoutes />,
+      auth: [true, false],
+      roles: ['admin', 'teacher', 'student', 'user']
+   },
+   {
+      path: '/courses',
+      element: <Courses />,
+      auth: [true, false],
+      roles: ['teacher', 'student', 'user']
+   },
+   {
+      path: '/contact',
+      element: <Contact />,
+      auth: [true, false],
+      roles: ['student', 'user']
+   },
+   {
+      path: '/about',
+      element: <About />,
+      auth: [true, false],
+      roles: ['student', 'user']
+   },
+   {
+      path: '/theory',
+      element: <Theory />,
+      auth: [true.false],
+      roles: ['student', 'user']
+   },
+   {
+      path: '/revision',
+      element: <Revision />,
+      auth: [true, false],
+      roles: ['student', 'user']
+   },
    // { path: '/onlineexam', element: <OnlineExam /> },
-   { path: '/exam', element: <Papers /> },
-   { path: '/exam/create', element: <CreateExam /> },
-   { path: '/questions/create/:id', element: <CreateQuestions /> },
-   { path: '/modelpapers', element: <ModelPapers /> },
+   {
+      path: '/exam',
+      element: <Papers />,
+      auth: [true.false],
+      roles: ['student', 'user']
+   },
+   {
+      path: '/exam/create',
+      element: <CreateExam />,
+      auth: [true],
+      roles: ['teacher']
+   },
+   {
+      path: '/questions/create/:id',
+      element: <CreateQuestions />,
+      auth: [true],
+      roles: ['teacher']
+   },
+   {
+      path: '/modelpapers',
+      element: <ModelPapers />,
+      auth: [true, false],
+      roles: ['student', 'user']
+   },
 
-   { path: '/payment', element: <Payment /> },
-   { path: '/payments', element: <ViewPayment /> },
-   { path: '/payment/:id', element: <PaymentDetails /> },
+   {
+      path: '/payment',
+      element: <Payment />,
+      auth: [true],
+      roles: ['student']
+   },
+   {
+      path: '/payments',
+      element: <ViewPayment />,
+      auth: [true],
+      roles: ['admin', 'teacher']
+   },
+   {
+      path: '/payment/:id',
+      element: <PaymentDetails />,
+      auth: [true],
+      roles: ['admin', 'teacher']
+   },
    //UserMain
-   { path: '/UserMain', element: <UserMain /> },
-   { path: '/UserMain/AddUser', element: <AddUser /> },
-   { path: '/UserMain/UpdateUser', element: <UpdateUser /> },
+   {
+      path: '/UserMain',
+      element: <UserMain />,
+      auth: [true],
+      roles: ['admin', 'teacher', 'student']
+   },
+   {
+      path: '/UserMain/AddUser',
+      element: <AddUser />,
+      auth: [true],
+      roles: ['admin']
+   },
+   {
+      path: '/UserMain/UpdateUser',
+      element: <UpdateUser />,
+      auth: [true],
+      roles: ['admin', 'teacher', 'student']
+   },
 
    // Chat Option
-   { path: '/chat', element: <Dash /> },
-   // {
-   //    path: '/password',
-   //    element: (
-   //       <ProtectRoute>
-   //          <Password />
-   //       </ProtectRoute>
-   //    )
-   // },
    {
-      path: '/profile',
-      element: (
-         <AuthorizedUser>
-            <Profile />
-         </AuthorizedUser>
-      )
+      path: '/chat',
+      element: <Dash />,
+      auth: [true],
+      roles: ['admin', 'teacher', 'student']
    },
-   { path: '/recovery', element: <Recovery /> },
-   { path: '/reset', element: <Reset /> },
-   { path: '/pagenotfound', element: <PageNotFound /> }
+   {
+      path: '/recovery',
+      element: <Recovery />,
+      auth: [true],
+      roles: ['admin', 'teacher', 'student']
+   },
+   {
+      path: '/reset',
+      element: <Reset />,
+      auth: [true],
+      roles: ['admin', 'teacher', 'student']
+   }
 ];
 
 /* AppRoutes component */
@@ -83,7 +158,13 @@ function AppRoutes() {
                   <Route
                      key={index}
                      path={route.path}
-                     element={route.element}
+                     element={
+                        <ProtectedRoute
+                           element={route.element}
+                           auth={route.auth}
+                           roles={route.roles}
+                        />
+                     }
                   />
                ))}
             </Routes>

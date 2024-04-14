@@ -1,28 +1,16 @@
 import { Link } from 'react-router-dom';
 import ThemeSwitch from './ThemeSwitch';
 import SignOut from '../SignOut';
-
-import { FiUser } from 'react-icons/fi';
-import { LuUserCheck } from 'react-icons/lu';
 import { IoMdNotificationsOutline } from 'react-icons/io';
+
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
-import { useState, useEffect } from 'react';
+import { AuthorizedUser } from '../../middleware/auth';
+import { AvatarImg, SetNavbarItems } from './SetHeader';
 
 const Header = () => {
-   const [avatarComponent, setAvatarComponent] = useState(<FiUser size={24} />);
-   const [isLoggedIn, setIsLoggedIn] = useState(false);
-
-   useEffect(() => {
-      const token = localStorage.getItem('token');
-      if (token) {
-         setIsLoggedIn(true);
-         setAvatarComponent(<LuUserCheck size={24} />);
-      } else {
-         setIsLoggedIn(false);
-         setAvatarComponent(<FiUser size={24} />);
-      }
-   }, []);
+   const { isAuthenticated } = AuthorizedUser();
+   const navbarItems = SetNavbarItems();
 
    return (
       <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50 shadow-[0px_8px_12px_-6px_rgba(0,0,0,0.8)]">
@@ -34,27 +22,22 @@ const Header = () => {
          </div>
          {/* NavBar List */}
          <div className="place-content-center w-full">
-            <ul className="menu menu-horizontal px-3">
-               <li>
-                  <Link to="/">HOME</Link>
-               </li>
-               <li>
-                  <Link to="/courses">COURSES</Link>
-               </li>
-               <li>
-                  <Link to="/about">ABOUT</Link>
-               </li>
-               <li>
-                  <Link to="/contact">CONTACT</Link>
-               </li>
+            <ul className="menu menu-horizontal px-3 gap-4">
+               {navbarItems?.map((item, index) => (
+                  <li key={index}>
+                     <Link className="rounded-full border py-0" to={item.path}>
+                        {item.name}
+                     </Link>
+                  </li>
+               ))}
             </ul>
          </div>
          {/* Theme Changer */}
-         <div className="flex items-stretch">
-            <div className="pr-3">
+         <div className="flex items-stretch mr-5 gap-2">
+            <div>
                <ThemeSwitch />
             </div>
-            <div className="pr-3">
+            <div>
                <IoMdNotificationsOutline size={24} />
             </div>
             {/* User Icon Dropdown */}
@@ -69,11 +52,13 @@ const Header = () => {
                      tabIndex={0}
                      role="button"
                      className="avatar">
-                     <div>{avatarComponent}</div>
+                     <div>
+                        <AvatarImg />
+                     </div>
                   </div>
 
                   {/* User Icon DropDown */}
-                  {isLoggedIn ? (
+                  {isAuthenticated ? (
                      <ul
                         tabIndex={0}
                         className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">

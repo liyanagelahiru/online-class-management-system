@@ -1,6 +1,5 @@
-
-
 const Home = () => {
+   const email = localStorage.getItem('userRole');
    return (
       <div className="py-2.5">
          <div className="h-[calc(100vh-80px)] bg-silver-mist">
@@ -68,6 +67,8 @@ const Home = () => {
                Elevate your students&apos; A/L experience. Join our Combined
                Maths learning community!
             </div>
+
+            <div>{email}</div>
          </div>
       </div>
    );
