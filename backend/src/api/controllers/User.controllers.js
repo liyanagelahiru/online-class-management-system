@@ -100,7 +100,14 @@ export async function login(req, res) {
                   return res.status(200).send({
                      msg: 'Login Successful',
                      email: user.email,
-                     token
+                     userRole: user.userRole,
+                     token,
+                     firstName: user.firstName,
+                     lastName: user.lastName,
+                     gender: user.gender,
+                     mobileNumber: user.mobileNumber,
+                     dateOfRegistration: user.createdAt,
+                     dateOfUpdated: user.updatedAt
                   });
                })
                .catch(error => {

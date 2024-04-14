@@ -2,7 +2,7 @@ import toast, { Toaster } from 'react-hot-toast';
 import { useFormik } from 'formik';
 import { resetPasswordValidation } from '../helper/validate';
 import { resetPassword } from '../helper/helper';
-import { useAuthStore } from '../store/store';
+import { useAuthStore } from '../store/authStore';
 import { useNavigate, Navigate } from 'react-router-dom';
 import useFetch from '../hooks/fetch.hook';
 

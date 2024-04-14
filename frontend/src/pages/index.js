@@ -1,4 +1,8 @@
 import Home from './Home';
+
+// Dashboards
+import AdminDashboard from './Dashboards/AdminDashboard';
+import TeacherDashboard from './Dashboards/TeacherDashboard';
 import Courses from './Courses';
 import Contact from './Contact';
 import About from './About';
@@ -25,6 +29,8 @@ import UpdateUser from './UserMain/UpdateUser';
 
 export {
    Home,
+   AdminDashboard,
+   TeacherDashboard,
    Courses,
    Contact,
    About,
