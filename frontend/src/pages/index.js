@@ -10,6 +10,9 @@ import About from './About';
 import Profile from './Profile';
 
 import Theory from './Theory';
+
+// Theory Content
+import TheoryGrade12 from './Theory/Grade12';
 import Revision from './Revision';
 import Papers from './OnlineExam';
 import CreateExam from './CreateExam';
@@ -35,6 +38,7 @@ export {
    Contact,
    About,
    Theory,
+   TheoryGrade12,
    Revision,
    Papers,
    CreateExam,

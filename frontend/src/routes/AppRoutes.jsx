@@ -7,6 +7,7 @@ import {
    Contact,
    About,
    Theory,
+   TheoryGrade12,
    Revision,
    Papers,
    CreateExam,
@@ -53,8 +54,14 @@ const routes = [
    {
       path: '/theory',
       element: <Theory />,
-      auth: [true.false],
+      auth: [true, false],
       roles: ['student', 'user']
+   },
+   {
+      path: '/theory/grade-12',
+      element: <TheoryGrade12 />,
+      auth: [true, false],
+      roles: ['student']
    },
    {
       path: '/revision',
@@ -66,7 +73,7 @@ const routes = [
    {
       path: '/exam',
       element: <Papers />,
-      auth: [true.false],
+      auth: [true, false],
       roles: ['student', 'user']
    },
    {

@@ -1,6 +1,6 @@
 import { useFormik } from 'formik';
 import { validatePayment } from '../../validations/paymentValidations';
-import { doPayment } from '../../helper/paymentHelper';
+import { insertPayment } from '../../api/paymentAPI';
 import toast, { Toaster } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
 import { Button } from '../../components';
@@ -27,7 +27,7 @@ const UpdateEnrollment = () => {
          };
          values = { ...values, ...otherData };
          console.log(values);
-         let paymentPromise = doPayment(values);
+         let paymentPromise = insertPayment(values);
          toast.promise(paymentPromise, {
             loading: 'Payment Processing...',
             success: <b>Payment Successfully!</b>,

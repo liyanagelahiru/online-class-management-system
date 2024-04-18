@@ -4,17 +4,16 @@ import PaymentSchema from '../models/Payment.model.js';
 export const insertPayment = async (req, res) => {
    try {
       // Extract user information from req.user
-      const { email, firstName, lastName } = req.user;
-      const { holderFName, holderLName, courseName, courseValue, offerValue } =
-         req.body;
-
-      const studentName = firstName + ' ' + lastName;
+      const { userId, email, firstName, lastName } = req.user;
+      const { cardHolderName, courseName, courseValue, offerValue } = req.body;
 
       // Create Payment Object with user information
+      // console.log(req.user);
       const payment = new PaymentSchema({
+         studentId: userId,
          email: email,
-         studentName: studentName,
-         cardHolderName: holderFName + ' ' + holderLName,
+         studentName: firstName + ' ' + lastName,
+         cardHolderName,
          courseName,
          courseValue,
          offerValue,
@@ -34,6 +33,31 @@ export const insertPayment = async (req, res) => {
          return res.status(400).send({ error: errors });
       }
       // console.error(error);
+      console.log(error);
+      res.status(500).send({ error: 'Internal Server Error' });
+   }
+};
+
+// Check Payment status (GET) Data Controller */
+export const checkPayment = async (req, res) => {
+   try {
+      // Extract user information from req.user
+      const { userId } = req.user;
+      const payment = await PaymentSchema.findOne({ studentId: userId });
+      console.log(payment);
+
+      if (!payment) {
+         return res.status(404).send({ error: 'Payment Not Found!' });
+      }
+
+      if (payment) {
+         if (Date.now() + 5.5 * 60 * 60 * 1000 - payment.expireDate >= 0) {
+            return res.status(404).send({ error: 'Payment Not Valid!' });
+         }
+         console.log(payment.expireDate > Date.now());
+         res.status(200).send({ data: payment, msg: 'Payment Found!' });
+      }
+   } catch (error) {
       res.status(500).send({ error: 'Internal Server Error' });
    }
 };
