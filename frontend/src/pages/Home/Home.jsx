@@ -1,10 +1,9 @@
 const Home = () => {
-   const email = localStorage.getItem('userRole');
    return (
       <div className="py-2.5">
          <div className="h-[calc(100vh-80px)] bg-silver-mist">
             <div className="flex justify-center ">
-               <div className="carousel w-full">
+               <div className="carousel w-4/5">
                   <div id="slide1" className="carousel-item relative w-full">
                      <img
                         src="https://daisyui.com/images/stock/photo-1625726411847-8cbb60cc71e6.jpg"
@@ -67,8 +66,6 @@ const Home = () => {
                Elevate your students&apos; A/L experience. Join our Combined
                Maths learning community!
             </div>
-
-            <div>{email}</div>
          </div>
       </div>
    );

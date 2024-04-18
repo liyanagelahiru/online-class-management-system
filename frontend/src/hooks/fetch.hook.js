@@ -1,7 +1,7 @@
 import axios from 'axios';
 import ENV from '../config';
 import { useEffect, useState } from 'react';
-import { getUsername } from '../helper/helper';
+import { getUsername } from '../api/helper';
 
 axios.defaults.baseURL = ENV.BACKEND_URL;
 

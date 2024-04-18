@@ -1,11 +1,11 @@
 import { useState } from 'react';
 import { useFormik } from 'formik';
 import { PiUserCircleLight } from 'react-icons/pi';
-import { emailValidate, passwordValidate } from '../../helper/validate';
+import { emailValidate, passwordValidate } from '../../api/validate';
 import { useAuthStore } from '../../store/authStore';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link } from 'react-router-dom';
-import { verifyPassword } from '../../helper/helper';
+import { verifyPassword } from '../../api/helper';
 import Swal from 'sweetalert2';
 
 const SignIn = () => {

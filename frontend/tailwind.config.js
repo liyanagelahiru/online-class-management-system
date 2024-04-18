@@ -8,7 +8,8 @@ export default {
          'silver-mist': '#F3F4F6',
          'light-silver': '#F5F4F4',
          'cold-gray': '#F3F4F6',
-         'light-gray': '#D9D9D9'
+         'light-gray': '#D9D9D9',
+         'dark-red': '#FF0000'
       },
       extend: {
          fontFamily: {

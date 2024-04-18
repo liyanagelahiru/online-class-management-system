@@ -13,7 +13,7 @@ const Header = () => {
    const navbarItems = SetNavbarItems();
 
    return (
-      <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50 shadow-[0px_8px_12px_-6px_rgba(0,0,0,0.8)]">
+      <div className="fixed top-0 left-0 w-full navbar bg-cold-gray h-[70px] text-base-content z-50 shadow-[0px_4px_10px_-10px_rgba(0,0,0,0.8)]">
          {/* Navbar Title */}
          <div className="flex-none">
             <Link to="/" className="font-light font-Rowdies text-base">

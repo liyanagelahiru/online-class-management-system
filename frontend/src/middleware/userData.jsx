@@ -4,7 +4,7 @@ import { AuthorizedUser } from './auth';
 
 // Return public user data
 export const UserData = () => {
-   const isAuth = AuthorizedUser();
+   const isAuthenticated = AuthorizedUser();
    const {
       email,
       firstName,
@@ -15,7 +15,7 @@ export const UserData = () => {
       dateOfUpdated
    } = useAuthStore();
 
-   if (isAuth) {
+   if (isAuthenticated) {
       return {
          email,
          firstName,

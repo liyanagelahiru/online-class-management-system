@@ -2,6 +2,10 @@ import mongoose from 'mongoose';
 
 const PaymentSchema = new mongoose.Schema(
    {
+      studentId: {
+         type: String,
+         required: [true, 'Student ID is required']
+      },
       email: {
          type: String
       },
@@ -28,8 +32,9 @@ const PaymentSchema = new mongoose.Schema(
          type: Number,
          default: 0
       },
-      paymentDate: {
-         type: Date
+      expireDate: {
+         type: Date,
+         default: Date.now() + 5.5 * 60 * 60 * 1000 + 30 * 24 * 60 * 60 * 1000
       }
    },
    // Add timestamps (Time Zone is Sri Lanka (Asia/Colombo), UTC+5:30

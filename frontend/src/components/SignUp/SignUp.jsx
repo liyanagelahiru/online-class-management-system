@@ -1,9 +1,9 @@
 import { useFormik } from 'formik';
 import { PiUserCirclePlusLight } from 'react-icons/pi';
-import { registerValidation } from '../../helper/validate';
+import { registerValidation } from '../../api/validate';
 import toast, { Toaster } from 'react-hot-toast';
 import { Link, useNavigate } from 'react-router-dom';
-import { registerUser } from '../../helper/helper';
+import { registerUser } from '../../api/helper';
 
 const SignUp = () => {
    const navigate = useNavigate();
