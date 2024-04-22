@@ -30,6 +30,10 @@ import UserMain from './UserMain';
 import AddUser from './UserMain/AddUser';
 import UpdateUser from './UserMain/UpdateUser';
 
+// Live class Management
+import LiveClassForm from './Liveclass/Liveclassform';
+import LiveClassUI from './Liveclass/LiveclassUI/liveclassui';
+
 export {
    Home,
    AdminDashboard,
@@ -52,5 +56,7 @@ export {
    UserMain,
    AddUser,
    UpdateUser,
-   PageNotFound
+   PageNotFound,
+   LiveClassForm,
+   LiveClassUI
 };
