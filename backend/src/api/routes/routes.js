@@ -66,7 +66,7 @@ router.route('/question/:id').put(quizController.editQuiz);
 router.route('/quiz/:paperId').get(quizController.getQuizByPaperId);
 //router.route('/quiz/check').post(quizController.);
 router.route('/quiz/:id').delete(quizController.deleteQuiz);
-router.route('/quiz').patch(quizController.editQuiz);
+router.route('/quiz/:id').patch(quizController.editQuiz);
 
 // Live class routes
 router.route('/liveSessions/create').post(liveclassController.createLive);

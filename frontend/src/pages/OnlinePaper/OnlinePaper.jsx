@@ -88,7 +88,7 @@ function ViewPaper() {
                   <button
                      type="button"
                      onClick={handleSubmitPaper}
-                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded">
+                     className="bg-[#0eb009] hover:bg-[#0d5c0a] text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 m-6">
                      Submit Paper
                   </button>
                </div>

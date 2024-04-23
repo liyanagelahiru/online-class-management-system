@@ -158,7 +158,7 @@ function CreateQuestions() {
                                           handleDeleteQuestion(index)
                                        }>
                                        <div>
-                                          <FaTrashAlt />
+                                          <FaTrashAlt className="hover:text-[red] transition duration-300 ease-in-out hover:scale-110 ml-4" />
                                        </div>
                                     </button>
                                     <button
@@ -171,7 +171,7 @@ function CreateQuestions() {
                                           )
                                        }>
                                        <div>
-                                          <FaEdit />
+                                          <FaEdit className="hover:text-[#06a800] transition duration-300 ease-in-out hover:scale-110 ml-4" />
                                        </div>
                                     </button>
                                  </div>
@@ -209,18 +209,18 @@ function CreateQuestions() {
             </div>
             {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
             <button
-               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+               className="bg-[#d6d6d6] hover:bg-[Black] hover:text-[white] text-[black] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
                onClick={handleSaveQuestion}>
                {isEditing ? 'Save Edited Question' : 'Save Question'}
             </button>
          </div>
 
          {/* Button to navigate to papers page */}
-         <Link
-            to="../exam"
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-            Finish and Go to Papers Page
-         </Link>
+         <div>
+            <button className="bg-[#0eb009] hover:bg-[#0d5c0a] text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 m-6 mt-10">
+               <Link to="../exam">Finish and Go to Papers Page</Link>
+            </button>
+         </div>
       </div>
    );
 }

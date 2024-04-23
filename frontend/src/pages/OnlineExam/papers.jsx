@@ -39,7 +39,7 @@ function Papers() {
          <div className="flex justify-end mb-4">
             <Link
                to="/exam/create"
-               className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded-full">
+               className="bg-[#0eb009] hover:bg-[#0d5c0a] text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 m-6">
                Create New Paper
             </Link>
          </div>
@@ -47,7 +47,7 @@ function Papers() {
             {papers.map(paper => (
                <div
                   key={paper._id}
-                  className="bg-white shadow-md rounded-md p-6">
+                  className="bg-[white] hover:bg-[#e3e6e3] transition duration-300 ease-in-out shadow-md rounded-md p-6">
                   <div className="text-xl font-bold mb-2">{paper.title}</div>
                   <div className="text-gray-700">{paper.description}</div>
                   <div className="text-gray-700 mt-2">
@@ -58,14 +58,14 @@ function Papers() {
                         to={`/exam/update/${paper._id}`}
                         className="text-blue-500 hover:text-blue-700 mr-2">
                         <div>
-                           <FaEdit />
+                           <FaEdit className="hover:text-[#06a800] transition duration-300 ease-in-out hover:scale-110 ml-4" />
                         </div>
                      </Link>
                      <button
                         onClick={() => handleDelete(paper._id)}
                         className="text-red-500 hover:text-red-700">
                         <div>
-                           <FaTrashAlt />
+                           <FaTrashAlt className="hover:text-[red] transition duration-300 ease-in-out hover:scale-110 ml-4" />
                         </div>
                      </button>
                   </div>

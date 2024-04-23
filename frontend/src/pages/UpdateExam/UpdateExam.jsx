@@ -94,13 +94,34 @@ function EditPaper() {
 
    const handleSaveNewQuestion = async () => {
       try {
-         const response = await axios.post(`/api/question/create/${paperId}`, {
-            question: newQuestion,
-            correctAnswer: newAnswer
-         });
-         setQuestions([...questions, response.data]);
-         setNewQuestion('');
-         setNewAnswer('');
+         if (editIndex !== null) {
+            // If editIndex is set, update the existing question at that index
+            const response = await axios.patch(
+               `/api/quiz/${questions[editIndex]._id}`,
+               {
+                  question: newQuestion,
+                  correctAnswer: newAnswer
+               }
+            );
+            const updatedQuestions = [...questions];
+            updatedQuestions[editIndex] = response.data;
+            setQuestions(updatedQuestions);
+            setNewQuestion('');
+            setNewAnswer('');
+            setEditIndex(null); // Reset editIndex after updating
+         } else {
+            // Otherwise, create a new question
+            const response = await axios.post(
+               `/api/question/create/${paperId}`,
+               {
+                  question: newQuestion,
+                  correctAnswer: newAnswer
+               }
+            );
+            setQuestions([...questions, response.data]);
+            setNewQuestion('');
+            setNewAnswer('');
+         }
 
          Swal.fire({
             icon: 'success',
@@ -116,7 +137,7 @@ function EditPaper() {
 
    return (
       <div className="flex justify-center">
-         <div className="max-w-3xl w-full bg-white shadow-lg rounded-lg overflow-hidden p-4 m-4">
+         <div className="max-w-6xl w-full bg-white shadow-lg rounded-lg overflow-hidden p-4 m-4">
             <div className="flex">
                <div className="w-1/2 pr-4">
                   <h2 className="text-xl font-bold mb-4">Edit Paper</h2>
@@ -148,7 +169,7 @@ function EditPaper() {
                      <p className="text-red-500 text-sm mb-4">{error}</p>
                   )}
                   <button
-                     className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                     className="bg-[gray] hover:bg-[Black] hover:text-[white] text-[black] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
                      onClick={handleSavePaper}>
                      Save Paper
                   </button>
@@ -220,20 +241,21 @@ function EditPaper() {
                         />
                      </div>
                      <button
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+                        className="bg-[gray] hover:bg-[Black] hover:text-[white] text-[black] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
                         onClick={handleSaveNewQuestion}>
-                        Save New Question
+                        Save Question
                      </button>
                   </div>
                </div>
             </div>
          </div>
          {/* Button to navigate to papers page */}
-         <Link
-            to="../exam"
-            className="bg-green-500 hover:bg-green-700 text-white font-bold py-2 px-4 rounded">
-            Finish and Go to Papers Page
-         </Link>
+
+         <div>
+            <button className="bg-[#0eb009] hover:bg-[#0d5c0a] text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 mt-10">
+               <Link to="/exam">Back to Papers</Link>
+            </button>
+         </div>
       </div>
    );
 }
