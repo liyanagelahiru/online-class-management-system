@@ -1,16 +1,37 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import { FaTrashAlt } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
+import axios from 'axios';
 
 function Papers() {
-   const [papers, setPapers] = useState([
-      { id: 1, title: 'Model Paper 01', subtitle: 'Applied Mathematics' },
-      { id: 2, title: 'Model Paper 02', subtitle: 'Physics' },
-      { id: 3, title: 'Model Paper 03', subtitle: 'Chemistry' }
-   ]);
+   const [papers, setPapers] = useState([]);
 
-   const handleDelete = id => {
-      // Handle delete functionality here
-      console.log('Delete paper with id:', id);
+   useEffect(() => {
+      // Fetch papers from the backend when the component mounts
+      const fetchPapers = async () => {
+         try {
+            const response = await axios.get('http://localhost:5000/api/paper');
+            setPapers(response.data);
+         } catch (error) {
+            console.error('Error fetching papers:', error);
+         }
+      };
+
+      fetchPapers();
+   }, []); // Empty dependency array ensures the effect runs only once on mount
+
+   const handleDelete = async id => {
+      try {
+         // Send delete request to backend
+         await axios.delete('http://localhost:5000/api/paper', {
+            data: { id }
+         });
+         // Remove the deleted paper from the local state
+         setPapers(papers.filter(paper => paper._id !== id));
+      } catch (error) {
+         console.error('Error deleting paper:', error);
+      }
    };
 
    return (
@@ -25,20 +46,27 @@ function Papers() {
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {papers.map(paper => (
                <div
-                  key={paper.id}
+                  key={paper._id}
                   className="bg-white shadow-md rounded-md p-6">
                   <div className="text-xl font-bold mb-2">{paper.title}</div>
-                  <div className="text-gray-700">{paper.subtitle}</div>
+                  <div className="text-gray-700">{paper.description}</div>
+                  <div className="text-gray-700 mt-2">
+                     No of Questions: {paper.quizCount}
+                  </div>
                   <div className="flex justify-end mt-4">
                      <Link
-                        to={`/update/${paper.id}`}
+                        to={`/exam/update/${paper._id}`}
                         className="text-blue-500 hover:text-blue-700 mr-2">
-                        Edit
+                        <div>
+                           <FaEdit />
+                        </div>
                      </Link>
                      <button
-                        onClick={() => handleDelete(paper.id)}
+                        onClick={() => handleDelete(paper._id)}
                         className="text-red-500 hover:text-red-700">
-                        Delete
+                        <div>
+                           <FaTrashAlt />
+                        </div>
                      </button>
                   </div>
                </div>

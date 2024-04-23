@@ -1,4 +1,5 @@
 import React, { useState } from 'react';
+import { createPaper } from '../../api/examAPI';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -25,13 +26,8 @@ function CreatePapers() {
       }
       try {
          // Create a new paper
-         const response = await axios.post(
-            'http://localhost:5000/api/paper/create',
-            {
-               title,
-               description
-            }
-         );
+         const response = await createPaper({ title, description });
+
          const paperId = response.data.paper._id;
          // Redirect to create questions page with paperId
          window.location.href = `/questions/create/${paperId}`;

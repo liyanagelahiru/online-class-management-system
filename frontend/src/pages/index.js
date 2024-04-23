@@ -18,6 +18,9 @@ import Papers from './OnlineExam';
 import CreateExam from './CreateExam';
 import CreateQuestions from './CreateQuestions';
 import ModelPapers from './ModelPapers';
+import UpdateExam from './UpdateExam';
+import ViewExams from './ViewExams';
+import OnlinePaper from './OnlinePaper';
 
 // Payment Management
 import Payment from './Payment';
@@ -52,5 +55,8 @@ export {
    UserMain,
    AddUser,
    UpdateUser,
-   PageNotFound
+   PageNotFound,
+   UpdateExam,
+   ViewExams,
+   OnlinePaper
 };
