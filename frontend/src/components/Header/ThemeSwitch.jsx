@@ -7,7 +7,7 @@ function ThemeSwitch() {
 
    const handleToggle = e => {
       if (e.target.checked) {
-         setTheme('dark');
+         setTheme('light');
       } else {
          setTheme('light');
       }
@@ -19,7 +19,7 @@ function ThemeSwitch() {
    }, [theme]);
 
    return (
-      <div>
+      <div className="hidden">
          <label className="swap swap-rotate">
             <input
                id="theme-switch"
