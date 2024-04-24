@@ -74,8 +74,8 @@ router.route('/faq/delete/:_id').delete(faqController.faqDelete);
 router.route('/faq/update/:_id').put(faqController.faqUpdate);
 
 // Live class routes
-router.route('/liveSessions/create').post(liveclassController.createLive);
-router.route('/liveSessions').get(liveclassController.getSession);
+router.route('/liveSessions/create').post(liveclassController.createLive); //Teacher only
+router.route('/liveSessions').get(liveclassController.getSession); //Teacher only
 router.route('/liveSessions/:id').get(liveclassController.getASession);
 router.route('/liveSessions/edit/:id').put(liveclassController.editLive);
 router.route('/liveSessions/delete/:id').delete(liveclassController.deleteLive);

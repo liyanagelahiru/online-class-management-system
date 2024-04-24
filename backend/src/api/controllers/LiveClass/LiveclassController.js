@@ -1,4 +1,13 @@
+import { ZodError } from 'zod';
+import multer from 'multer';
 import LIVECLASS from '../../models/liveSessions.js';
+import {
+   createLiveSchema,
+   editLiveSchema
+} from '../../validations/live-class.validations.js';
+
+// Multer configuration
+const upload = multer({ dest: './src/uploads/' }); // specify the upload folder
 
 // Controller to create a new Class Session
 export async function createLive(req, res) {
@@ -8,19 +17,40 @@ export async function createLive(req, res) {
    const link = req.body.link;
 
    try {
+      // Validate the session editLiveSchema
+      const data = createLiveSchema.safeParse(req.body);
+      if (data.error) {
+         return res.status(400).json({ error: data.error.message });
+      }
+
+      let fileName = '';
+      // Check if file exists in request
+      if (req.file) {
+         fileName = req.file.filename;
+         console.log(fileName);
+      }
+
       const liveclass = new LIVECLASS({
          sessionName,
          sessiontime,
          description,
-         link
+         link,
+         fileName // save the filename to your MongoDB schema
       });
       await liveclass.save();
 
-      res.status(200).json({ massage: 'Session Created Successfully' });
+      res.status(200).json({ message: 'Session Created Successfully' });
    } catch (error) {
-      console.log(error);
-      res.status(500).json({ error: 'Faild To Create A Session.' });
-      // res.status(500).json({ error });
+      if (error instanceof ZodError) {
+         // Send a 400 response if the request body is invalid
+         res.status(400).send(error.errors);
+      } else {
+         // Send a 500 response for other types of errors
+         res.status(500).send({
+            message: 'Failed to create a session. Please try again later.',
+            error: error.message
+         });
+      }
    }
 }
 
@@ -51,6 +81,11 @@ export async function editLive(req, res) {
    const { id } = req.params;
 
    try {
+      // Validate the session editLiveSchema
+      const data = editLiveSchema.safeParse(req.body);
+      if (data.error) {
+         return res.status(400).json({ error: data.error.message });
+      }
       const updateFields = {};
       if (sessionName !== undefined) {
          updateFields.sessionName = sessionName;

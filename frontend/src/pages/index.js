@@ -33,6 +33,7 @@ import UpdateUser from './UserMain/UpdateUser';
 // Live class Management
 import LiveClassForm from './Liveclass/Liveclassform';
 import LiveClassUI from './Liveclass/LiveclassUI/liveclassui';
+import LiveClassEdit from './Liveclass/Liveclassedit/Liveclassedit';
 
 export {
    Home,
@@ -58,5 +59,6 @@ export {
    UpdateUser,
    PageNotFound,
    LiveClassForm,
-   LiveClassUI
+   LiveClassUI,
+   LiveClassEdit
 };
