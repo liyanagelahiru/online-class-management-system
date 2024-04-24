@@ -63,7 +63,7 @@ export {
    PageNotFound,
    UpdateExam,
    ViewExams,
-   OnlinePaper
+   OnlinePaper,
    LiveClassForm,
    LiveClassUI,
    LiveClassEdit
