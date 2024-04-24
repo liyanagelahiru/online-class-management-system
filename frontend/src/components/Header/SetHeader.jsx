@@ -1,8 +1,8 @@
 import { FiUser } from 'react-icons/fi'; // Avatar for unauthenticated users
 import AvatarMale from '../../assets/male-avatar.svg'; // Avatar for authenticated users
 import AvatarFemale from '../../assets/female-avatar.svg'; // Avatar for authenticated users
-import { AuthorizedUser } from '../../middleware/auth';
-import { UserData } from '../../middleware/userData';
+import { AuthorizedUser } from '../../hooks/auth';
+import { UserData } from '../../hooks/userData';
 
 // Set avatar image
 export const AvatarImg = () => {

@@ -22,9 +22,9 @@ export default {
          }
       }
    },
-   plugins: [daisyui],
-   daisyui: {
-      themes: ['light', 'dark'],
-      darkTheme: 'dark'
-   }
+   plugins: [daisyui]
+   // daisyui: {
+   //    themes: ['light']
+   //    // darkTheme: 'dark'
+   // }
 };

@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import Swal from 'sweetalert2';
 import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
-import { AuthorizedUser } from '../../middleware/auth';
+import { AuthorizedUser } from '../../hooks/auth';
 import { checkPayment } from '../../api/paymentAPI';
 
 // get button text in a prop

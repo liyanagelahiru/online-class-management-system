@@ -1,6 +1,6 @@
 import { Navigate } from 'react-router-dom';
 import PropTypes from 'prop-types';
-import { AuthorizedUser } from '../middleware/auth';
+import { AuthorizedUser } from '../hooks/auth';
 
 /* Protected Route component */
 export const ProtectedRoute = ({ element, auth, roles }) => {
