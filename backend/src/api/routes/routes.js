@@ -10,6 +10,7 @@ import { registerMail } from '../controllers/Mail.controller.js';
 import * as paperController from '../controllers/OnlineExam/Exam.controller.js';
 import * as quizController from '../controllers/OnlineExam/Question.controller.js';
 import * as liveclassController from '../controllers/LiveClass/LiveclassController.js';
+import * as faqController from '../controllers/Faq.controller.js';
 
 /* POST Methods */
 router.route('/register').post(controller.register);
@@ -65,6 +66,12 @@ router.route('/quiz/:paperId').get(quizController.getQuizById);
 router.route('/quiz/check').post(quizController.checkAnswer);
 router.route('/quiz').delete(quizController.deleteQuiz);
 router.route('/quiz').patch(quizController.editQuiz);
+
+// faq section
+router.route('/faq/add').post(faqController.faqAdd);
+router.route('/faq/get').get(faqController.faqGet);
+router.route('/faq/delete/:_id').delete(faqController.faqDelete);
+router.route('/faq/update/:_id').put(faqController.faqUpdate);
 
 // Live class routes
 router.route('/liveSessions/create').post(liveclassController.createLive);
