@@ -7,7 +7,7 @@ import paymentImg from '../../../assets/images/payment.png';
 import Dashcard from '../../../components/Card/DashBoardCard';
 const Dashboard = () => {
    return (
-      <div>
+      <div className="min-h-[calc(100vh-170px)]">
          <div>
             <img
                src={TeacherDashImg}

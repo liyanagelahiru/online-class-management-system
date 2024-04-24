@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createPaper } from '../../../api/examAPI';
-import backgroundImage from '../../../assets/images/CreateExamBG.jpg';
+import backgroundImage from '../../../assets/images/CreatePaperbg.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -54,7 +54,7 @@ function CreatePapers() {
 
    return (
       <div
-         className="flex items-center justify-center h-screen bg-white"
+         className="flex items-center justify-center h-screen bg-white min-h-[calc(100vh-170px)]"
          style={{
             backgroundImage: `url(${backgroundImage})`,
             backgroundSize: 'cover',
@@ -62,7 +62,7 @@ function CreatePapers() {
             opacity: '1'
          }}>
          {/* Left Section: Text "Create New Paper" */}
-         <div className="text-gray-600 p-6 mr-4 flex-grow max-w-xs m-10">
+         <div className="bg-[white] text-gray-600 p-6 mr-4 flex-grow max-w-xs m-10">
             <h2 className="text-7xl font-bold">
                Create New <br />
                Paper
@@ -103,9 +103,7 @@ function CreatePapers() {
                         onChange={handleDescriptionChange}
                      />
                   </div>
-                  {error && (
-                     <p className="text-red-500 text-sm mb-4">{error}</p>
-                  )}
+                  {error && <p className="text-[red] text-sm mb-4">{error}</p>}
                   <div className="flex justify-end">
                      <button
                         type="submit"

@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, Link } from 'react-router-dom';
 import { FaTrashAlt, FaEdit } from 'react-icons/fa';
+import backgroundImage from '../../../assets/images/editPapersBg.jpg';
 import Swal from 'sweetalert2';
 
 function EditPaper() {
@@ -138,8 +139,15 @@ function EditPaper() {
    };
 
    return (
-      <div className="flex justify-center">
-         <div className="max-w-6xl w-full bg-white shadow-lg rounded-lg overflow-hidden p-4 m-4">
+      <div
+         className="min-h-[calc(100vh-170px)] flex justify-center"
+         style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: '1'
+         }}>
+         <div className="max-w-6xl w-full bg-[white] shadow-lg rounded-lg overflow-hidden p-4 m-4">
             <div className="flex">
                <div className="w-1/2 pr-4">
                   <h2 className="text-xl font-bold mb-4">Edit Paper</h2>

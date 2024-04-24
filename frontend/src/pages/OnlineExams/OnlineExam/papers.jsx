@@ -2,6 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { FaTrashAlt, FaEdit, FaFilePdf } from 'react-icons/fa';
 import { IoMdAddCircle } from 'react-icons/io';
+import backgroundImage from '../../../assets/images/papersGg.jpg';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
@@ -87,8 +88,14 @@ function Papers() {
 
    return (
       <div
-         className="container mx-auto mt-8 p-10"
-         style={{ background: 'linear-gradient(to top, #f7fbff, #cfcfcf)' }}>
+         className=" min-h-[calc(100vh-170px)] container mx-auto mt-8 p-10"
+         // style={{ background: 'linear-gradient(to top, #f7fbff, #cfcfcf)' }}
+         style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: '1'
+         }}>
          <div className="flex justify-between mb-4">
             <div></div>
             <div>
