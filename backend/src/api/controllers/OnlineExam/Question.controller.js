@@ -1,102 +1,83 @@
 import QUIZ from '../../models/Question.model.js';
 import PAPER from '../../models/Exam.model.js';
 
-// Controller to create a new quiz
+// Controller to create a new question
 export async function createQuiz(req, res) {
-   //   const { title, description } = req.body;
-   const question = req.body.question;
-   const correctAnswer = req.body.correctAnswer;
-   const paperId = req.body.paperId;
+   const { question, correctAnswer } = req.body;
+   const { paperId } = req.params;
 
    try {
       const paper = await PAPER.findById(paperId);
 
+      console.log(paperId);
+
       if (!paper) {
-         res.status(404).json({ message: 'Paper Not Found' });
+         return res.status(500).json({ message: 'Paper Not Found' });
       }
 
       const updatedPaper = await PAPER.findByIdAndUpdate(paperId, {
          quizCount: paper.quizCount + 1
       });
+
       const quiz = new QUIZ({
          question,
          correctAnswer,
-         quizNumber: updatedPaper.quizCount + 1,
          paperId
       });
+
       await quiz.save();
 
-      res.status(200).json({ massage: 'Quiz Created Successfully', quiz });
+      res.status(200).json({ message: 'Quiz Created Successfully', quiz });
    } catch (error) {
       console.log(error);
-      res.status(500).json({ error: 'Faild To Create A Quiz.' });
+      res.status(500).json({ error: 'Failed To Create A Quiz.' });
    }
 }
 
-// get quiz by id
-export async function getQuizById(req, res) {
-   const id = req.params.paperId;
+// get quiz by paperId
+export async function getQuizByPaperId(req, res) {
+   const paperId = req.params.paperId;
 
    try {
-      let quizes = await QUIZ.find({ paperId: id });
+      const quizes = await QUIZ.find({ paperId });
+
       if (quizes && quizes.length > 0) {
          res.status(200).json(quizes);
       } else {
-         res.status(404).json({ message: 'quize not found in this paper' });
+         res.status(404).json({ message: 'No quizzes found for this paper' });
       }
    } catch (error) {
-      res.status(500).json({ message: 'Faild To Get Quizes' });
+      console.log(error);
+      res.status(500).json({ message: 'Failed To Get Quizzes' });
    }
 }
 
-// check answer
-export async function checkAnswer(req, res) {
-   const { quizId, answer } = req.body;
-
-   try {
-      const quiz = await QUIZ.findById(quizId);
-
-      if (quiz && quiz.correctAnswer === answer) {
-         res.status(200).json({ message: 'Correct Answer' });
-      } else if (quiz && quiz.correctAnswer !== answer) {
-         res.status(400).json({ message: 'Incorrect Answer' });
-      } else {
-         res.status(404).json({ message: 'Quiz Not Found' });
-      }
-   } catch {
-      res.status(500).json({ message: 'Internal Server Error' });
-   }
-}
-
-// Controller to delete a FAQ question
+// Controller to delete a quiz
 export async function deleteQuiz(req, res) {
-   const id = req.body.id;
+   const quizId = req.params.id;
 
    try {
-      // Find paper to be deleted and get its paperNumber
-      const quizToDelete = await QUIZ.findById(id);
+      const quizToDelete = await QUIZ.findById(quizId);
 
       if (!quizToDelete) {
-         res.status(404).json({ message: 'quiz deleted successfully.' });
+         return res.status(400).json({ message: 'Quiz not found.' });
       }
 
-      const paper = await PAPER.findById(quizToDelete.paperId);
-      const deletedquizNumber = quizToDelete.quizNumber;
+      const paperId = quizToDelete.paperId;
+      const deletedQuizNumber = quizToDelete.quizNumber;
 
-      // Delete paper
-      await QUIZ.findByIdAndDelete(id);
+      await QUIZ.findByIdAndDelete(quizId);
 
-      // Find and update paperNumbers of subsequent papers
       await QUIZ.updateMany(
-         { quizNumber: { $gt: deletedquizNumber } }, // Find quiz with quizNumber greater than the deleted quiz
-         { $inc: { quizNumber: -1 } } // Decrement quizNumber by 1
+         { paperId, quizNumber: { $gt: deletedQuizNumber } },
+         { $inc: { quizNumber: -1 } }
       );
 
-      const updatedPaper = await PAPER.findByIdAndUpdate(quizToDelete.paperId, {
-         quizCount: paper.quizCount - 1
+      const paper = await PAPER.findByIdAndUpdate(paperId, {
+         $inc: { quizCount: -1 }
       });
 
-      res.json({ message: 'quiz deleted successfully.' });
+      res.json({ message: 'Quiz deleted successfully.' });
    } catch (error) {
       console.log(error);
       res.status(500).json({ error: 'Failed to delete quiz.' });
@@ -105,31 +86,23 @@ export async function deleteQuiz(req, res) {
 
 // Controller to edit a quiz
 export async function editQuiz(req, res) {
-   const { id, question, correctAnswer, paperId } = req.body;
+   const quizId = req.params.id;
+   const { question, correctAnswer } = req.body;
 
    try {
-      const updateFields = {};
-      if (question !== undefined) {
-         updateFields.question = question;
-      }
-      if (correctAnswer !== undefined) {
-         updateFields.correctAnswer = correctAnswer;
-      }
-
-      if (paperId !== undefined) {
-         updateFields.paperId = paperId;
-      }
-
-      const quiz = await QUIZ.findByIdAndUpdate(id, updateFields, {
-         new: true
-      });
+      const quiz = await QUIZ.findByIdAndUpdate(
+         quizId,
+         { question, correctAnswer },
+         { new: true }
+      );
 
       if (!quiz) {
-         return res.status(404).json({ error: 'Quiz not found.' });
+         return res.status(404).json({ message: 'Quiz not found.' });
       }
-      res.json({ message: 'Quiz updated successfully.' });
+
+      res.json({ message: 'Quiz updated successfully.', quiz });
    } catch (error) {
       console.log(error);
-      res.status(500).json({ error: 'Failed to update Quiz.' });
+      res.status(500).json({ error: 'Failed to update quiz.' });
    }
 }

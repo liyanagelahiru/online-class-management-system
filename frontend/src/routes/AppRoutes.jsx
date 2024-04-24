@@ -19,9 +19,13 @@ import {
    ViewPayment,
    PaymentDetails,
    CreateQuestions,
+   UpdateExam,
+   ViewExams,
+   OnlinePaper,
    LiveClassForm,
    LiveClassUI,
    LiveClassEdit
+
 } from '../pages';
 import Dash from '../components/chat/dash.jsx';
 
@@ -77,7 +81,7 @@ const routes = [
       path: '/exam',
       element: <Papers />,
       auth: [true, false],
-      roles: ['student', 'user']
+      roles: ['teacher']
    },
    {
       path: '/exam/create',
@@ -85,12 +89,34 @@ const routes = [
       auth: [true],
       roles: ['teacher']
    },
+
    {
-      path: '/questions/create/:id',
+      path: '/exam/view',
+      element: <ViewExams />,
+      auth: [true],
+      roles: ['student', 'teacher']
+   },
+
+   {
+      path: '/exam/paper/:paperId',
+      element: <OnlinePaper />,
+      auth: [true],
+      roles: ['student', 'teacher']
+   },
+
+   {
+      path: '/exam/update/:paperId',
+      element: <UpdateExam />,
+      auth: [true],
+      roles: ['teacher']
+   },
+   {
+      path: '/questions/create/:paperId',
       element: <CreateQuestions />,
       auth: [true],
       roles: ['teacher']
    },
+
    {
       path: '/modelpapers',
       element: <ModelPapers />,

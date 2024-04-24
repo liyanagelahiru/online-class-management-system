@@ -28,9 +28,25 @@ export async function getAllPapers(req, res) {
    }
 }
 
+// Controller to retrieve a single paper
+export async function getPaper(req, res) {
+   const id = req.params.id;
+
+   try {
+      const paper = await PAPER.findById(id);
+      if (!paper) {
+         return res.status(404).json({ error: 'Paper not found.' });
+      }
+      res.status(200).json(paper);
+   } catch (error) {
+      res.status(500).json({ error: 'Failed to retrieve paper.' });
+   }
+}
+
 // Controller to edit a paper
 export async function editPaper(req, res) {
-   const { paperId, title, description } = req.body;
+   const { paperId } = req.params;
+   const { title, description } = req.body;
 
    try {
       const updateFields = {};
@@ -46,7 +62,7 @@ export async function editPaper(req, res) {
       });
 
       if (!paper) {
-         return res.status(404).json({ error: 'Paper not found.' });
+         return res.status(400).json({ error: 'Paper not found.' });
       }
       res.json({ message: 'Paper updated successfully.' });
    } catch (error) {

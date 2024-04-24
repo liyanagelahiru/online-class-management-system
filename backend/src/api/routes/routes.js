@@ -57,15 +57,17 @@ router.route('/sample-update/:_id').put(SampleController.updateSample);
 
 // quiz section routes
 router.route('/paper/create').post(paperController.createPaper);
-router.route('/paper').get(paperController.getAllPapers);
-router.route('/paper').patch(paperController.editPaper);
+router.route('/paper/').get(paperController.getAllPapers);
+router.route('/paper/:id').get(paperController.getPaper);
+router.route('/update/:paperId').patch(paperController.editPaper);
 router.route('/paper').delete(paperController.deletePaper);
 
-router.route('/quiz/create').post(quizController.createQuiz);
-router.route('/quiz/:paperId').get(quizController.getQuizById);
-router.route('/quiz/check').post(quizController.checkAnswer);
-router.route('/quiz').delete(quizController.deleteQuiz);
-router.route('/quiz').patch(quizController.editQuiz);
+router.route('/question/Create/:paperId').post(quizController.createQuiz);
+router.route('/question/:id').put(quizController.editQuiz);
+router.route('/quiz/:paperId').get(quizController.getQuizByPaperId);
+//router.route('/quiz/check').post(quizController.);
+router.route('/quiz/:id').delete(quizController.deleteQuiz);
+router.route('/quiz/:id').patch(quizController.editQuiz);
 
 // faq section
 router.route('/faq/add').post(faqController.faqAdd);

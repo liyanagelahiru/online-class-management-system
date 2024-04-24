@@ -1,4 +1,6 @@
 import React, { useState } from 'react';
+import { createPaper } from '../../api/examAPI';
+import backgroundImage from '../../assets/images/CreateExamBG.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -25,13 +27,8 @@ function CreatePapers() {
       }
       try {
          // Create a new paper
-         const response = await axios.post(
-            'http://localhost:5000/api/paper/create',
-            {
-               title,
-               description
-            }
-         );
+         const response = await createPaper({ title, description });
+
          const paperId = response.data.paper._id;
          // Redirect to create questions page with paperId
          window.location.href = `/questions/create/${paperId}`;
@@ -42,9 +39,16 @@ function CreatePapers() {
    };
 
    return (
-      <div className="flex items-center justify-center h-screen bg-white">
+      <div
+         className="flex items-center justify-center h-screen bg-white"
+         style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: '1'
+         }}>
          {/* Left Section: Text "Create New Paper" */}
-         <div className="text-gray-600 p-6 mr-4 flex-grow max-w-xs">
+         <div className="text-gray-600 p-6 mr-4 flex-grow max-w-xs m-10">
             <h2 className="text-7xl font-bold">
                Create New <br />
                Paper
@@ -52,7 +56,7 @@ function CreatePapers() {
          </div>
 
          {/* Right Section: Card with Input Fields */}
-         <div className="flex-shrink-0 w-full max-w-md bg-gray-100 shadow-lg rounded-lg overflow-hidden">
+         <div className="flex-shrink-0 w-full max-w-md bg-[#e8e8e8] shadow-lg rounded-lg overflow-hidden">
             <div className="p-6">
                <form onSubmit={handleSubmit}>
                   <div className="mb-4">
@@ -91,7 +95,7 @@ function CreatePapers() {
                   <div className="flex justify-end">
                      <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        className="bg-[#d6d6d6] hover:bg-[Black] hover:text-[white] text-[black] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105">
                         Next
                      </button>
                   </div>

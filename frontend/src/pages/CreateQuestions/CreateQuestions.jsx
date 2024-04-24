@@ -1,8 +1,11 @@
 import React, { useState, useEffect } from 'react';
 import axios from 'axios';
+import { useParams, Link } from 'react-router-dom';
+import { FaTrashAlt } from 'react-icons/fa';
+import { FaEdit } from 'react-icons/fa';
+import Swal from 'sweetalert2';
 
 function CreateQuestions() {
-   // State for question and answers
    const [question, setQuestion] = useState('');
    const [answer, setAnswer] = useState('');
    const [createdQuestions, setCreatedQuestions] = useState([]);
@@ -10,56 +13,80 @@ function CreateQuestions() {
    const [isEditing, setIsEditing] = useState(false);
    const [editedQuestion, setEditedQuestion] = useState('');
    const [editedAnswer, setEditedAnswer] = useState('');
-   const [editIndex, setEditIndex] = useState(null); // Track the index of the question being edited
+   const [editIndex, setEditIndex] = useState(null);
+   const { paperId } = useParams(); // Extract paperId from URL params
 
-   // Function to handle question input change
+   useEffect(() => {
+      const fetchQuestions = async () => {
+         try {
+            const response = await axios.get(`/api/quiz/${paperId}`); // 0/api/quiz/
+            setCreatedQuestions(response.data);
+            console.log(createdQuestions);
+            console.log(createdQuestions.length);
+         } catch (error) {
+            setError('Failed to fetch questions. Please try again.');
+         }
+      };
+
+      fetchQuestions();
+   }, [createdQuestions.length]);
+
    const handleQuestionChange = e => {
       setQuestion(e.target.value);
    };
 
-   // Function to handle answer input change
    const handleAnswerChange = e => {
       setAnswer(e.target.value);
    };
 
-   // Function to save the question
    const handleSaveQuestion = async () => {
       try {
          if (editIndex !== null) {
-            // If editIndex is not null, update existing question
             await handleSaveEditedQuestion();
          } else {
-            // Otherwise, it's a new question
-            // Save the question to the database
             const response = await axios.post(
-               'http://localhost:5000/api/question/create',
+               `/api/question/create/${paperId}`,
                {
                   question,
-                  correctAnswer: answer // Assuming answer is the correct one
+                  correctAnswer: answer,
+                  paperId // Pass paperId to the backend
                }
             );
-
-            // Add newly created question to the local state
             setCreatedQuestions([...createdQuestions, response.data]);
-
-            // Reset form fields
             setQuestion('');
             setAnswer('');
+
+            Swal.fire({
+               icon: 'success',
+               title: 'Question saved successfully',
+               showConfirmButton: false,
+               timer: 1500,
+               timerProgressBar: true
+            });
          }
       } catch (error) {
          setError('Failed to save the question. Please try again.');
       }
    };
 
-   // Function to handle deleting a question
+   // const handleDeleteQuestion = async id => {
+   //    try {
+   //       await axios.delete(`/api/quiz/${id}`);
+   //       setCreatedQuestions(createdQuestions.filter(q => q._id !== id));
+   //    } catch (error) {
+   //       setError('Failed to delete the question. Please try again.');
+   //    }
+   // };
+
+   // const handleEditQuestion = (question, answer, index) => {
+   //    setEditedQuestion(question);
+   //    setEditedAnswer(answer);
+   //    setIsEditing(true);
+   //    setEditIndex(index);
+   // };
    const handleDeleteQuestion = async index => {
       try {
-         // Delete question from backend
-         await axios.delete(
-            `http://localhost:5000/api/question/${createdQuestions[index]._id}`
-         );
-
-         // Update local state
+         await axios.delete(`/api/quiz/${createdQuestions[index]._id}`);
          const updatedQuestions = [...createdQuestions];
          updatedQuestions.splice(index, 1);
          setCreatedQuestions(updatedQuestions);
@@ -68,33 +95,31 @@ function CreateQuestions() {
       }
    };
 
-   // Function to handle editing a question
    const handleEditQuestion = (question, answer, index) => {
-      setEditedQuestion(question);
-      setEditedAnswer(answer);
-      setIsEditing(true);
+      // setEditedQuestion(question);
+      // setEditedAnswer(answer);
+      // setIsEditing(true);
       setEditIndex(index);
    };
 
-   // Function to save the edited question
+   // Set values
+   useEffect(() => {
+      if (editIndex !== null) {
+         setEditedQuestion(createdQuestions[editIndex].question);
+         setEditedAnswer(createdQuestions[editIndex].correctAnswer);
+      }
+   }, [editIndex]);
+
    const handleSaveEditedQuestion = async () => {
       try {
-         // Update question in backend
-         await axios.put(
-            `http://localhost:5000/api/question/${createdQuestions[editIndex]._id}`,
-            {
-               question: editedQuestion,
-               correctAnswer: editedAnswer
-            }
-         );
-
-         // Update question in local state
+         await axios.put(`/api/question/${createdQuestions[editIndex]._id}`, {
+            question: editedQuestion,
+            correctAnswer: editedAnswer
+         });
          const updatedQuestions = [...createdQuestions];
          updatedQuestions[editIndex].question = editedQuestion;
          updatedQuestions[editIndex].answer = editedAnswer;
          setCreatedQuestions(updatedQuestions);
-
-         // Reset edit state
          setIsEditing(false);
          setEditIndex(null);
       } catch (error) {
@@ -102,25 +127,61 @@ function CreateQuestions() {
       }
    };
 
-   // Fetch existing questions on component mount
-   useEffect(() => {
-      const fetchQuestions = async () => {
-         try {
-            const response = await axios.get(
-               'http://localhost:5000/api/questions'
-            );
-            setCreatedQuestions(response.data);
-         } catch (error) {
-            setError('Failed to fetch questions. Please try again.');
-         }
-      };
-
-      fetchQuestions();
-   }, []);
-
    return (
       <div className="flex justify-center">
          <div className="max-w-xl w-full bg-white shadow-lg rounded-lg overflow-hidden p-4 m-4">
+            <div>
+               {createdQuestions.length > 0 && (
+                  <p className="text-red-500 text-sm mb-4">
+                     {/* Right Section: Preview of Created Questions */}
+                     <div className="w-full bg-white shadow-lg rounded-lg overflow-hidden p-4 m-4">
+                        <h2 className="text-xl font-bold mb-4">
+                           Preview Questions
+                        </h2>
+                        <div>
+                           {createdQuestions.map((q, index) => (
+                              <div
+                                 key={index}
+                                 className="mb-4 border p-4 rounded-lg">
+                                 <h3 className="text-lg font-bold mb-2">
+                                    Question:
+                                 </h3>
+                                 <p>{q.question}</p>
+                                 <h3 className="text-lg font-bold mt-4 mb-2">
+                                    Answer:
+                                 </h3>
+                                 <p>{q.correctAnswer}</p>
+                                 <div className="flex justify-end">
+                                    <button
+                                       className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
+                                       onClick={() =>
+                                          handleDeleteQuestion(index)
+                                       }>
+                                       <div>
+                                          <FaTrashAlt className="hover:text-[red] transition duration-300 ease-in-out hover:scale-110 ml-4" />
+                                       </div>
+                                    </button>
+                                    <button
+                                       className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-2"
+                                       onClick={() =>
+                                          handleEditQuestion(
+                                             q.question,
+                                             q.correctAnswer,
+                                             index
+                                          )
+                                       }>
+                                       <div>
+                                          <FaEdit className="hover:text-[#06a800] transition duration-300 ease-in-out hover:scale-110 ml-4" />
+                                       </div>
+                                    </button>
+                                 </div>
+                              </div>
+                           ))}
+                        </div>
+                     </div>
+                  </p>
+               )}
+            </div>
             <h2 className="text-xl font-bold mb-4">Create Question</h2>
             <div className="mb-4">
                <label className="block text-gray-700 text-sm font-bold mb-2">
@@ -129,7 +190,7 @@ function CreateQuestions() {
                <textarea
                   className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
                   rows="4"
-                  value={isEditing ? editedQuestion : question}
+                  defaultValue={editedQuestion}
                   onChange={handleQuestionChange}
                   placeholder="Enter your question here"
                />
@@ -140,7 +201,7 @@ function CreateQuestions() {
                </label>
                <input
                   type="text"
-                  value={isEditing ? editedAnswer : answer}
+                  defaultValue={editedAnswer}
                   onChange={handleAnswerChange}
                   placeholder="Enter the correct answer"
                   className="w-full border rounded py-2 px-3"
@@ -148,39 +209,17 @@ function CreateQuestions() {
             </div>
             {error && <p className="text-red-500 text-sm mb-4">{error}</p>}
             <button
-               className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded"
+               className="bg-[#d6d6d6] hover:bg-[Black] hover:text-[white] text-[black] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105"
                onClick={handleSaveQuestion}>
                {isEditing ? 'Save Edited Question' : 'Save Question'}
             </button>
          </div>
 
-         {/* Right Section: Preview of Created Questions */}
-         <div className="w-full bg-white shadow-lg rounded-lg overflow-hidden p-4 m-4">
-            <h2 className="text-xl font-bold mb-4">Preview Questions</h2>
-            <div>
-               {createdQuestions.map((q, index) => (
-                  <div key={index} className="mb-4 border p-4 rounded-lg">
-                     <h3 className="text-lg font-bold mb-2">Question:</h3>
-                     <p>{q.question}</p>
-                     <h3 className="text-lg font-bold mt-4 mb-2">Answer:</h3>
-                     <p>{q.answer}</p>
-                     <div className="flex justify-end">
-                        <button
-                           className="bg-red-500 hover:bg-red-700 text-white font-bold py-2 px-4 rounded-full"
-                           onClick={() => handleDeleteQuestion(index)}>
-                           Delete
-                        </button>
-                        <button
-                           className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full ml-2"
-                           onClick={() =>
-                              handleEditQuestion(q.question, q.answer, index)
-                           }>
-                           Edit
-                        </button>
-                     </div>
-                  </div>
-               ))}
-            </div>
+         {/* Button to navigate to papers page */}
+         <div>
+            <button className="bg-[#0eb009] hover:bg-[#0d5c0a] text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 m-6 mt-10">
+               <Link to="../exam">Finish and Go to Papers Page</Link>
+            </button>
          </div>
       </div>
    );
