@@ -1,8 +1,10 @@
+import Carousel from '../../components/Carousel/Carrosel';
 const Home = () => {
    return (
       <div className="py-2.5">
          <div className="container bg-silver-mist">
             {' '}
+            <Carousel />
             {/* Set height: h-[calc(100vh-120px)]*/}
             <div className="flex justify-center ">
                <div className="carousel w-4/5">

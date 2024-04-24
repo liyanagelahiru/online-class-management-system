@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
-import { createPaper } from '../../api/examAPI';
-import backgroundImage from '../../assets/images/CreateExamBG.jpg';
+import { createPaper } from '../../../api/examAPI';
+import backgroundImage from '../../../assets/images/CreatePaperBG.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -21,6 +21,20 @@ function CreatePapers() {
 
    const handleSubmit = async e => {
       e.preventDefault();
+
+      // Validate title length
+      if (title.trim().length < 5) {
+         setError('Title must have at least 5 characters.');
+         return;
+      }
+
+      // Validate title format using regular expression
+      const titleFormat = /^[A-Za-z0-9\s]+$/;
+      if (!title.match(titleFormat)) {
+         setError('Title must only contain A-Z, a-z, and 0-9 characters.');
+         return;
+      }
+
       if (!title.trim() || !description.trim()) {
          setError('Title and Description are required.');
          return;

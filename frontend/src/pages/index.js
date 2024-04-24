@@ -14,13 +14,13 @@ import Theory from './Theory';
 // Theory Content
 import TheoryGrade12 from './Theory/Grade12';
 import Revision from './Revision';
-import Papers from './OnlineExam';
-import CreateExam from './CreateExam';
-import CreateQuestions from './CreateQuestions';
+import Papers from './OnlineExams/OnlineExam';
+import CreateExam from './OnlineExams/CreateExam';
+import CreateQuestions from './OnlineExams/CreateQuestions';
 import ModelPapers from './ModelPapers';
-import UpdateExam from './UpdateExam';
-import ViewExams from './ViewExams';
-import OnlinePaper from './OnlinePaper';
+import UpdateExam from './OnlineExams/UpdateExam';
+import ViewExams from './OnlineExams/ViewExams';
+import OnlinePaper from './OnlineExams/OnlinePaper';
 
 // Payment Management
 import Payment from './Payment';

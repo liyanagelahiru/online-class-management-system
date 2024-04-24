@@ -5,6 +5,7 @@ import { IoMdAddCircle } from 'react-icons/io';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import Swal from 'sweetalert2';
 
 function Papers() {
    const [papers, setPapers] = useState([]);
@@ -25,12 +26,28 @@ function Papers() {
 
    const handleDelete = async id => {
       try {
-         // Send delete request to backend
-         await axios.delete('http://localhost:5000/api/paper', {
-            data: { id }
+         const confirm = await Swal.fire({
+            title: 'Are you sure?',
+            text: 'You will not be able to recover this team!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonText: 'Yes, delete it!',
+            cancelButtonText: 'No, keep it'
          });
-         // Remove the deleted paper from the local state
-         setPapers(papers.filter(paper => paper._id !== id));
+         if (confirm.isConfirmed) {
+            // Send delete request to backend
+            const response = await axios.delete(
+               'http://localhost:5000/api/paper',
+               {
+                  data: { id }
+               }
+            );
+            // Remove the deleted paper from the local state
+            setPapers(papers.filter(paper => paper._id !== id));
+            if (response.status === 200) {
+               Swal.fire('Deleted!', 'Your Paper has been deleted.', 'success');
+            }
+         }
       } catch (error) {
          console.error('Error deleting paper:', error);
       }
@@ -70,7 +87,7 @@ function Papers() {
 
    return (
       <div
-         className="container mx-auto mt-8"
+         className="container mx-auto mt-8 p-10"
          style={{ background: 'linear-gradient(to top, #f7fbff, #cfcfcf)' }}>
          <div className="flex justify-between mb-4">
             <div></div>

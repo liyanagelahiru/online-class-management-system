@@ -130,6 +130,8 @@ function EditPaper() {
             timer: 1500,
             timerProgressBar: true
          });
+         // Refresh session
+         fetchSessions();
       } catch (error) {
          setError('Failed to save the question. Please try again.');
       }
