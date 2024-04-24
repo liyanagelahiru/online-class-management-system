@@ -9,7 +9,9 @@ export default {
          'light-silver': '#F5F4F4',
          'cold-gray': '#F3F4F6',
          'light-gray': '#D9D9D9',
-         'dark-red': '#FF0000'
+         'dark-red': '#FF0000',
+         'silver-gray': '#ABB0B8',
+         'dark-gray': '#36454F'
       },
       extend: {
          fontFamily: {
@@ -20,9 +22,9 @@ export default {
          }
       }
    },
-   plugins: [daisyui],
-   daisyui: {
-      themes: ['light', 'dark'],
-      darkTheme: 'dark'
-   }
+   plugins: [daisyui]
+   // daisyui: {
+   //    themes: ['light']
+   //    // darkTheme: 'dark'
+   // }
 };

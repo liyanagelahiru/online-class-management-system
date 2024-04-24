@@ -1,5 +1,5 @@
 import { Home, AdminDashboard, TeacherDashboard } from '../pages';
-import { AuthorizedUser } from '../middleware/auth.jsx';
+import { AuthorizedUser } from '../hooks/auth';
 
 const DashboardRoutes = () => {
    const { isAuthenticated, role } = AuthorizedUser();

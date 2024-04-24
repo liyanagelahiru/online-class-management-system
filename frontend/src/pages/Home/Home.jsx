@@ -1,7 +1,9 @@
 const Home = () => {
    return (
       <div className="py-2.5">
-         <div className="h-[calc(100vh-80px)] bg-silver-mist">
+         <div className="container bg-silver-mist">
+            {' '}
+            {/* Set height: h-[calc(100vh-120px)]*/}
             <div className="flex justify-center ">
                <div className="carousel w-4/5">
                   <div id="slide1" className="carousel-item relative w-full">

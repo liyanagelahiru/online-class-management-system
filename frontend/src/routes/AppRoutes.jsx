@@ -21,7 +21,11 @@ import {
    CreateQuestions,
    UpdateExam,
    ViewExams,
-   OnlinePaper
+   OnlinePaper,
+   LiveClassForm,
+   LiveClassUI,
+   LiveClassEdit
+
 } from '../pages';
 import Dash from '../components/chat/dash.jsx';
 
@@ -176,6 +180,26 @@ const routes = [
       element: <Reset />,
       auth: [true],
       roles: ['admin', 'teacher', 'student']
+   },
+   // Live Class Route
+   //Live Class path
+   {
+      path: '/liveclassform',
+      element: <LiveClassForm />,
+      auth: [true],
+      roles: ['teacher']
+   },
+   {
+      path: '/liveclass',
+      element: <LiveClassUI />,
+      auth: [true],
+      roles: ['teacher']
+   },
+   {
+      path: '/liveclassedit/:id',
+      element: <LiveClassEdit />,
+      auth: [true],
+      roles: ['teacher']
    }
 ];
 

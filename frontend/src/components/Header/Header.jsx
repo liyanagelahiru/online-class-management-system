@@ -5,7 +5,7 @@ import { IoMdNotificationsOutline } from 'react-icons/io';
 
 import SignIn from '../SignIn';
 import SignUp from '../SignUp';
-import { AuthorizedUser } from '../../middleware/auth';
+import { AuthorizedUser } from '../../hooks/auth';
 import { AvatarImg, SetNavbarItems } from './SetHeader';
 
 const Header = () => {
@@ -37,7 +37,7 @@ const Header = () => {
             <div>
                <ThemeSwitch />
             </div>
-            <div>
+            <div className="hidden">
                <IoMdNotificationsOutline size={24} />
             </div>
             {/* User Icon Dropdown */}
