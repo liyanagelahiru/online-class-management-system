@@ -24,8 +24,8 @@ import {
    OnlinePaper,
    LiveClassForm,
    LiveClassUI,
-   LiveClassEdit
-
+   LiveClassEdit,
+   LiveClassView
 } from '../pages';
 import Dash from '../components/chat/dash.jsx';
 
@@ -200,6 +200,12 @@ const routes = [
       element: <LiveClassEdit />,
       auth: [true],
       roles: ['teacher']
+   },
+   {
+      path: '/liveclassview',
+      element: <LiveClassView />,
+      auth: [true],
+      roles: ['admin', 'teacher', 'student']
    }
 ];
 

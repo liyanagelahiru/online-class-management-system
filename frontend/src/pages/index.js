@@ -34,9 +34,10 @@ import AddUser from './UserMain/AddUser';
 import UpdateUser from './UserMain/UpdateUser';
 
 // Live class Management
-import LiveClassForm from './Liveclass/Liveclassform';
-import LiveClassUI from './Liveclass/LiveclassUI/liveclassui';
-import LiveClassEdit from './Liveclass/Liveclassedit/Liveclassedit';
+import LiveClassForm from './Liveclass/Liveclassform'; // Teacher
+import LiveClassUI from './Liveclass/LiveclassUI/liveclassui'; // Teacher
+import LiveClassEdit from './Liveclass/Liveclassedit/Liveclassedit'; // Teacher
+import LiveClassView from './Theory/LiveView/liveview'; //Student View
 
 export {
    Home,
@@ -66,5 +67,6 @@ export {
    OnlinePaper,
    LiveClassForm,
    LiveClassUI,
-   LiveClassEdit
+   LiveClassEdit,
+   LiveClassView
 };

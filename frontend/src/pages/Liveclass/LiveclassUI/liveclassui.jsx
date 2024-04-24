@@ -5,6 +5,7 @@ import Card from './Card';
 import axios from 'axios';
 import jsPDF from 'jspdf';
 import 'jspdf-autotable';
+import backgroundImage from '../../../assets/images/LiveclassUI.jpg';
 
 function LiveClassUI() {
    const [sessions, setSessions] = useState([]);
@@ -95,7 +96,14 @@ function LiveClassUI() {
    };
 
    return (
-      <div className="flex flex-col items-center">
+      <div
+         className="flex flex-col items-center"
+         style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: '1'
+         }}>
          <button
             className="btn fixed bottom-10 right-10 bg-[blue] hover:bg-[#00008B] text-[white] font-bold py-2 px-4 rounded"
             onClick={handleCreateSession}>
