@@ -35,6 +35,10 @@ const PaymentSchema = new mongoose.Schema(
       expireDate: {
          type: Date,
          default: Date.now() + 5.5 * 60 * 60 * 1000 + 30 * 24 * 60 * 60 * 1000
+      },
+      status: {
+         type: String,
+         default: 'Approved'
       }
    },
    // Add timestamps (Time Zone is Sri Lanka (Asia/Colombo), UTC+5:30
