@@ -32,6 +32,7 @@ const Home = () => {
                         </a>
                      </div>
                   </div>
+
                   <div id="slide3" className="carousel-item relative w-full">
                      <img
                         src="https://daisyui.com/images/stock/photo-1414694762283-acccc27bca85.jpg"

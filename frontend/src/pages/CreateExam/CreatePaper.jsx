@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { createPaper } from '../../api/examAPI';
+import backgroundImage from '../../assets/images/CreateExamBG.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 
@@ -38,9 +39,16 @@ function CreatePapers() {
    };
 
    return (
-      <div className="flex items-center justify-center h-screen bg-white">
+      <div
+         className="flex items-center justify-center h-screen bg-white"
+         style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: '1'
+         }}>
          {/* Left Section: Text "Create New Paper" */}
-         <div className="text-gray-600 p-6 mr-4 flex-grow max-w-xs">
+         <div className="text-gray-600 p-6 mr-4 flex-grow max-w-xs m-10">
             <h2 className="text-7xl font-bold">
                Create New <br />
                Paper
@@ -48,7 +56,7 @@ function CreatePapers() {
          </div>
 
          {/* Right Section: Card with Input Fields */}
-         <div className="flex-shrink-0 w-full max-w-md bg-gray-100 shadow-lg rounded-lg overflow-hidden">
+         <div className="flex-shrink-0 w-full max-w-md bg-[#e8e8e8] shadow-lg rounded-lg overflow-hidden">
             <div className="p-6">
                <form onSubmit={handleSubmit}>
                   <div className="mb-4">

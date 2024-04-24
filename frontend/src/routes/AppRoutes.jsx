@@ -77,7 +77,7 @@ const routes = [
       path: '/exam',
       element: <Papers />,
       auth: [true, false],
-      roles: ['student', 'user', 'teacher']
+      roles: ['teacher']
    },
    {
       path: '/exam/create',

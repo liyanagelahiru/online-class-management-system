@@ -1,8 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { FaTrashAlt } from 'react-icons/fa';
-import { FaEdit } from 'react-icons/fa';
+import { FaTrashAlt, FaEdit, FaFilePdf } from 'react-icons/fa';
+import { IoMdAddCircle } from 'react-icons/io';
 import axios from 'axios';
+import jsPDF from 'jspdf';
+import 'jspdf-autotable';
 
 function Papers() {
    const [papers, setPapers] = useState([]);
@@ -34,14 +36,60 @@ function Papers() {
       }
    };
 
+   const generateReport = () => {
+      const doc = new jsPDF();
+
+      // Add header
+      doc.text('Papers Report', 105, 10, { align: 'center' });
+
+      // Table header
+      const tableData = papers.map(paper => [
+         paper.title,
+         paper.description,
+         paper.quizCount,
+         new Date(paper.createdAt).toLocaleDateString() // Display created date
+      ]);
+      doc.autoTable({
+         head: [
+            ['Title', 'Description', 'Number of Questions', 'Created Date']
+         ],
+         body: tableData
+      });
+
+      // Show total number of papers
+      const totalPapers = papers.length;
+      doc.text(
+         `Total Papers: ${totalPapers}`,
+         14,
+         doc.autoTable.previous.finalY + 10
+      );
+
+      // Save the PDF
+      doc.save('papers-report.pdf');
+   };
+
    return (
-      <div className="container mx-auto mt-8">
-         <div className="flex justify-end mb-4">
-            <Link
-               to="/exam/create"
-               className="bg-[#0eb009] hover:bg-[#0d5c0a] text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 m-6">
-               Create New Paper
-            </Link>
+      <div
+         className="container mx-auto mt-8"
+         style={{ background: 'linear-gradient(to top, #f7fbff, #cfcfcf)' }}>
+         <div className="flex justify-between mb-4">
+            <div></div>
+            <div>
+               <button
+                  className="bg-[#dbdbdb] hover:bg-[black] text-[black] hover:text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 m-6"
+                  onClick={generateReport}>
+                  <div className="flex justify-between ">
+                     <FaFilePdf className="mr-2 mt-1" /> Generate Report
+                  </div>
+               </button>
+               <button className="bg-[#0eb009] hover:bg-[#0d5c0a] text-[white] font-bold py-2 px-4 rounded transition duration-300 ease-in-out transform hover:scale-105 m-6">
+                  <Link to="/exam/create">
+                     <div className="flex justify-between ">
+                        <IoMdAddCircle className="mr-2 mt-1" /> Add Paper
+                     </div>
+                  </Link>
+               </button>
+            </div>
          </div>
          <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-4">
             {papers.map(paper => (
@@ -53,6 +101,7 @@ function Papers() {
                   <div className="text-gray-700 mt-2">
                      No of Questions: {paper.quizCount}
                   </div>
+
                   <div className="flex justify-end mt-4">
                      <Link
                         to={`/exam/update/${paper._id}`}
