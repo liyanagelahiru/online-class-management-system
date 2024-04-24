@@ -61,7 +61,7 @@ const Header = () => {
                   {isAuthenticated ? (
                      <ul
                         tabIndex={0}
-                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
+                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-[white] rounded-box w-40">
                         <li>
                            <Link to="/profile">Profile</Link>
                         </li>
@@ -78,7 +78,7 @@ const Header = () => {
                   ) : (
                      <ul
                         tabIndex={0}
-                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-blue-800 rounded-box w-40">
+                        className="mt-3 z-[1] p-2 shadow menu menu-sm dropdown-content bg-[white] rounded-box w-40">
                         <li>
                            <Link
                               onClick={() =>
