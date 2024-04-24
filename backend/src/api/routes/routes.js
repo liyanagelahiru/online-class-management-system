@@ -42,7 +42,7 @@ router.route('/usermain/delete').delete(controller.DeleteUser);
 
 /* Payment and Enrollemnt Routes */
 router.route('/enroll').post(Auth, PaymentController.insertPayment);
-router.route('/checkPayment').get(Auth, PaymentController.checkPayment);
+router.route('/checkPayment/:cName').get(Auth, PaymentController.checkPayment);
 router.route('/payments').get(Auth, PaymentController.viewPayments);
 router.route('/payment/:id').get(Auth, PaymentController.getPayment);
 router
