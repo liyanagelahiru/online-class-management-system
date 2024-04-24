@@ -1,11 +1,14 @@
 import React, { useState } from 'react';
+import { createLive } from '../../api/liveclassAPI.js';
 import { Link } from 'react-router-dom';
 
 function LiveClassForm() {
-   const [sessionname, setSessionName] = useState('');
+   const [sessionName, setSessionName] = useState('');
    const [sessiontime, setSessionTime] = useState('');
    const [description, setDescription] = useState('');
    const [link, setLink] = useState('');
+   const [file, setFile] = useState(null); // New state for file
+
    const [error, setError] = useState('');
 
    const handleSessionName = e => {
@@ -28,25 +31,41 @@ function LiveClassForm() {
       setError('');
    };
 
-   const handleSubmit = e => {
+   const handleFileChange = e => {
+      setFile(e.target.files[0]);
+      setError('');
+   };
+
+   const handleSubmit = async e => {
       e.preventDefault();
-      if (!sessionname.trim() || !sessiontime.trim() || !link.trim()) {
-         setError('Topic, Time Duration and Class Link are required.');
+      if (!sessionName.trim() && !sessiontime.trim() && !link.trim()) {
+         setError('Topic, Time Duration, and Class Link are required.');
          return;
       }
-      // Proceed with form submission
-      console.log('Form submitted:', {
-         sessionname,
-         sessiontime,
-         description,
-         link
-      });
+      try {
+         const formData = new FormData();
+         formData.append('sessionName', sessionName);
+         formData.append('sessiontime', sessiontime);
+         formData.append('description', description);
+         formData.append('link', link);
+         if (file) {
+            formData.append('file', file);
+         }
+
+         // Create a new session
+         const response = await createLive(formData);
+         console.log(response);
+         window.location.href = '/liveclass';
+      } catch (error) {
+         console.error('Failed to create a Session:', error);
+         setError('Failed to create a Session. Please try again.');
+      }
    };
 
    return (
-      <div className="flex items-center justify-center h-screen bg-white">
+      <div className="flex items-center justify-center h-screen">
          {/* Left Section: Text "Create New Live Class Session" */}
-         <div className="text-gray-600 p-6 mr-4 flex-grow max-w-xs">
+         <div className="text-[gray] p-6 mr-4 flex-grow max-w-xs">
             <h2 className="text-7xl font-bold">
                Create New <br />
                Live Class Session
@@ -54,27 +73,27 @@ function LiveClassForm() {
          </div>
 
          {/* Right Section: Card with Input Fields */}
-         <div className="flex-shrink-0 w-full max-w-md bg-gray-100 shadow-lg rounded-lg overflow-hidden">
+         <div className="flex-shrink-0 w-full max-w-md bg-[#ABB0B8] shadow-lg rounded-lg overflow-hidden">
             <div className="p-6">
                <form onSubmit={handleSubmit}>
                   <div className="mb-4">
                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
-                        htmlFor="sessionname">
+                        className="block text-[#36454F] text-sm font-bold mb-2"
+                        htmlFor="sessionName">
                         Topic
                      </label>
                      <input
                         className="shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight focus:outline-none focus:shadow-outline"
-                        id="sessionname"
+                        id="sessionName"
                         type="text"
                         placeholder="Topic"
-                        value={sessionname}
+                        value={sessionName}
                         onChange={handleSessionName}
                      />
                   </div>
                   <div className="mb-4">
                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-[#36454F] text-sm font-bold mb-2"
                         htmlFor="sessiontime">
                         Time Duration
                      </label>
@@ -89,7 +108,7 @@ function LiveClassForm() {
                   </div>
                   <div className="mb-6">
                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-[#36454F] text-sm font-bold mb-2"
                         htmlFor="description">
                         Description
                      </label>
@@ -104,7 +123,7 @@ function LiveClassForm() {
                   </div>
                   <div className="mb-4">
                      <label
-                        className="block text-gray-700 text-sm font-bold mb-2"
+                        className="block text-[#36454F] text-sm font-bold mb-2"
                         htmlFor="link">
                         Link
                      </label>
@@ -117,20 +136,26 @@ function LiveClassForm() {
                         onChange={handleLink}
                      />
                   </div>
-                  {error && (
-                     <p className="text-red-500 text-sm mb-4">{error}</p>
-                  )}
-                  {/*  <div className="flex justify-end">
-                     <Link
-                        to="./CreateQue"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
-                        Submit
-                     </Link>
-               </div> */}
+                  {/* File input field */}
+                  <div className="mb-4">
+                     <label
+                        className="block text-[#36454F] text-sm font-bold mb-2"
+                        htmlFor="file">
+                        File
+                     </label>
+                     <input
+                        className="shadow appearance-none border rounded w-full py-2 px-3 text-[#36454F] leading-tight focus:outline-none focus:shadow-outline"
+                        id="file"
+                        type="file"
+                        onChange={handleFileChange}
+                     />
+                  </div>
+                  {error && <p className="text-[red] text-sm mb-4">{error}</p>}
+
                   <div className="flex justify-end">
                      <button
                         type="submit"
-                        className="bg-blue-500 hover:bg-blue-700 text-white font-bold py-2 px-4 rounded-full">
+                        className="btn bg-[blue] hover:bg-[#00008B] text-[white] font-bold py-2 px-4 rounded">
                         Next
                      </button>
                   </div>

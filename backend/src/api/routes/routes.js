@@ -67,8 +67,8 @@ router.route('/quiz').delete(quizController.deleteQuiz);
 router.route('/quiz').patch(quizController.editQuiz);
 
 // Live class routes
-router.route('/liveSessions/create').post(liveclassController.createLive);
-router.route('/liveSessions').get(liveclassController.getSession);
+router.route('/liveSessions/create').post(liveclassController.createLive); //Teacher only
+router.route('/liveSessions').get(liveclassController.getSession); //Teacher only
 router.route('/liveSessions/:id').get(liveclassController.getASession);
 router.route('/liveSessions/edit/:id').put(liveclassController.editLive);
 router.route('/liveSessions/delete/:id').delete(liveclassController.deleteLive);

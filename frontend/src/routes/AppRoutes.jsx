@@ -20,7 +20,8 @@ import {
    PaymentDetails,
    CreateQuestions,
    LiveClassForm,
-   LiveClassUI
+   LiveClassUI,
+   LiveClassEdit
 } from '../pages';
 import Dash from '../components/chat/dash.jsx';
 
@@ -165,6 +166,12 @@ const routes = [
    {
       path: '/liveclass',
       element: <LiveClassUI />,
+      auth: [true],
+      roles: ['teacher']
+   },
+   {
+      path: '/liveclassedit/:id',
+      element: <LiveClassEdit />,
       auth: [true],
       roles: ['teacher']
    }

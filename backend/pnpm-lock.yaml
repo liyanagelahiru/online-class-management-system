@@ -50,6 +50,9 @@ dependencies:
   resend:
     specifier: ^3.2.0
     version: 3.2.0
+  zod:
+    specifier: ^3.23.4
+    version: 3.23.4
 
 packages:
 
@@ -3257,3 +3260,7 @@ packages:
     requiresBuild: true
     dev: false
     optional: true
+
+  /zod@3.23.4:
+    resolution: {integrity: sha512-/AtWOKbBgjzEYYQRNfoGKHObgfAZag6qUJX1VbHo2PRBgS+wfWagEY2mizjfyAPcGesrJOcx/wcl0L9WnVrHFw==}
+    dev: false
