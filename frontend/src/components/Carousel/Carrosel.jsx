@@ -1,124 +1,66 @@
-import React, { useState } from 'react';
+import { useState, useEffect } from 'react';
+import img1 from '../../assets/images/cImg1.jpg';
+import img2 from '../../assets/images/cImg2.jpg';
+import img3 from '../../assets/images/cImg3.jpg';
 
-function Carousel() {
+const images = [img1, img2, img3];
+
+const Carousel = () => {
    const [currentSlide, setCurrentSlide] = useState(0);
-   const slides = [
-      {
-         imageUrl: 'https://source.unsplash.com/1600x900/?desk',
-         title: 'Slide 1'
-      },
-      {
-         imageUrl: 'https://source.unsplash.com/1600x900/?laptop',
-         title: 'Slide 2'
-      },
-      {
-         imageUrl: 'https://source.unsplash.com/1600x900/?coffee',
-         title: 'Slide 3'
-      }
-   ];
 
-   const handleNext = () => {
-      setCurrentSlide(
-         currentSlide === slides.length - 1 ? 0 : currentSlide + 1
-      );
-   };
+   useEffect(() => {
+      const interval = setInterval(() => {
+         setCurrentSlide(prevSlide =>
+            prevSlide === images.length - 1 ? 0 : prevSlide + 1
+         );
+      }, 3000); // Change slide every 3 seconds
 
-   const handlePrev = () => {
-      setCurrentSlide(
-         currentSlide === 0 ? slides.length - 1 : currentSlide - 1
-      );
-   };
+      return () => clearInterval(interval);
+   }, []);
 
    return (
-      <div className="relative flex overflow-hidden w-full h-full">
-         <div className="absolute inset-0 flex z-10">
-            <button
-               type="button"
-               onClick={handlePrev}
-               className="left-0 flex items-center justify-center p-4 focus:outline-none">
-               <svg
-                  className="w-4 h-4 text-white"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M11.354 1.646a.5.5 0 0 1 0 .708L4.707 8l6.647 6.646a.5.5 0 0 1-.708.708l-8-8a.5.5 0 0 1 0-.708z" />
-               </svg>
-            </button>
-            <button
-               type="button"
-               onClick={handleNext}
-               className="right-0 flex items-center justify-center p-4 focus:outline-none">
-               <svg
-                  className="w-4 h-4 text-white"
-                  viewBox="0 0 16 16"
-                  fill="none"
-                  xmlns="http://www.w3.org/2000/svg">
-                  <path d="M4.646 1.646a.5.5 0 0 0 0 .708L9.3 8l-6.647 6.646a.5.5 0 0 0 .708.708l8-8a.5.5 0 0 0 0-.708z" />
-               </svg>
-            </button>
+      <div className="flex flex-col items-center">
+         <div className="bg-[white] relative w-full " data-carousel="slide">
+            {/* Carousel wrapper */}
+            <div className="shadow-xl relative h-56 md:h-96 overflow-hidden rounded-lg mx-52 mt-10">
+               {/* Items */}
+               {images.map((image, index) => (
+                  <div
+                     key={index}
+                     className={`transition-transform duration-500 ease-in-out transform ${
+                        currentSlide === index
+                           ? 'translate-x-0'
+                           : '-translate-x-full'
+                     } absolute top-0 left-0 w-full h-full`}>
+                     <img
+                        src={image}
+                        className="absolute w-full h-full object-cover"
+                        alt={`Slide ${index + 1}`}
+                     />
+                  </div>
+               ))}
+            </div>
          </div>
-         <div className="relative flex w-full h-full">
-            {slides.map((slide, slideIndex) => (
-               <div
-                  key={slide.title}
-                  className={`absolute inset-0 transition-ease-out duration-700 transform ${
-                     currentSlide === slideIndex
-                        ? '-translate-x-0'
-                        : '-translate-x-full'
-                  } w-full h-full`}>
-                  <img
-                     className="block w-full h-full object-cover"
-                     src={slide.imageUrl}
-                     alt={slide.title}
-                  />
-               </div>
-            ))}
+         <div className="text-2xl align-middle font-bold mt-6">
+            Elevate your students&apos; A/L experience. Join our Combined Maths
+            learning community!
+         </div>
+         <div className="align-middle mt-6">
+            <p className="text-center">
+               Unlock the full potential of your students' A/L journey with our
+               innovative Combined Maths learning community.
+            </p>
+            <p className="text-center">
+               Empower them to excel with expert guidance, interactive
+               resources, and personalized support.
+            </p>
+            <p className="text-center">
+               Elevate their learning experience and pave the way for academic
+               success.
+            </p>
          </div>
       </div>
    );
-}
+};
 
 export default Carousel;
-
-// import React, { useState, useEffect } from 'react';
-
-// const Carousel = ({ images }) => {
-//    const [currentIndex, setCurrentIndex] = useState(0);
-
-//    useEffect(() => {
-//       const interval = setInterval(() => {
-//          setCurrentIndex(prevIndex => (prevIndex + 1) % images.length);
-//       }, 3000); // Change main image every 3 seconds (adjust as needed)
-
-//       return () => clearInterval(interval);
-//    }, [images.length]);
-
-//    return (
-//       <div className="relative w-full overflow-hidden">
-//          <div className="flex w-full">
-//             {images.map((image, index) => (
-//                <img
-//                   key={index}
-//                   src={image}
-//                   alt={`Slide ${index}`}
-//                   className={`w-full absolute transition-opacity duration-1000 ${
-//                      index === currentIndex ? 'opacity-100' : 'opacity-0'
-//                   }`}
-//                />
-//             ))}
-//          </div>
-//          <div className="absolute bottom-0 left-0 w-full flex justify-center">
-//             {images.map((image, index) => (
-//                <div
-//                   key={index}
-//                   className={`w-4 h-4 bg-gray-500 rounded-full mx-2 cursor-pointer ${
-//                      index === currentIndex ? 'bg-white' : ''
-//                   }`}
-//                   onClick={() => setCurrentIndex(index)}></div>
-//             ))}
-//          </div>
-//       </div>
-//    );
-// };
-
-// export default Carousel;
