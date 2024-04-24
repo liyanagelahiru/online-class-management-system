@@ -23,10 +23,10 @@ import ViewExams from './OnlineExams/ViewExams';
 import OnlinePaper from './OnlineExams/OnlinePaper';
 
 // Payment Management
-import Payment from './Payment';
-import ViewPayment from './ViewPayments';
-import PaymentDetails from './PaymentDetails';
-import UpdateEnrollment from './UpdateEnrollment';
+import Payment from './PaymentManagement/Payment';
+import ViewPayment from './PaymentManagement/ViewPayments';
+import PaymentDetails from './PaymentManagement/PaymentDetails';
+import UpdateEnrollment from './PaymentManagement/UpdateEnrollment';
 
 import PageNotFound from './PageNotFound';
 import UserMain from './UserMain';

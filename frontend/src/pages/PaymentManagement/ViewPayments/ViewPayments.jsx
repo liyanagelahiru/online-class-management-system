@@ -1,7 +1,7 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { Link } from 'react-router-dom';
-import requestAuth from '../../api/requestAuth';
+import requestAuth from '../../../api/requestAuth';
 
 const ViewPayment = () => {
    const [payments, setPayments] = useState([]);

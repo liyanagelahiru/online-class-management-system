@@ -54,7 +54,6 @@ const PaymentButton = ({ cName, price, offer, pathname }) => {
 
    // Prop types
    PaymentButton.propTypes = {
-      btnText: PropTypes.string.isRequired,
       cName: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       offer: PropTypes.number.isRequired,
@@ -62,13 +61,13 @@ const PaymentButton = ({ cName, price, offer, pathname }) => {
    };
 
    return (
-      <div className="m-10 flex justify-center">
+      <div className="my-5 flex justify-center">
          <button
             onClick={handleClick}
             className={
                typeof paymentStatus === 'boolean'
-                  ? 'bg-[#0057FF] hover:bg-[#000D85] text-[#FFFFFF] font-bold py-2 px-12 rounded-full w-auto'
-                  : 'skeleton bg-[#0057FF] text-[#0057FF] font-bold py-2 px-12 rounded-full opacity-10 cursor-not-allowed w-auto'
+                  ? 'bg-[#0057FF] hover:bg-[#000D85] text-[#FFFFFF] font-bold py-2 px-12 rounded-full'
+                  : 'skeleton bg-[#0057FF] text-[#0057FF] font-bold py-2 px-12 rounded-full opacity-10 cursor-not-allowed'
             }>
             {paymentStatus === true
                ? 'View'

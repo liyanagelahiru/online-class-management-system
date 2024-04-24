@@ -1,6 +1,6 @@
 import { useForm } from 'react-hook-form';
 import Swal from 'sweetalert2';
-import { insertPayment } from '../../api/paymentAPI';
+import { insertPayment } from '../../../api/paymentAPI';
 import { useLocation } from 'react-router-dom';
 import { useState } from 'react';
 
@@ -69,7 +69,7 @@ const Payment = () => {
    };
 
    return (
-      <div className="p-6 mx-auto grid grid-cols-2 h-[calc(100vh-170px)]">
+      <div className="p-6 mx-auto grid grid-cols-2 min-h-[calc(100vh-170px)]">
          <div className="content-baseline px-10 border-r">
             <div className="text-3xl font-semibold text-start mb-6">
                Payment Details

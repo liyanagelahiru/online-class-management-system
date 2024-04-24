@@ -1,9 +1,9 @@
 import { useFormik } from 'formik';
-import { validatePayment } from '../../validations/paymentValidations';
-import { insertPayment } from '../../api/paymentAPI';
+import { validatePayment } from '../../../validations/paymentValidations';
+import { insertPayment } from '../../../api/paymentAPI';
 import toast, { Toaster } from 'react-hot-toast';
 import { useLocation } from 'react-router-dom';
-import { Button } from '../../components';
+import { Button } from '../../../components';
 
 const UpdateEnrollment = () => {
    const location = useLocation();

@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { createPaper } from '../../../api/examAPI';
-import backgroundImage from '../../../assets/images/CreatePaperBG.jpg';
+import backgroundImage from '../../../assets/images/CreateExamBG.jpg';
 import { Link } from 'react-router-dom';
 import axios from 'axios';
 

@@ -1,8 +1,8 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
 import { useParams, useNavigate } from 'react-router-dom';
-import requestAuth from '../../api/requestAuth';
-import { Button } from '../../components';
+import requestAuth from '../../../api/requestAuth';
+import { Button } from '../../../components';
 
 const PaymentDetails = () => {
    const [payment, setPayment] = useState();
