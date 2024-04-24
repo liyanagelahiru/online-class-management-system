@@ -25,7 +25,8 @@ import {
    LiveClassForm,
    LiveClassUI,
    LiveClassEdit,
-   LiveClassView
+   LiveClassView,
+   AllExams
 } from '../pages';
 import Dash from '../components/chat/dash.jsx';
 
@@ -206,6 +207,12 @@ const routes = [
       element: <LiveClassView />,
       auth: [true],
       roles: ['admin', 'teacher', 'student']
+   },
+   {
+      path: '/allexams',
+      element: <AllExams />,
+      auth: [true, false],
+      roles: ['student', 'user']
    }
 ];
 

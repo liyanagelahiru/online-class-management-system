@@ -24,6 +24,7 @@ export async function checkPayment(cName) {
    }
 }
 
+// Get Payments
 export async function getPayments() {
    try {
       const {
@@ -32,5 +33,25 @@ export async function getPayments() {
       return Promise.resolve(payment);
    } catch (error) {
       return Promise.reject({ error });
+   }
+}
+
+// Get a Payment
+export async function getPayment(id) {
+   try {
+      const response = await axios.get(`/api/payment/${id}`, requestAuth);
+      return response;
+   } catch (error) {
+      throw error.response;
+   }
+}
+
+// Delete a Payment
+export async function deletePayment(id) {
+   try {
+      const response = await axios.delete(`/api/unenroll/${id}`, requestAuth);
+      return response;
+   } catch (error) {
+      throw error.response;
    }
 }

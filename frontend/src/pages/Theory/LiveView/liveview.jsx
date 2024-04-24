@@ -1,5 +1,5 @@
 // LiveClassUI.jsx
-import React, { useState, useEffect } from 'react';
+import { useState, useEffect } from 'react';
 import Card from './Cardview';
 import axios from 'axios';
 import backgroundImage from '../../../assets/images/LiveclassUI.jpg';
