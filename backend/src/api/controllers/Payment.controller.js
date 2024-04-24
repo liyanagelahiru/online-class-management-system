@@ -1,8 +1,15 @@
 import PaymentSchema from '../models/Payment.model.js';
+import { PaymentZodSchema } from '../validations/payment.validation.js';
 
 /* Do Payment(POST) Data Controller */
 export const insertPayment = async (req, res) => {
    try {
+      // Validate Request Body
+      const { error } = PaymentZodSchema.validate(req.body);
+      if (error) {
+         return res.status(400).send({ error: error.errors });
+      }
+
       // Extract user information from req.user
       const { userId, email, firstName, lastName } = req.user;
       const { cardHolderName, courseName, courseValue, offerValue } = req.body;
@@ -44,7 +51,10 @@ export const checkPayment = async (req, res) => {
       // Extract user information from req.user
       const { cName } = req.params;
       const { userId } = req.user;
-      const payment = await PaymentSchema.findOne({ studentId: userId });
+      const payment = await PaymentSchema.findOne({
+         studentId: userId,
+         courseName: cName
+      });
 
       if (!payment) {
          return res.status(400).send({ error: 'Payment Not Found!' });
@@ -99,13 +109,12 @@ export const getPayment = async (req, res) => {
 export const updateEnrollment = async (req, res) => {
    try {
       // Extract user information from req.user
-      const { email, firstName, lastName } = req.user;
-      const { holderFName, holderLName, courseName, courseValue, offerValue } =
-         req.body;
+      // const { email, firstName, lastName } = req.user;
+      const { cardHolderName, courseName, courseValue, offerValue } = req.body;
 
       const { id } = req.params;
 
-      const studentName = firstName + ' ' + lastName;
+      // const studentName = firstName + ' ' + lastName;
 
       const payment = await PaymentSchema.findById(id);
 
@@ -113,9 +122,9 @@ export const updateEnrollment = async (req, res) => {
          return res.status(404).send({ error: 'Payment Not Found!' });
       }
 
-      payment.email = email;
-      payment.studentName = studentName;
-      payment.cardHolderName = holderFName + ' ' + holderLName;
+      // payment.email = email;
+      // payment.studentName = studentName;
+      payment.cardHolderName = cardHolderName;
       payment.courseName = courseName;
       payment.courseValue = courseValue;
       payment.offerValue = offerValue;

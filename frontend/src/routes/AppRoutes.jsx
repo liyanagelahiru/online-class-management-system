@@ -26,7 +26,8 @@ import {
    LiveClassUI,
    LiveClassEdit,
    LiveClassView,
-   AllExams
+   AllExams,
+   UpdateEnrollment
 } from '../pages';
 import Dash from '../components/chat/dash.jsx';
 
@@ -213,6 +214,12 @@ const routes = [
       element: <AllExams />,
       auth: [true, false],
       roles: ['student', 'user']
+   },
+   {
+      path: '/payment/update/:id',
+      element: <UpdateEnrollment />,
+      auth: [true],
+      roles: ['admin', 'teacher', 'student']
    }
 ];
 

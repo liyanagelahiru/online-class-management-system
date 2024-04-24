@@ -1,13 +1,11 @@
 import { useState, useEffect } from 'react';
 import axios from 'axios';
-import { useParams, useNavigate } from 'react-router-dom';
+import { useParams } from 'react-router-dom';
 import requestAuth from '../../../api/requestAuth';
-import { Button } from '../../../components';
 
 const PaymentDetails = () => {
-   const [payment, setPayment] = useState();
+   const [payment, setPayment] = useState(null);
    const { id } = useParams();
-   const navigate = useNavigate();
 
    // Fetch payment details for the specified user ID
    useEffect(() => {
@@ -23,66 +21,83 @@ const PaymentDetails = () => {
       fetchPaymentDetails();
    }, [id]);
 
-   const verifyUnenroll = async () => {
-      document.getElementById('unenroll_modal').showModal();
-   };
-
-   const handleDelete = async () => {
-      try {
-         await axios.delete(`/api/unenroll/${id}`, requestAuth);
-         navigate('/payments');
-      } catch (error) {
-         console.error('Error deleting payment:', error);
-      }
-   };
-
    if (!payment) {
-      return <div>Wrong Payment ID...</div>;
+      return <div className="container mx-auto px-4">Wrong Payment ID...</div>;
    }
 
+   // Format date and time for user-friendly view
+   const formatDate = dateString => {
+      const date = new Date(dateString);
+      return date.toLocaleDateString();
+   };
+
+   const formatTime = timeString => {
+      const time = new Date(timeString);
+      return time.toLocaleTimeString();
+   };
+
+   // Format Course name
+   const formatCourseName = name => {
+      // Split the name by '-' and capitalize each word
+      const words = name
+         .split('-')
+         .map(word => word.charAt(0).toUpperCase() + word.slice(1));
+      // Join the words with a space
+      return words.join(' ');
+   };
+
+   const courseName = payment.courseName;
+   const formattedName = formatCourseName(courseName);
+
    return (
-      <div className="container mx-auto px-4">
-         {/* Unenrollment Verification Modal */}
-         <div>
-            <dialog id="unenroll_modal" className="modal">
-               <div className="modal-box">
-                  <h3 className="font-bold text-lg">Are You Sure...?</h3>
-                  <p className="py-4">
-                     Please verify that you want to remove {payment.studentName}{' '}
-                     from this Course.
-                  </p>
-                  <div className="modal-action">
-                     <form method="dialog">
-                        {/* if there is a button in form, it will close the modal */}
-                        <button className="btn">Cancel</button>
-                     </form>
-                     <button
-                        onClick={handleDelete}
-                        className="btn bg-[red] text-[white] hover:bg-[darkred]">
-                        Unenroll
-                     </button>
-                  </div>
-               </div>
-            </dialog>
-         </div>
-         <h4 className="text-2xl font-bold mb-4">Payment Details</h4>
-         <div>
-            <p>Enrolled Course: {payment.courseName}</p>
-            <p>Value: {payment.billingAmount}</p>
-            <p>email: {payment.email}</p>
-            <p>studentName: {payment.studentName}</p>
-            <p>cardHolderName: {payment.cardHolderName}</p>
-            <p>courseValue: {payment.courseValue}</p>
-            <p>createdAt: {payment.createdAt}</p>
-            <p>updatedAt: {payment.updatedAt}</p>
-         </div>
-         <div className="grid grid-cols-2">
-            <div className="p-5">
-               <Button text="Update Payment" />
-            </div>
-            <div className="p-5">
-               <Button text="Delete Payment" onClick={verifyUnenroll} />
-            </div>
+      <div className="min-h-[calc(100vh-170px)] flex justify-center items-center">
+         <div className="bg-silver-mist p-4 rounded-md shadow-md w-96">
+            <h4 className="text-2xl font-bold mb-4 text-center">
+               Payment Details
+            </h4>
+            <table className="w-full">
+               <tbody>
+                  <tr>
+                     <td className="font-semibold">Course Name</td>
+                     <td>{formattedName}</td>
+                  </tr>
+
+                  <tr>
+                     <td className="font-semibold">Email</td>
+                     <td>{payment.email}</td>
+                  </tr>
+                  <tr>
+                     <td className="font-semibold">Student Name</td>
+                     <td>{payment.studentName}</td>
+                  </tr>
+                  <tr>
+                     <td className="font-semibold">Card Holder Name</td>
+                     <td>{payment.cardHolderName}</td>
+                  </tr>
+                  <tr>
+                     <td className="font-semibold">Course Value</td>
+                     <td>Rs. {payment.courseValue}.00</td>
+                  </tr>
+                  <tr>
+                     <td className="font-semibold">Billed Value</td>
+                     <td>Rs. {payment.billingAmount}.00</td>
+                  </tr>
+                  <tr>
+                     <td className="font-semibold">Enrolled Time</td>
+                     <td>
+                        {formatDate(payment.createdAt)} at{' '}
+                        {formatTime(payment.createdAt)}
+                     </td>
+                  </tr>
+                  <tr>
+                     <td className="font-semibold">Valid Time</td>
+                     <td>
+                        {formatDate(payment.expireDate)} at{' '}
+                        {formatTime(payment.expireDate)}
+                     </td>
+                  </tr>
+               </tbody>
+            </table>
          </div>
       </div>
    );
