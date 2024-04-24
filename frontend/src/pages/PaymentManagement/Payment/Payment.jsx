@@ -48,6 +48,8 @@ const Payment = () => {
                title: 'Payment Successful!',
                showConfirmButton: false,
                timer: 1500
+            }).then(() => {
+               window.location.href = '/courses';
             });
          }
       } catch (error) {

@@ -1,129 +1,216 @@
-import { useFormik } from 'formik';
-import { validatePayment } from '../../../validations/paymentValidations';
-import { insertPayment } from '../../../api/paymentAPI';
-import toast, { Toaster } from 'react-hot-toast';
-import { useLocation } from 'react-router-dom';
-import { Button } from '../../../components';
+import { useForm } from 'react-hook-form';
+import { useState, useEffect } from 'react';
+import { useParams } from 'react-router-dom';
+import axios from 'axios';
+import Swal from 'sweetalert2';
+import { getPayment, updatePayment } from '../../../api/paymentAPI';
 
 const UpdateEnrollment = () => {
-   const location = useLocation();
-   const { courseName, courseValue, offerValue } = location.state || {};
-   const formik = useFormik({
-      initialValues: {
-         holderFName: '',
-         holderLName: '',
-         cardNumber: '',
-         exDate: '',
-         csvNum: ''
-      },
-      validate: validatePayment,
-      validateOnBlur: false,
-      validateOnChange: false,
-      onSubmit: async values => {
-         const otherData = {
-            courseName: courseName,
-            courseValue: courseValue,
-            offerValue: offerValue
-         };
-         values = { ...values, ...otherData };
-         console.log(values);
-         let paymentPromise = insertPayment(values);
-         toast.promise(paymentPromise, {
-            loading: 'Payment Processing...',
-            success: <b>Payment Successfully!</b>,
-            error: <b>Could not Pay</b>
+   const [payment, setPayment] = useState(null);
+   const { id } = useParams();
+
+   const {
+      register,
+      handleSubmit,
+      formState: { errors },
+      setValue
+   } = useForm({
+      mode: 'onBlur'
+   });
+
+   useEffect(() => {
+      const fetchPayment = async () => {
+         try {
+            const response = await getPayment(id);
+            setPayment(response.data);
+            setValue('cardHolderName', response.data.payment.cardHolderName);
+            setValue('holderLName', response.data.payment.studentName);
+            setValue('courseName', response.data.payment.courseName);
+            setValue('courseValue', response.data.payment.courseValue);
+            setValue('offerValue', response.data.payment.offerValue);
+         } catch (error) {
+            console.error('Error fetching payment:', error);
+         }
+      };
+      fetchPayment();
+   }, [id, setValue]);
+
+   const onSubmit = async data => {
+      try {
+         // Display Loading dialog
+         Swal.fire({
+            title: 'Updating Payment...',
+            allowOutsideClick: false,
+            showConfirmButton: false,
+            didOpen: () => {
+               Swal.showLoading();
+            }
+         });
+
+         const response = await updatePayment(id, data);
+
+         // Close Loading Dialog
+         Swal.close();
+
+         if (response.status === 200) {
+            Swal.fire({
+               icon: 'success',
+               title: 'Payment Updated Successfully!',
+               showConfirmButton: false,
+               timer: 1500
+            }).then(() => {
+               window.location.href = '/payments';
+            });
+         }
+      } catch (error) {
+         Swal.fire({
+            icon: 'error',
+            title: 'Could not update payment',
+            text: 'Please try again later',
+            showConfirmButton: true
          });
       }
-   });
-   return (
-      <div className="w-full p-4 ">
-         <Toaster position="top-center" reverseOrder={false}></Toaster>
-         <div className="text-center py-3 text-xl">
-            <p>Pay To Enroll</p>
-         </div>
+   };
 
-         <div className="grid grid-cols-2 textbox items-center gap-4">
-            <form onSubmit={formik.handleSubmit} className="grid">
-               {/* Card Payments */}
-               <div className="grid grid-cols-2 gap-4">
-                  <div className="grid grid-rows-2">
-                     <label htmlFor="holderFName">
-                        Card Holder&apos;s First Name
+   return (
+      <div className="p-6 mx-auto">
+         <h1 className="text-3xl font-semibold mb-6">Update Payment</h1>
+         {payment && (
+            <form onSubmit={handleSubmit(onSubmit)}>
+               <div className="grid grid-cols-2 gap-6">
+                  <div className="mb-5">
+                     <label
+                        htmlFor="cardHolderName"
+                        className="block text-sm font-medium text-gray-700 mb-2">
+                        Card Holder Name
                      </label>
                      <input
-                        {...formik.getFieldProps('holderFName')}
+                        {...register('cardHolderName', {
+                           required: 'Name is required'
+                        })}
+                        disabled
                         type="text"
-                        id="holderFName"
-                        name="holderFName"
-                        placeholder="Card Holder First Name"
-                        className="px-4 h-[27px] w-full border-2 border-[#00000066] rounded-lg"
+                        id="cardHolderName"
+                        name="cardHolderName"
+                        placeholder="First Name"
+                        defaultValue={payment.cardHolderName}
+                        className={`input input-bordered w-full ${
+                           errors.cardHolderName ? 'input-error' : ''
+                        }`}
                      />
+                     {errors.cardHolderName && (
+                        <span className="text-sm text-red-600">
+                           {errors.cardHolderName.message}
+                        </span>
+                     )}
                   </div>
-                  <div className="grid grid-rows-2">
-                     <label htmlFor="holderLName">
-                        Card Holder&apos;s Last Name
+                  <div className="mb-5">
+                     <label
+                        htmlFor="studentName"
+                        className="block text-sm font-medium text-gray-700 mb-2">
+                        Student Name
                      </label>
                      <input
-                        {...formik.getFieldProps('holderLName')}
+                        {...register('holderLName', {
+                           required: 'Last Name is required'
+                        })}
+                        disabled
                         type="text"
                         id="holderLName"
                         name="holderLName"
-                        placeholder="Card Holder Last Name"
-                        className="px-4 h-[27px] w-full border-2 border-[#00000066] rounded-lg"
+                        placeholder="Last Name"
+                        defaultValue={payment.studentName}
+                        className={`input input-bordered w-full ${
+                           errors.holderLName ? 'input-error' : ''
+                        }`}
                      />
+                     {errors.holderLName && (
+                        <span className="text-sm text-red-600">
+                           {errors.holderLName.message}
+                        </span>
+                     )}
                   </div>
-               </div>
-               <div>
-                  <label htmlFor="cardNumber">Card Number</label>
-                  <input
-                     {...formik.getFieldProps('cardNumber')}
-                     type="text"
-                     id="cardNumber"
-                     name="cardNumber"
-                     placeholder="Card Number"
-                     className="px-4 h-[27px] w-full border-2 border-[#00000066] rounded-lg"
-                  />
-               </div>
-               <div>
-                  <div>
-                     <label htmlFor="exDate">Expiry Date</label>
+                  <div className="mb-5">
+                     <label
+                        htmlFor="courseName"
+                        className="block text-sm font-medium text-gray-700 mb-2">
+                        Course Name
+                     </label>
                      <input
-                        {...formik.getFieldProps('exDate')}
+                        {...register('courseName', {
+                           required: 'Course Name is required'
+                        })}
                         type="text"
-                        id="exDate"
-                        name="exDate"
-                        placeholder="Expiry Date"
-                        className="px-4 h-[27px] w-full border-2 border-[#00000066] rounded-lg"
+                        id="courseName"
+                        name="courseName"
+                        placeholder="Course Name"
+                        defaultValue={payment.courseName}
+                        className={`input input-bordered w-full ${
+                           errors.courseName ? 'input-error' : ''
+                        }`}
                      />
+                     {errors.courseName && (
+                        <span className="text-sm text-red-600">
+                           {errors.courseName.message}
+                        </span>
+                     )}
                   </div>
-                  <div>
-                     <label htmlFor="csvNum">CSV</label>
+                  <div className="mb-5">
+                     <label
+                        htmlFor="courseValue"
+                        className="block text-sm font-medium text-gray-700 mb-2">
+                        Course Value
+                     </label>
                      <input
-                        {...formik.getFieldProps('csvNum')}
-                        type="text"
-                        id="csvNum"
-                        name="csvNum"
-                        placeholder="CSV"
-                        className="px-4 h-[27px] w-full border-2 border-[#00000066] rounded-lg"
+                        {...register('courseValue', {
+                           required: 'Course Value is required'
+                        })}
+                        type="number"
+                        id="courseValue"
+                        name="courseValue"
+                        placeholder="Course Value"
+                        defaultValue={payment.courseValue}
+                        className={`input input-bordered w-full ${
+                           errors.courseValue ? 'input-error' : ''
+                        }`}
                      />
+                     {errors.courseValue && (
+                        <span className="text-sm text-red-600">
+                           {errors.courseValue.message}
+                        </span>
+                     )}
+                  </div>
+                  <div className="mb-5">
+                     <label
+                        htmlFor="offerValue"
+                        className="block text-sm font-medium text-gray-700 mb-2">
+                        Offer Value
+                     </label>
+                     <input
+                        {...register('offerValue', {
+                           required: 'Offer Value is required'
+                        })}
+                        type="number"
+                        id="offerValue"
+                        name="offerValue"
+                        placeholder="Offer Value"
+                        defaultValue={payment.offerValue}
+                        className={`input input-bordered w-full ${
+                           errors.offerValue ? 'input-error' : ''
+                        }`}
+                     />
+                     {errors.offerValue && (
+                        <span className="text-sm text-red-600">
+                           {errors.offerValue.message}
+                        </span>
+                     )}
                   </div>
                </div>
-               <Button
-                  type="submit"
-                  className="btn w-40"
-                  text="Pay And Enroll"
-               />
+               <button type="submit" className="btn btn-primary w-full mt-7">
+                  Update Payment
+               </button>
             </form>
-            <div>
-               <div>Payment Details</div>
-               <div>
-                  <p>Course Name: {courseName}</p>
-                  <p>Course Fee: Rs. {courseValue}</p>
-                  {offerValue !== 0 && <p>Offer Value: Rs. {offerValue}</p>}
-                  <p>Total Payable: Rs. {courseValue - offerValue}</p>
-               </div>
-            </div>
-         </div>
+         )}
       </div>
    );
 };

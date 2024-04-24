@@ -46,6 +46,20 @@ export async function getPayment(id) {
    }
 }
 
+// Update a Payment
+export async function updatePayment(id, values) {
+   try {
+      const response = await axios.put(
+         `/api/updateEnrollment/${id}`,
+         values,
+         requestAuth
+      );
+      return response;
+   } catch (error) {
+      throw error.response;
+   }
+}
+
 // Delete a Payment
 export async function deletePayment(id) {
    try {
