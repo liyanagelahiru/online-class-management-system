@@ -60,7 +60,7 @@ function ViewPaper() {
    }
 
    return (
-      <div className="min-h-[calc(100vh-170px)] container mx-auto mt-8">
+      <div className="min-h-[calc(100vh-170px)] mx-auto mt-8 body-content">
          <div className="w-3/4 mx-auto bg-white rounded-lg shadow-lg p-6 lg:w-3/5">
             <div className="text-center mb-8">
                <h2 className="text-3xl font-bold">{title}</h2>
