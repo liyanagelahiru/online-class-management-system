@@ -1,6 +1,7 @@
 import React, { useState } from 'react';
 import { createLive } from '../../api/liveclassAPI.js';
 import { Link } from 'react-router-dom';
+import backgroundImage from '../../assets/images/LiveclassformBG.png';
 
 function LiveClassForm() {
    const [sessionName, setSessionName] = useState('');
@@ -63,9 +64,16 @@ function LiveClassForm() {
    };
 
    return (
-      <div className="flex items-center justify-center h-screen">
+      <div
+         className="flex items-center justify-center h-screen bg-white mt-1 mb-1"
+         style={{
+            backgroundImage: `url(${backgroundImage})`,
+            backgroundSize: 'cover',
+            backgroundPosition: 'center',
+            opacity: '1'
+         }}>
          {/* Left Section: Text "Create New Live Class Session" */}
-         <div className="text-[gray] p-6 mr-4 flex-grow max-w-xs">
+         <div className="text-[#ABB0B8] p-6 mr-4 flex-grow max-w-xs">
             <h2 className="text-7xl font-bold">
                Create New <br />
                Live Class Session
@@ -73,7 +81,7 @@ function LiveClassForm() {
          </div>
 
          {/* Right Section: Card with Input Fields */}
-         <div className="flex-shrink-0 w-full max-w-md bg-[#ABB0B8] shadow-lg rounded-lg overflow-hidden">
+         <div className="flex-shrink-0 w-full max-w-md bg-[#ABB0B8] shadow-lg rounded-lg opacity-90 overflow-hidden">
             <div className="p-6">
                <form onSubmit={handleSubmit}>
                   <div className="mb-4">
