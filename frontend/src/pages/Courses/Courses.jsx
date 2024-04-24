@@ -31,7 +31,7 @@ const Courses = () => {
                   image={CardImg1}
                   header="Online Exam"
                   description=""
-                  navTo="/onlineexam"
+                  navTo="/allexams"
                />
                <Card
                   image={CardImg1}

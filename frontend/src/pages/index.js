@@ -21,6 +21,7 @@ import ModelPapers from './ModelPapers';
 import UpdateExam from './OnlineExams/UpdateExam';
 import ViewExams from './OnlineExams/ViewExams';
 import OnlinePaper from './OnlineExams/OnlinePaper';
+import AllExams from './OnlineExams/AllExams';
 
 // Payment Management
 import Payment from './PaymentManagement/Payment';
@@ -68,5 +69,6 @@ export {
    LiveClassForm,
    LiveClassUI,
    LiveClassEdit,
-   LiveClassView
+   LiveClassView,
+   AllExams
 };
