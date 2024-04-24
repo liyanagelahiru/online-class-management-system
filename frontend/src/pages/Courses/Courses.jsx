@@ -9,12 +9,12 @@ const Courses = () => {
          <img
             src={CourseImg}
             alt="course"
-            className="absolute inset-0 w-full h-full object-cover"
+            className="absolute inset-0 w-full h-full object-cover opacity-50"
          />
 
          {/* Overlay container */}
          <div className="relative z-10 flex flex-col justify-center items-center px-12 py-10">
-            <div className="grid grid-cols-4 gap-7 mt-96">
+            <div className="grid grid-cols-4 gap-7">
                <Card
                   image={CardImg1}
                   header="Theory"

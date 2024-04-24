@@ -2,7 +2,7 @@ import TeacherDashImg from '../../../assets/images/TeacherDashboard.png';
 import studentsimg from '../../../assets/images/students.png';
 import liveclassimg from '../../../assets/images/liveclass.png';
 import papersImg from '../../../assets/images/papers.png';
-import onlineexamImg from '../../../assets/images/onlineexams.png';
+import onlineexamImg from '../../../assets/images/Onlineexams.png';
 import paymentImg from '../../../assets/images/payment.png';
 import Dashcard from '../../../components/Card/DashBoardCard';
 const Dashboard = () => {

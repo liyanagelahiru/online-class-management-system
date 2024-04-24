@@ -47,12 +47,12 @@ export const checkPayment = async (req, res) => {
       console.log(payment);
 
       if (!payment) {
-         return res.status(404).send({ error: 'Payment Not Found!' });
+         return res.status(400).send({ error: 'Payment Not Found!' });
       }
 
       if (payment) {
          if (Date.now() + 5.5 * 60 * 60 * 1000 - payment.expireDate >= 0) {
-            return res.status(404).send({ error: 'Payment Not Valid!' });
+            return res.status(400).send({ error: 'Payment Not Valid!' });
          }
          console.log(payment.expireDate > Date.now());
          res.status(200).send({ data: payment, msg: 'Payment Found!' });
