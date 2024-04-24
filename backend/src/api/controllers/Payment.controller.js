@@ -1,13 +1,14 @@
 import PaymentSchema from '../models/Payment.model.js';
 import { PaymentZodSchema } from '../validations/payment.validation.js';
+import { ZodError } from 'zod';
 
 /* Do Payment(POST) Data Controller */
 export const insertPayment = async (req, res) => {
    try {
-      // Validate Request Body
-      const { error } = PaymentZodSchema.validate(req.body);
-      if (error) {
-         return res.status(400).send({ error: error.errors });
+      // Use Zod to validate req.body
+      const validatedData = PaymentZodSchema.safeParse(req.body);
+      if (!validatedData) {
+         return res.status(400).send({ error: 'Invalid Data' });
       }
 
       // Extract user information from req.user
@@ -34,13 +35,11 @@ export const insertPayment = async (req, res) => {
       // Send Success Message
       res.status(201).send({ msg: 'Payment Successfully' });
    } catch (error) {
-      if (error.name === 'ValidationError') {
-         // Validation Error
-         const errors = Object.values(error.errors).map(val => val.message);
-         return res.status(400).send({ error: errors });
+      // Zod Error
+      if (error instanceof ZodError) {
+         return res.status(400).send({ error: error.errors });
       }
-      // console.error(error);
-      console.log(error);
+      // Internal Server Error
       res.status(500).send({ error: 'Internal Server Error' });
    }
 };
