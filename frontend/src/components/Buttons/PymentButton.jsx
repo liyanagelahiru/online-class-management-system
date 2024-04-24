@@ -4,15 +4,16 @@ import { useNavigate } from 'react-router-dom';
 import { useState } from 'react';
 import { AuthorizedUser } from '../../hooks/auth';
 import { checkPayment } from '../../api/paymentAPI';
+import { checkGrade } from '../../api/liveclassAPI';
 
 // get button text in a prop
-const PaymentButton = ({ cName, price, offer, pathname }) => {
+const PaymentButton = ({ cName, price, offer, pathname, grade }) => {
    const navigate = useNavigate();
    const { isAuthenticated } = AuthorizedUser();
    const [paymentStatus, setPaymentStatus] = useState(null);
 
    useState(() => {
-      checkPayment()
+      checkPayment(cName)
          .then(() => {
             setPaymentStatus(true);
          })
@@ -43,11 +44,13 @@ const PaymentButton = ({ cName, price, offer, pathname }) => {
             state: {
                courseName: cName,
                courseValue: price,
-               offerValue: offer
+               offerValue: offer,
+               grade: grade
             }
          });
       } else if (paymentStatus === true) {
          console.log('Viewing...');
+         checkGrade(grade);
          navigate({ pathname });
       }
    };
@@ -57,7 +60,8 @@ const PaymentButton = ({ cName, price, offer, pathname }) => {
       cName: PropTypes.string.isRequired,
       price: PropTypes.number.isRequired,
       offer: PropTypes.number.isRequired,
-      pathname: PropTypes.string.isRequired
+      pathname: PropTypes.string.isRequired,
+      grade: PropTypes.number.isRequired
    };
 
    return (

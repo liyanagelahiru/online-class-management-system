@@ -42,9 +42,9 @@ export const insertPayment = async (req, res) => {
 export const checkPayment = async (req, res) => {
    try {
       // Extract user information from req.user
+      const { cName } = req.params;
       const { userId } = req.user;
       const payment = await PaymentSchema.findOne({ studentId: userId });
-      console.log(payment);
 
       if (!payment) {
          return res.status(400).send({ error: 'Payment Not Found!' });
@@ -55,7 +55,13 @@ export const checkPayment = async (req, res) => {
             return res.status(400).send({ error: 'Payment Not Valid!' });
          }
          console.log(payment.expireDate > Date.now());
-         res.status(200).send({ data: payment, msg: 'Payment Found!' });
+         if (payment.courseName === cName) {
+            return res
+               .status(200)
+               .send({ data: payment, msg: 'Payment Found!' });
+         } else {
+            return res.status(400).send({ error: 'Payment Not Found!' });
+         }
       }
    } catch (error) {
       res.status(500).send({ error: 'Internal Server Error' });

@@ -12,9 +12,12 @@ export async function insertPayment(values) {
 }
 
 // Check Payment status
-export async function checkPayment() {
+export async function checkPayment(cName) {
    try {
-      const response = await axios.get('/api/checkPayment', requestAuth);
+      const response = await axios.get(
+         `/api/checkPayment/${cName}`,
+         requestAuth
+      );
       return response;
    } catch (error) {
       throw error.response;

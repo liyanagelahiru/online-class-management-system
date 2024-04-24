@@ -62,3 +62,13 @@ export async function deleteLive(values) {
       throw error.response;
    }
 }
+
+// Check grade
+export async function checkGrade(grade) {
+   try {
+      const response = await axios.get(`/api/checkGrade/${grade}`, requestAuth);
+      return response;
+   } catch (error) {
+      throw error.response;
+   }
+}

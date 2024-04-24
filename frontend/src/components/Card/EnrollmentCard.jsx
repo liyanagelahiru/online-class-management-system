@@ -8,7 +8,8 @@ const Card = ({
    cName,
    price,
    offer,
-   pathname
+   pathname,
+   grade
 }) => {
    return (
       <div
@@ -28,6 +29,7 @@ const Card = ({
                price={price}
                offer={offer}
                pathname={pathname}
+               grade={grade}
             />
          </div>
       </div>
@@ -41,7 +43,8 @@ Card.propTypes = {
    cName: PropTypes.string.isRequired,
    price: PropTypes.number.isRequired,
    offer: PropTypes.number.isRequired,
-   pathname: PropTypes.string.isRequired
+   pathname: PropTypes.string.isRequired,
+   grade: PropTypes.number.isRequired
 };
 
 export default Card;
