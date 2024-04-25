@@ -62,7 +62,7 @@ function CreatePapers() {
             opacity: '1'
          }}>
          {/* Left Section: Text "Create New Paper" */}
-         <div className="bg-[white] text-gray-600 p-6 mr-4 flex-grow max-w-xs m-10">
+         <div className="text-gray-600 p-6 mr-4 flex-grow max-w-xs m-10">
             <h2 className="text-7xl font-bold">
                Create New <br />
                Paper
