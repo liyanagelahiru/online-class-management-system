@@ -10,9 +10,10 @@ jobs:
 
       steps:
          - name: Check Pull Request Author
+           id: check_author
            run: |
               PR_AUTHOR=$(curl -s -H "Authorization: token ${{ secrets.GITHUB_TOKEN }}" "https://api.github.com/repos/${{ github.repository }}/pulls/${{ github.event.number }}" | jq -r '.user.login')
               if [ "$PR_AUTHOR" != "ShanelkaPramuditha" ]; then
-                echo "Only allowed_user is allowed to merge pull requests."
+                echo "Only ShanelkaPramuditha is allowed to merge pull requests."
                 exit 1
               fi

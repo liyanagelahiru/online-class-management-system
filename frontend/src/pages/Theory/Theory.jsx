@@ -17,7 +17,7 @@ const Theory = () => {
                   cName="grade-12-theory"
                   price={1000}
                   offer={100}
-                  pathname="/theory/grade-12"
+                  pathname="/liveclassview"
                   grade={12}
                />
             </div>
