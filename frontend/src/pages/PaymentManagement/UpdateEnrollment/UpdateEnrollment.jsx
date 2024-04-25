@@ -1,7 +1,6 @@
 import { useForm } from 'react-hook-form';
 import { useState, useEffect } from 'react';
 import { useParams } from 'react-router-dom';
-import axios from 'axios';
 import Swal from 'sweetalert2';
 import { getPayment, updatePayment } from '../../../api/paymentAPI';
 
@@ -28,6 +27,7 @@ const UpdateEnrollment = () => {
             setValue('courseName', response.data.payment.courseName);
             setValue('courseValue', response.data.payment.courseValue);
             setValue('offerValue', response.data.payment.offerValue);
+            setValue('status', response.data.payment.status);
          } catch (error) {
             console.error('Error fetching payment:', error);
          }
@@ -150,7 +150,7 @@ const UpdateEnrollment = () => {
                         }`}
                      />
                      {errors.courseName && (
-                        <span className="text-sm text-red-600">
+                        <span className="text-sm text-[red]">
                            {errors.courseName.message}
                         </span>
                      )}
@@ -165,6 +165,7 @@ const UpdateEnrollment = () => {
                         {...register('courseValue', {
                            required: 'Course Value is required'
                         })}
+                        disabled
                         type="number"
                         id="courseValue"
                         name="courseValue"
@@ -200,8 +201,34 @@ const UpdateEnrollment = () => {
                         }`}
                      />
                      {errors.offerValue && (
-                        <span className="text-sm text-red-600">
+                        <span className="text-sm text-[red]">
                            {errors.offerValue.message}
+                        </span>
+                     )}
+                  </div>
+                  <div className="mb-5">
+                     <label
+                        htmlFor="status"
+                        className="block text-sm font-medium text-gray-700 mb-2">
+                        Status
+                     </label>
+                     <select
+                        {...register('status', {
+                           required: 'Status is required'
+                        })}
+                        id="status"
+                        name="status"
+                        defaultValue={payment.status}
+                        className={`input input-bordered w-full ${
+                           errors.status ? 'input-error' : ''
+                        }`}>
+                        <option value="">Select Status</option>
+                        <option value="Approved">Approved</option>
+                        <option value="Cancelled">Cancelled</option>
+                     </select>
+                     {errors.status && (
+                        <span className="text-sm text-[red]">
+                           {errors.status.message}
                         </span>
                      )}
                   </div>

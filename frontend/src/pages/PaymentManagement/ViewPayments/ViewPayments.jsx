@@ -167,6 +167,9 @@ const ViewPayment = () => {
                         Billing Value (RS.)
                      </th>
                      <th scope="col" className="px-6 py-3">
+                        Status
+                     </th>
+                     <th scope="col" className="px-6 py-3">
                         <span className="sr-only">Actions</span>
                      </th>
                   </tr>
@@ -214,6 +217,16 @@ const ViewPayment = () => {
                         </td>
                         <td className="px-6 py-4">
                            {payment.billingAmount}.00
+                        </td>
+                        <td className="px-6 py-4">
+                           <div
+                              className={`${
+                                 payment.status === 'Approved'
+                                    ? 'badge bg-[green] text-[white]'
+                                    : 'badge bg-dark-red text-[white]'
+                              }`}>
+                              {payment.status}
+                           </div>
                         </td>
                         <td className="px-6 py-4">
                            <div className="">

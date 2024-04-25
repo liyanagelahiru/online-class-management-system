@@ -64,7 +64,7 @@ export const checkPayment = async (req, res) => {
             return res.status(400).send({ error: 'Payment Not Valid!' });
          }
          console.log(payment.expireDate > Date.now());
-         if (payment.courseName === cName) {
+         if (payment.courseName === cName && payment.status === 'Approved') {
             return res
                .status(200)
                .send({ data: payment, msg: 'Payment Found!' });
@@ -109,7 +109,8 @@ export const updateEnrollment = async (req, res) => {
    try {
       // Extract user information from req.user
       // const { email, firstName, lastName } = req.user;
-      const { cardHolderName, courseName, courseValue, offerValue } = req.body;
+      const { cardHolderName, courseName, courseValue, offerValue, status } =
+         req.body;
 
       const { id } = req.params;
 
@@ -128,6 +129,7 @@ export const updateEnrollment = async (req, res) => {
       payment.courseValue = courseValue;
       payment.offerValue = offerValue;
       payment.billingAmount = courseValue - offerValue;
+      payment.status = status;
 
       await payment.save();
 

@@ -104,6 +104,7 @@ const SignIn = () => {
                            {...passwordFormik.getFieldProps('password')}
                            type="password"
                            placeholder="Password"
+                           className="input input-bordered w-full"
                         />
                         <button type="submit">SIGN IN</button>
                      </div>
@@ -124,7 +125,7 @@ const SignIn = () => {
                               type="email"
                               placeholder="Email"
                               autoComplete="on"
-                              className="px-4 h-[27px] border-2 border-[#00000066] rounded-lg w-full"
+                              className="input input-bordered w-full"
                            />
                         </div>
                         <button
