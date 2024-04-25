@@ -11,6 +11,8 @@ import Profile from './Profile';
 
 import Theory from './Theory';
 
+import FaqHandling from './FaqHandling';
+
 // Theory Content
 import TheoryGrade12 from './Theory/Grade12';
 import Revision from './Revision';
@@ -47,6 +49,7 @@ export {
    Courses,
    Contact,
    About,
+   FaqHandling,
    Theory,
    TheoryGrade12,
    Revision,
