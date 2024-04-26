@@ -12,7 +12,7 @@ env:
   REGISTRY: ghcr.io
   IMAGE_NAME: ${{ github.repository }}
   DIR_NAME: wowenglish-web
-  DOCKER_IMAGE: zedtechhub/wowenglish-web:main
+  DOCKER_IMAGE: zedtechhub/classmanage:main
 
 jobs:
   docker-image-build:
